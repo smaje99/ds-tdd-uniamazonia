@@ -1,0 +1,19 @@
+.vscode/cspell.json
+
+# Ignore for java files
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.DS_Store
+*.idea/
+target/
+build/
+out/
+logs/
