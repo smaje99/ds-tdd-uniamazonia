@@ -5,6 +5,22 @@ import java.util.NoSuchElementException;
 
 import co.edu.udla.ed.api.DoublyList;
 
+/**
+ * An implementation of a doubly linked list that provides basic operations for
+ * adding, removing, and accessing elements in the list. This class implements
+ * the DoublyList interface, which defines the contract for a doubly linked list
+ * data structure. The DoublyLinkedList class uses a private static inner class
+ * called Node to represent each node in the list, which contains a value of
+ * type T and references to the next and previous nodes in the list. The class
+ * maintains references to the head and tail of the list, as well as a size
+ * field to keep track of the number of elements in the list. The implementation
+ * provides efficient methods for adding and removing elements from both ends of
+ * the list, as well as retrieving elements by index and checking for the
+ * presence
+ * of specific values in the list.
+ *
+ * @param <T> the type of elements stored in this list
+ */
 public class DoublyLinkedList<T> implements DoublyList<T> {
 
   /**

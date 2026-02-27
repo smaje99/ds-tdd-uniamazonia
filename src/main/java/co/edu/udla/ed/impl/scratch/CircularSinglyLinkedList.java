@@ -5,6 +5,17 @@ import java.util.NoSuchElementException;
 
 import co.edu.udla.ed.api.CircularList;
 
+/**
+ * A circular singly linked list implementation of the CircularList interface.
+ * This class provides methods to add, remove, and access elements in a circular
+ * singly linked list structure. The list maintains a reference to the tail
+ * node, which allows for efficient addition and removal of elements at both the
+ * head and tail of the list. The circular nature of the list means that the
+ * last node's next reference points back to the head of the list, creating a
+ * loop.
+ *
+ * @param <T> the type of elements in this list
+ */
 public class CircularSinglyLinkedList<T> implements CircularList<T> {
 
   /**

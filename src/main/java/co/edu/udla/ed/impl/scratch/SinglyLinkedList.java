@@ -5,6 +5,18 @@ import java.util.NoSuchElementException;
 
 import co.edu.udla.ed.api.SimpleList;
 
+/**
+ * A singly linked list implementation of the SimpleList interface. This class
+ * provides methods to add and remove elements from the front and end of the
+ * list, as well as methods to retrieve elements, check for containment, and
+ * clear the list. The list is implemented using a private static inner class
+ * Node to represent each element in the list, which contains a reference to the
+ * value and a reference to the next node. The SinglyLinkedList maintains
+ * references to the head and tail nodes, as well as a size field to keep track
+ * of the number of elements in the list.
+ *
+ * @param <T> the type of elements in this list
+ */
 public class SinglyLinkedList<T> implements SimpleList<T> {
 
   /**
@@ -191,8 +203,10 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
   /**
    * Removes all elements from the list, effectively clearing it. This method sets
    * the head and tail references to null and resets the size to 0. After calling
-   * this method, the list will be empty and ready to accept new elements. This is a
-   * constant time O(1) operation since it does not require traversing the list to remove
+   * this method, the list will be empty and ready to accept new elements. This is
+   * a
+   * constant time O(1) operation since it does not require traversing the list to
+   * remove
    * each element individually; instead, it simply resets the references and size.
    */
   @Override
