@@ -4,6 +4,16 @@ import java.util.NoSuchElementException;
 
 import co.edu.udla.ed.api.Stack;
 
+/**
+ * LinkedStack is a stack implementation that uses a linked list to store its
+ * elements. It provides methods to push, pop, peek, check the size, and clear
+ * the stack. The stack follows the Last-In-First-Out (LIFO) principle, meaning
+ * that the last element pushed onto the stack will be the first one to be popped
+ * off. This implementation allows for dynamic resizing of the stack as elements
+ * are added or removed.
+ *
+ * @param <T> the type of elements stored in the stack
+ */
 public class LinkedStack<T> implements Stack<T> {
 
   /**
