@@ -1,4 +1,4 @@
-package co.edu.udla.ed.scratch;
+package co.edu.udla.ed.impl.scratch;
 
 import java.util.NoSuchElementException;
 
