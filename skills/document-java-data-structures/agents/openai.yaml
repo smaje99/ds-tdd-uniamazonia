@@ -1,0 +1,4 @@
+interface:
+  display_name: "Java DS Documenter"
+  short_description: "Document Java data structures for students"
+  default_prompt: "Use $document-java-data-structures to rewrite and expand the Javadoc in src/main for an educational data-structures project."
