@@ -333,7 +333,8 @@ public class AdjacencyListGraph<V> implements Graph<V> {
       order.add(v);
 
       List<V> nbs = new ArrayList<>(adj.get(v));
-      for (V nb : nbs.reversed()) {
+      for (int i = nbs.size() - 1; i >= 0; i--) {
+        V nb = nbs.get(i);
         if (!visited.contains(nb))
           stack.push(nb);
       }
