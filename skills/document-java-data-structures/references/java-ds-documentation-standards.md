@@ -16,6 +16,7 @@ Use this reference when documenting Java data-structure code for students. The g
 - Destructive reads on lists, stacks, and queues generally throw `NoSuchElementException` when empty.
 - List indexing is zero-based and invalid indices throw `IndexOutOfBoundsException`.
 - Array-backed structures resize dynamically even when their names say `Static`.
+- Graph traversals should be documented in terms of visited vertices and traversed edges, not only with a generic `O(n)`.
 
 ## Minimum Standard For Interface Documentation
 
@@ -28,6 +29,13 @@ Document each public method with these points when relevant:
 - what happens when the argument is invalid
 - whether duplicate values are allowed, ignored, or rejected
 - time complexity
+
+Prefer exact structural variables when they improve teaching value, such as:
+
+- `O(n)` for linear scans over list elements
+- amortized `O(1)` for geometric array growth
+- `O(V + E)` for full graph traversals
+- `O(k)` for path reconstruction when `k` is the path length
 
 For traversal methods, explain the order in words, not only by method name.
 
@@ -97,6 +105,15 @@ Document private helper methods when they encode algorithmic reasoning students 
 - Explain when single vs. double rotations happen.
 - Make the educational goal explicit: balancing preserves `O(log n)` search, insertion, and deletion in the usual case.
 
+### Graphs
+
+- State whether the implementation uses adjacency lists or an adjacency matrix.
+- Explain whether vertex or neighbor order is deterministic and why.
+- For hash-based adjacency maps or sets, describe lookup and insertion costs as average-case `O(1)` unless the implementation guarantees something different.
+- For BFS and DFS, explain the cost as `O(V + E)` over the explored portion of the graph, or worst-case `O(V + E)` when the whole graph may be reached.
+- For shortest paths in unweighted graphs, explain that BFS gives the minimum number of edges.
+- For undirected adjacency-list implementations, clarify that a single logical edge may be stored twice internally while still counting as one public edge.
+
 ## Style Rules
 
 - Write in English only.
@@ -114,6 +131,7 @@ Document private helper methods when they encode algorithmic reasoning students 
 - Clarify height semantics consistently across `BinaryTree`, `BinarySearchTree`, `AVLTree`, and their implementations.
 - Clarify duplicate-handling consistently across BST and AVL APIs and implementations.
 - Clarify why `StaticQueue` and `StaticStack` still resize dynamically.
+- Expand graph documentation with traversal semantics, edge-count rules, and complexity in terms of vertices and edges.
 - Clarify iterator behavior only when it contributes to student understanding.
 
 ## Review Checklist

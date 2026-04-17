@@ -1,6 +1,6 @@
 ---
 name: document-java-data-structures
-description: Rewrite or expand Java documentation for educational data-structures repositories. Use when Codex needs to improve English Javadoc in `src/main` or similar source trees for interfaces and implementations of lists, stacks, queues, binary trees, binary search trees, and AVL trees. Focus on student-facing explanations of ADT contracts, invariants, edge cases, exceptions, traversal semantics, and time complexity without changing behavior.
+description: Rewrite or expand Java documentation for educational data-structures repositories. Use when Codex needs to improve English Javadoc in `src/main` or similar source trees for interfaces and implementations of lists, stacks, queues, graphs, binary trees, binary search trees, and AVL trees. Focus on student-facing explanations of ADT contracts, invariants, edge cases, exceptions, traversal semantics, and time complexity without changing behavior.
 ---
 
 # Document Java Data Structures
@@ -17,6 +17,7 @@ Use this skill to turn sparse, inconsistent, or mixed-language comments into pre
 2. Document interfaces before implementations.
 - Define the contract of each public method in the API layer first.
 - Explain insertion/removal order, indexing rules, duplicate-handling, empty-structure behavior, exception conditions, and traversal order.
+- State time complexity explicitly for every public operation unless the method is too trivial to benefit from repetition.
 - Keep contracts implementation-agnostic unless the API already commits to a specific semantic.
 
 3. Document implementations as teaching material, not filler.
@@ -73,11 +74,19 @@ For binary search trees and AVL trees:
 - Describe removal cases conceptually: no child, one child, two children.
 - For AVL trees, explain balance factors, stored heights, and why rotations preserve logarithmic height.
 
+For graphs:
+- State whether the representation is adjacency-list or adjacency-matrix based.
+- Explain the semantics of directed versus undirected edges.
+- Clarify whether neighbor iteration order is deterministic.
+- Explain traversal costs in terms of vertices and edges, preferably as `O(V + E)` when appropriate.
+- Distinguish between logical edge count and internal duplicated storage in undirected adjacency lists.
+
 ## Writing Rules
 
 - Write in plain, precise English aimed at a student who is learning the structure for the first time.
 - Prefer concrete semantics over generic phrases such as "performs the operation."
 - Name the edge cases explicitly: empty structure, singleton structure, out-of-range index, duplicate value, full backing array, null parent, existing child.
+- Include complexity with enough precision to teach tradeoffs, for example average `O(1)` for hash-based lookups or `O(V + E)` for graph traversals.
 - Avoid copy-pasting the same paragraph across unrelated files.
 - Avoid narrating every assignment; explain the invariant that the assignments preserve.
 - Keep complexity statements honest. If the method traverses the structure, say `O(n)`. If an array resizes occasionally, say amortized `O(1)` only when the code actually supports that claim.
