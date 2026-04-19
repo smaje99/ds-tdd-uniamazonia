@@ -6,7 +6,7 @@ import co.edu.udla.ed.impl.collections.CollectionsCircularSinglyLinkedList;
 import co.edu.udla.ed.impl.linear.LinearCircularSinglyLinkedList;
 import co.edu.udla.ed.impl.scratch.CircularSinglyLinkedList;
 
-abstract class AbstractCircularSinglyLinkedListExercise extends AbstractListExercise {
+abstract class AbstractCircularSinglyLinkedListExercise extends AbstractListExercise<String> {
 
   @Override
   protected List<String> createScratch() {
@@ -25,3 +25,21 @@ abstract class AbstractCircularSinglyLinkedListExercise extends AbstractListExer
 
 }
 
+abstract class AbstractCircularSinglyLinkedListDomainExercise extends AbstractListExercise<ExerciseSupport.Learner> {
+
+  @Override
+  protected List<ExerciseSupport.Learner> createScratch() {
+    return new CircularSinglyLinkedList<>();
+  }
+
+  @Override
+  protected List<ExerciseSupport.Learner> createLinear() {
+    return new LinearCircularSinglyLinkedList<>();
+  }
+
+  @Override
+  protected List<ExerciseSupport.Learner> createCollections() {
+    return new CollectionsCircularSinglyLinkedList<>();
+  }
+
+}

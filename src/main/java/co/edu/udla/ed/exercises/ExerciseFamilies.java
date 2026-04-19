@@ -9,42 +9,17 @@ import co.edu.udla.ed.api.List;
 import co.edu.udla.ed.api.Queue;
 import co.edu.udla.ed.api.Stack;
 
-abstract class AbstractListExercise implements ExerciseCase {
+import java.util.ArrayList;
 
-  protected abstract List<String> createScratch();
+abstract class AbstractListExercise<T> implements ExerciseCase {
 
-  protected abstract List<String> createLinear();
+  protected abstract List<T> createScratch();
 
-  protected abstract List<String> createCollections();
+  protected abstract List<T> createLinear();
 
-  protected abstract String solve(List<String> list);
+  protected abstract List<T> createCollections();
 
-  @Override
-  public final String solveWithScratch() {
-    return solve(createScratch());
-  }
-
-  @Override
-  public final String solveWithLinear() {
-    return solve(createLinear());
-  }
-
-  @Override
-  public final String solveWithCollections() {
-    return solve(createCollections());
-  }
-
-}
-
-abstract class AbstractStackExercise implements ExerciseCase {
-
-  protected abstract Stack<String> createScratch();
-
-  protected abstract Stack<String> createLinear();
-
-  protected abstract Stack<String> createCollections();
-
-  protected abstract String solve(Stack<String> stack);
+  protected abstract String solve(List<T> list);
 
   @Override
   public final String solveWithScratch() {
@@ -63,15 +38,85 @@ abstract class AbstractStackExercise implements ExerciseCase {
 
 }
 
-abstract class AbstractQueueExercise implements ExerciseCase {
+abstract class AbstractStackExercise<T> implements ExerciseCase {
 
-  protected abstract Queue<String> createScratch();
+  protected abstract Stack<T> createScratch();
 
-  protected abstract Queue<String> createLinear();
+  protected abstract Stack<T> createLinear();
 
-  protected abstract Queue<String> createCollections();
+  protected abstract Stack<T> createCollections();
 
-  protected abstract String solve(Queue<String> queue);
+  protected abstract String solve(Stack<T> stack);
+
+  @Override
+  public final String solveWithScratch() {
+    return solve(createScratch());
+  }
+
+  @Override
+  public final String solveWithLinear() {
+    return solve(createLinear());
+  }
+
+  @Override
+  public final String solveWithCollections() {
+    return solve(createCollections());
+  }
+
+  protected final String popAll(Stack<T> stack) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!stack.isEmpty()) {
+      values.add(stack.pop());
+    }
+    return values.toString();
+  }
+
+}
+
+abstract class AbstractQueueExercise<T> implements ExerciseCase {
+
+  protected abstract Queue<T> createScratch();
+
+  protected abstract Queue<T> createLinear();
+
+  protected abstract Queue<T> createCollections();
+
+  protected abstract String solve(Queue<T> queue);
+
+  @Override
+  public final String solveWithScratch() {
+    return solve(createScratch());
+  }
+
+  @Override
+  public final String solveWithLinear() {
+    return solve(createLinear());
+  }
+
+  @Override
+  public final String solveWithCollections() {
+    return solve(createCollections());
+  }
+
+  protected final String dequeueAll(Queue<T> queue) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!queue.isEmpty()) {
+      values.add(queue.dequeue());
+    }
+    return values.toString();
+  }
+
+}
+
+abstract class AbstractBinaryTreeExercise<T> implements ExerciseCase {
+
+  protected abstract BinaryTree<T> createScratch();
+
+  protected abstract BinaryTree<T> createLinear();
+
+  protected abstract BinaryTree<T> createCollections();
+
+  protected abstract String solve(BinaryTree<T> tree);
 
   @Override
   public final String solveWithScratch() {
@@ -90,42 +135,15 @@ abstract class AbstractQueueExercise implements ExerciseCase {
 
 }
 
-abstract class AbstractBinaryTreeExercise implements ExerciseCase {
+abstract class AbstractBinarySearchTreeExercise<T extends Comparable<T>> implements ExerciseCase {
 
-  protected abstract BinaryTree<String> createScratch();
+  protected abstract BinarySearchTree<T> createScratch();
 
-  protected abstract BinaryTree<String> createLinear();
+  protected abstract BinarySearchTree<T> createLinear();
 
-  protected abstract BinaryTree<String> createCollections();
+  protected abstract BinarySearchTree<T> createCollections();
 
-  protected abstract String solve(BinaryTree<String> tree);
-
-  @Override
-  public final String solveWithScratch() {
-    return solve(createScratch());
-  }
-
-  @Override
-  public final String solveWithLinear() {
-    return solve(createLinear());
-  }
-
-  @Override
-  public final String solveWithCollections() {
-    return solve(createCollections());
-  }
-
-}
-
-abstract class AbstractBinarySearchTreeExercise implements ExerciseCase {
-
-  protected abstract BinarySearchTree<Integer> createScratch();
-
-  protected abstract BinarySearchTree<Integer> createLinear();
-
-  protected abstract BinarySearchTree<Integer> createCollections();
-
-  protected abstract String solve(BinarySearchTree<Integer> tree);
+  protected abstract String solve(BinarySearchTree<T> tree);
 
   @Override
   public final String solveWithScratch() {
@@ -144,42 +162,15 @@ abstract class AbstractBinarySearchTreeExercise implements ExerciseCase {
 
 }
 
-abstract class AbstractAVLTreeExercise implements ExerciseCase {
+abstract class AbstractAVLTreeExercise<T extends Comparable<T>> implements ExerciseCase {
 
-  protected abstract AVLTree<Integer> createScratch();
+  protected abstract AVLTree<T> createScratch();
 
-  protected abstract AVLTree<Integer> createLinear();
+  protected abstract AVLTree<T> createLinear();
 
-  protected abstract AVLTree<Integer> createCollections();
+  protected abstract AVLTree<T> createCollections();
 
-  protected abstract String solve(AVLTree<Integer> tree);
-
-  @Override
-  public final String solveWithScratch() {
-    return solve(createScratch());
-  }
-
-  @Override
-  public final String solveWithLinear() {
-    return solve(createLinear());
-  }
-
-  @Override
-  public final String solveWithCollections() {
-    return solve(createCollections());
-  }
-
-}
-
-abstract class AbstractGraphExercise implements ExerciseCase {
-
-  protected abstract Graph<String> createScratch();
-
-  protected abstract Graph<String> createLinear();
-
-  protected abstract Graph<String> createCollections();
-
-  protected abstract String solve(Graph<String> graph);
+  protected abstract String solve(AVLTree<T> tree);
 
   @Override
   public final String solveWithScratch() {
@@ -198,15 +189,42 @@ abstract class AbstractGraphExercise implements ExerciseCase {
 
 }
 
-abstract class AbstractHashTableExercise<K> implements ExerciseCase {
+abstract class AbstractGraphExercise<V> implements ExerciseCase {
 
-  protected abstract HashTable<K, Integer> createScratch();
+  protected abstract Graph<V> createScratch();
 
-  protected abstract HashTable<K, Integer> createLinear();
+  protected abstract Graph<V> createLinear();
 
-  protected abstract HashTable<K, Integer> createCollections();
+  protected abstract Graph<V> createCollections();
 
-  protected abstract String solve(HashTable<K, Integer> table);
+  protected abstract String solve(Graph<V> graph);
+
+  @Override
+  public final String solveWithScratch() {
+    return solve(createScratch());
+  }
+
+  @Override
+  public final String solveWithLinear() {
+    return solve(createLinear());
+  }
+
+  @Override
+  public final String solveWithCollections() {
+    return solve(createCollections());
+  }
+
+}
+
+abstract class AbstractHashTableExercise<K, V> implements ExerciseCase {
+
+  protected abstract HashTable<K, V> createScratch();
+
+  protected abstract HashTable<K, V> createLinear();
+
+  protected abstract HashTable<K, V> createCollections();
+
+  protected abstract String solve(HashTable<K, V> table);
 
   @Override
   public final String solveWithScratch() {

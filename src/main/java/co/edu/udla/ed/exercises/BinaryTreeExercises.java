@@ -6,7 +6,7 @@ import co.edu.udla.ed.impl.collections.CollectionsBinaryTree;
 import co.edu.udla.ed.impl.linear.LinearBinaryTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinaryTree;
 
-abstract class AbstractBinaryTreeStructureExercise extends AbstractBinaryTreeExercise {
+abstract class AbstractBinaryTreeStructureExercise extends AbstractBinaryTreeExercise<String> {
 
   @Override
   protected BinaryTree<String> createScratch() {
@@ -35,3 +35,21 @@ abstract class AbstractBinaryTreeStructureExercise extends AbstractBinaryTreeExe
 
 }
 
+abstract class AbstractBinaryTreeDomainExercise extends AbstractBinaryTreeExercise<ExerciseSupport.Learner> {
+
+  @Override
+  protected BinaryTree<ExerciseSupport.Learner> createScratch() {
+    return new LinkedBinaryTree<>();
+  }
+
+  @Override
+  protected BinaryTree<ExerciseSupport.Learner> createLinear() {
+    return new LinearBinaryTree<>();
+  }
+
+  @Override
+  protected BinaryTree<ExerciseSupport.Learner> createCollections() {
+    return new CollectionsBinaryTree<>();
+  }
+
+}

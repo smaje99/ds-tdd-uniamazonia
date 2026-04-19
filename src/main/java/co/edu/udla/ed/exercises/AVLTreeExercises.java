@@ -6,7 +6,7 @@ import co.edu.udla.ed.impl.collections.CollectionsAVLTree;
 import co.edu.udla.ed.impl.linear.LinearAVLTree;
 import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
 
-abstract class AbstractAVLTreeStructureExercise extends AbstractAVLTreeExercise {
+abstract class AbstractAVLTreeStructureExercise extends AbstractAVLTreeExercise<Integer> {
 
   @Override
   protected AVLTree<Integer> createScratch() {
@@ -25,3 +25,21 @@ abstract class AbstractAVLTreeStructureExercise extends AbstractAVLTreeExercise 
 
 }
 
+abstract class AbstractAVLTreeDomainExercise extends AbstractAVLTreeExercise<ExerciseSupport.RankedLearner> {
+
+  @Override
+  protected AVLTree<ExerciseSupport.RankedLearner> createScratch() {
+    return new LinkedAVLTree<>();
+  }
+
+  @Override
+  protected AVLTree<ExerciseSupport.RankedLearner> createLinear() {
+    return new LinearAVLTree<>();
+  }
+
+  @Override
+  protected AVLTree<ExerciseSupport.RankedLearner> createCollections() {
+    return new CollectionsAVLTree<>();
+  }
+
+}

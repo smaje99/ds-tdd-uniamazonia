@@ -5,7 +5,7 @@ import co.edu.udla.ed.impl.collections.CollectionsAdjacencyListGraph;
 import co.edu.udla.ed.impl.linear.LinearAdjacencyListGraph;
 import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
 
-abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise {
+abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise<String> {
 
   @Override
   protected Graph<String> createScratch() {
@@ -33,3 +33,21 @@ abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise 
 
 }
 
+abstract class AbstractAdjacencyListGraphDomainExercise extends AbstractGraphExercise<ExerciseSupport.Learner> {
+
+  @Override
+  protected Graph<ExerciseSupport.Learner> createScratch() {
+    return new AdjacencyListGraph<>(false);
+  }
+
+  @Override
+  protected Graph<ExerciseSupport.Learner> createLinear() {
+    return new LinearAdjacencyListGraph<>(false);
+  }
+
+  @Override
+  protected Graph<ExerciseSupport.Learner> createCollections() {
+    return new CollectionsAdjacencyListGraph<>(false);
+  }
+
+}

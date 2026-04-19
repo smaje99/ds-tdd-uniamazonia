@@ -2,13 +2,11 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.Stack;
 
-import java.util.ArrayList;
-
 import co.edu.udla.ed.impl.collections.CollectionsStack;
 import co.edu.udla.ed.impl.linear.LinearStack;
 import co.edu.udla.ed.impl.scratch.StaticStack;
 
-abstract class AbstractStackStaticExercise extends AbstractStackExercise {
+abstract class AbstractStackStaticExercise extends AbstractStackExercise<String> {
 
   @Override
   protected Stack<String> createScratch() {
@@ -25,13 +23,23 @@ abstract class AbstractStackStaticExercise extends AbstractStackExercise {
     return new CollectionsStack<>();
   }
 
-  protected final String popAll(Stack<String> stack) {
-    java.util.List<String> values = new ArrayList<>();
-    while (!stack.isEmpty()) {
-      values.add(stack.pop());
-    }
-    return values.toString();
+}
+
+abstract class AbstractStackStaticDomainExercise extends AbstractStackExercise<ExerciseSupport.Learner> {
+
+  @Override
+  protected Stack<ExerciseSupport.Learner> createScratch() {
+    return new StaticStack<>();
+  }
+
+  @Override
+  protected Stack<ExerciseSupport.Learner> createLinear() {
+    return new LinearStack<>();
+  }
+
+  @Override
+  protected Stack<ExerciseSupport.Learner> createCollections() {
+    return new CollectionsStack<>();
   }
 
 }
-

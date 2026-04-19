@@ -6,7 +6,7 @@ import co.edu.udla.ed.impl.collections.CollectionsBinarySearchTree;
 import co.edu.udla.ed.impl.linear.LinearBinarySearchTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinarySearchTree;
 
-abstract class AbstractBinarySearchTreeStructureExercise extends AbstractBinarySearchTreeExercise {
+abstract class AbstractBinarySearchTreeStructureExercise extends AbstractBinarySearchTreeExercise<Integer> {
 
   @Override
   protected BinarySearchTree<Integer> createScratch() {
@@ -33,3 +33,22 @@ abstract class AbstractBinarySearchTreeStructureExercise extends AbstractBinaryS
 
 }
 
+abstract class AbstractBinarySearchTreeDomainExercise
+    extends AbstractBinarySearchTreeExercise<ExerciseSupport.RankedLearner> {
+
+  @Override
+  protected BinarySearchTree<ExerciseSupport.RankedLearner> createScratch() {
+    return new LinkedBinarySearchTree<>();
+  }
+
+  @Override
+  protected BinarySearchTree<ExerciseSupport.RankedLearner> createLinear() {
+    return new LinearBinarySearchTree<>();
+  }
+
+  @Override
+  protected BinarySearchTree<ExerciseSupport.RankedLearner> createCollections() {
+    return new CollectionsBinarySearchTree<>();
+  }
+
+}

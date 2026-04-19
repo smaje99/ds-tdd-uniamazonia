@@ -6,7 +6,7 @@ import co.edu.udla.ed.impl.collections.CollectionsHashTable;
 import co.edu.udla.ed.impl.linear.LinearHashTable;
 import co.edu.udla.ed.impl.scratch.SeparateChainingHashTable;
 
-abstract class AbstractStringHashTableExercise extends AbstractHashTableExercise<String> {
+abstract class AbstractStringHashTableExercise extends AbstractHashTableExercise<String, Integer> {
 
   @Override
   protected HashTable<String, Integer> createScratch() {
@@ -25,7 +25,8 @@ abstract class AbstractStringHashTableExercise extends AbstractHashTableExercise
 
 }
 
-abstract class AbstractCollisionHashTableExercise extends AbstractHashTableExercise<ExerciseSupport.BadHashKey> {
+abstract class AbstractCollisionHashTableExercise
+    extends AbstractHashTableExercise<ExerciseSupport.BadHashKey, Integer> {
 
   @Override
   protected HashTable<ExerciseSupport.BadHashKey, Integer> createScratch() {
@@ -48,3 +49,26 @@ abstract class AbstractCollisionHashTableExercise extends AbstractHashTableExerc
 
 }
 
+abstract class AbstractDomainHashTableExercise
+    extends AbstractHashTableExercise<ExerciseSupport.EnrollmentKey, ExerciseSupport.Learner> {
+
+  @Override
+  protected HashTable<ExerciseSupport.EnrollmentKey, ExerciseSupport.Learner> createScratch() {
+    return new SeparateChainingHashTable<>();
+  }
+
+  @Override
+  protected HashTable<ExerciseSupport.EnrollmentKey, ExerciseSupport.Learner> createLinear() {
+    return new LinearHashTable<>();
+  }
+
+  @Override
+  protected HashTable<ExerciseSupport.EnrollmentKey, ExerciseSupport.Learner> createCollections() {
+    return new CollectionsHashTable<>();
+  }
+
+  protected final ExerciseSupport.EnrollmentKey key(String course, String section) {
+    return ExerciseSupport.enrollmentKey(course, section);
+  }
+
+}
