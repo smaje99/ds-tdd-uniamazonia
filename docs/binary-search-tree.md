@@ -51,6 +51,16 @@ For a degenerate BST shaped like a chain:
 The `linear` version keeps sorted order but does not store a real tree, so it
 is useful as a contrast between API semantics and internal representation.
 
+## Guided Exercises
+
+`BinarySearchTreeExercise01-05` is organized around the core BST ideas:
+
+- ordered insertion and sorted `inOrder()`
+- membership and size checks
+- representative removal cases
+- a final `Exercise05` that uses comparable learner domain objects so students
+  can connect ordering to `compareTo`, not only to primitive numbers
+
 ## Common Pitfalls
 
 - inserting duplicates instead of ignoring them

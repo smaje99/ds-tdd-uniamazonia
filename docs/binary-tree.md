@@ -55,6 +55,16 @@ For a tree with `n` nodes:
 The `collections` and `linear` implementations still use real nodes because the
 API exposes nodes directly.
 
+## Guided Exercises
+
+`BinaryTreeExercise01-05` follows the same learning order as the notes:
+
+- `Exercise01-03` focus on the main traversals and the repository height
+  convention
+- `Exercise04` turns the occupied-child case into an explicit exercise
+- `Exercise05` uses learner domain objects so traversal output is checked with
+  custom values rather than plain strings
+
 ## Common Pitfalls
 
 - forgetting that `makeRoot` replaces the previous tree

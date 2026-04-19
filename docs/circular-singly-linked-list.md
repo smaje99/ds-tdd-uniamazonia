@@ -42,6 +42,16 @@ With only a tail reference:
 The `collections` and `linear` wrappers preserve the contract even if the JDK
 backing structure is not literally circular.
 
+## Guided Exercises
+
+`CircularSinglyLinkedListExercise01-05` gives a staged path through the topic:
+
+- early exercises cover the transitions between empty, singleton, and
+  multi-node states
+- the middle exercises focus on reusing the list after removals
+- `Exercise05` switches to learner domain objects so students can verify that
+  the public behavior still depends on logical equality and order
+
 ## Common Pitfalls
 
 - breaking the circle after the first insertion

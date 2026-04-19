@@ -44,6 +44,15 @@ from head or tail.
 - `linear`
   - `LinearDoublyLinkedList`
 
+## Guided Exercises
+
+Use `DoublyLinkedListExercise01-05` to study this topic in progression:
+
+- `Exercise01-04` cover ordering, trimming both ends, indexed access, and
+  rebuilding after `clear`
+- `Exercise05` repeats the same API ideas with learner domain objects so
+  equality and readable snapshots become part of the feedback
+
 ## Common Pitfalls
 
 - forgetting to update both links during insertion or removal

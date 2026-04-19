@@ -64,6 +64,20 @@ Operations:
 - `linear`
   - `LinearStack`, `LinearQueue`
 
+## Guided Exercises
+
+This topic is split into four exercise series:
+
+- `StackStaticExercise01-05`
+- `StackLinkedExercise01-05`
+- `QueueStaticExercise01-05`
+- `QueueLinkedExercise01-05`
+
+Across the four series, the first exercises introduce `peek`, `pop`, and
+`dequeue`, the middle ones compose operations and size changes, and `Exercise05`
+uses learner domain objects to confirm that LIFO and FIFO behavior remain
+visible with custom values.
+
 ## Common Pitfalls
 
 - mixing top with bottom in stack implementations

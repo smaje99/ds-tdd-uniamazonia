@@ -59,6 +59,17 @@ cost is intentionally worse than the usual hash-based complexity.
 - `linear`
   - `LinearAdjacencyListGraph`
 
+## Guided Exercises
+
+The guided graph series is `AdjacencyListGraphExercise01-05`.
+
+- the first exercises cover counts, adjacency, BFS, DFS, path existence, and
+  shortest unweighted paths
+- `Exercise04` turns the missing-start-vertex case into a feedback-driven
+  exception exercise
+- `Exercise05` uses learner domain objects as vertices so students can see that
+  reachability and path queries depend on vertex equality semantics
+
 ## Common Pitfalls
 
 - forgetting to create missing endpoint vertices before adding an edge

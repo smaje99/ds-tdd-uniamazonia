@@ -61,6 +61,21 @@ Typical costs by representation:
   - `LinearSimpleList`: wrapper over `LinkedList` with explicit iterative
     access logic
 
+## Guided Exercises
+
+The exercise package splits this topic into two parallel series:
+
+- `SimpleListStaticExercise01-05`
+  - focuses on the array-backed list
+  - ends with `Exercise05`, which uses learner domain objects
+- `SimpleListLinkedExercise01-05`
+  - focuses on the singly linked list
+  - also ends with a domain-object scenario in `Exercise05`
+
+The first four exercises move from basic insertions to mixed command sequences.
+The fifth exercise checks that `contains` and observable order still work when
+the stored values rely on custom `equals` logic.
+
 ## Common Pitfalls
 
 - forgetting to decrement `size` after a removal

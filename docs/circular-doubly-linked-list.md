@@ -39,6 +39,15 @@ With head and tail:
 - `linear`
   - `LinearCircularDoublyLinkedList`
 
+## Guided Exercises
+
+`CircularDoublyLinkedListExercise01-05` mirrors the progression used in class:
+
+- `Exercise01-04` emphasize observable order, updates at both ends, reset to
+  empty, and reconstruction
+- `Exercise05` introduces learner domain objects so the same circular behavior
+  can be checked with custom equality and readable snapshots
+
 ## Common Pitfalls
 
 - updating `head` and `tail` but forgetting the circular links

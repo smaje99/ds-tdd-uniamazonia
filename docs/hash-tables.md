@@ -63,6 +63,17 @@ Resizing is usually `O(n)` because every entry must be rehashed.
 The `linear` version is intentionally not a true hashed implementation. It is a
 contrast case for studying API compatibility versus algorithmic efficiency.
 
+## Guided Exercises
+
+`HashTableExercise01-05` covers the main learning goals in order:
+
+- basic `put`, `get`, and `size`
+- overwriting an existing key
+- `remove`, `containsKey`, and `clear`
+- forced collisions and resizing
+- domain-object keys and values in `Exercise05`, where custom `equals` and
+  `hashCode` behavior become part of the exercise feedback
+
 ## Common Pitfalls
 
 - forgetting to update an existing key instead of inserting a duplicate entry

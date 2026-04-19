@@ -50,6 +50,15 @@ Because the tree stays balanced:
 The wrapper implementations preserve the contract, but only the scratch version
 shows the real rebalancing mechanics students should learn first.
 
+## Guided Exercises
+
+`AVLTreeExercise01-05` turns the balancing cases into observable scenarios:
+
+- `Exercise01` and `Exercise02` cover single and double rotations
+- `Exercise03` and `Exercise04` cover removal and larger mixed sequences
+- `Exercise05` switches to comparable learner domain objects so balancing and
+  ordering can be inspected with custom values
+
 ## Common Pitfalls
 
 - updating links but forgetting to update stored heights
