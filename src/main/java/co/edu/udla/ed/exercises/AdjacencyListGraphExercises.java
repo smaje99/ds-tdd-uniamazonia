@@ -1,0 +1,35 @@
+package co.edu.udla.ed.exercises;
+
+import co.edu.udla.ed.api.Graph;
+import co.edu.udla.ed.impl.collections.CollectionsAdjacencyListGraph;
+import co.edu.udla.ed.impl.linear.LinearAdjacencyListGraph;
+import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
+
+abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise {
+
+  @Override
+  protected Graph<String> createScratch() {
+    return new AdjacencyListGraph<>(false);
+  }
+
+  @Override
+  protected Graph<String> createLinear() {
+    return new LinearAdjacencyListGraph<>(false);
+  }
+
+  @Override
+  protected Graph<String> createCollections() {
+    return new CollectionsAdjacencyListGraph<>(false);
+  }
+
+  protected final Graph<String> buildSampleGraph(Graph<String> graph) {
+    graph.addEdge("A", "B");
+    graph.addEdge("A", "C");
+    graph.addEdge("B", "D");
+    graph.addEdge("C", "D");
+    graph.addEdge("D", "E");
+    return graph;
+  }
+
+}
+
