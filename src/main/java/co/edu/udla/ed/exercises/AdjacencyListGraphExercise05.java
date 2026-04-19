@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.Graph;
 
+/**
+ * Guided exercise 05 for the adjacency-list graph series.
+ *
+ * <p>This scenario uses learner domain objects as vertices so reachability depends on vertex equality semantics. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class AdjacencyListGraphExercise05 extends AbstractAdjacencyListGraphDomainExercise {
 
   @Override

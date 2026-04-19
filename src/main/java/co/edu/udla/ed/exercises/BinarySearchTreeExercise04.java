@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.BinarySearchTree;
 
+/**
+ * Guided exercise 04 for the binary-search-tree series.
+ *
+ * <p>This scenario removes a more structural case and reports the remaining ordered contents. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class BinarySearchTreeExercise04 extends AbstractBinarySearchTreeStructureExercise {
 
   @Override

@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsBinarySearchTree;
 import co.edu.udla.ed.impl.linear.LinearBinarySearchTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinarySearchTree;
 
+/**
+ * Base wiring for the binary-search-tree exercise series that uses integer values.
+ */
 abstract class AbstractBinarySearchTreeStructureExercise extends AbstractBinarySearchTreeExercise<Integer> {
 
   @Override
@@ -33,6 +36,9 @@ abstract class AbstractBinarySearchTreeStructureExercise extends AbstractBinaryS
 
 }
 
+/**
+ * Base wiring for the binary-search-tree exercise series that uses comparable learner objects.
+ */
 abstract class AbstractBinarySearchTreeDomainExercise
     extends AbstractBinarySearchTreeExercise<ExerciseSupport.RankedLearner> {
 

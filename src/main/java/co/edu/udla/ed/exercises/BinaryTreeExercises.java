@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsBinaryTree;
 import co.edu.udla.ed.impl.linear.LinearBinaryTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinaryTree;
 
+/**
+ * Base wiring for the binary-tree exercise series that uses simple string labels.
+ */
 abstract class AbstractBinaryTreeStructureExercise extends AbstractBinaryTreeExercise<String> {
 
   @Override
@@ -35,6 +38,9 @@ abstract class AbstractBinaryTreeStructureExercise extends AbstractBinaryTreeExe
 
 }
 
+/**
+ * Base wiring for the binary-tree exercise series that uses learner domain objects.
+ */
 abstract class AbstractBinaryTreeDomainExercise extends AbstractBinaryTreeExercise<ExerciseSupport.Learner> {
 
   @Override

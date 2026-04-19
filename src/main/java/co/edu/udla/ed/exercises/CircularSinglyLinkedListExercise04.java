@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.List;
 
+/**
+ * Guided exercise 04 for the circular singly linked list series.
+ *
+ * <p>This scenario combines several updates and reports the final logical snapshot. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class CircularSinglyLinkedListExercise04 extends AbstractCircularSinglyLinkedListExercise {
 
   @Override

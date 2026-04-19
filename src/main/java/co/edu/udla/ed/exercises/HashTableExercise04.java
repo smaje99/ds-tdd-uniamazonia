@@ -3,6 +3,13 @@ package co.edu.udla.ed.exercises;
 import java.util.ArrayList;
 import co.edu.udla.ed.api.HashTable;
 
+/**
+ * Guided exercise 04 for the hash-table series.
+ *
+ * <p>This scenario stresses collision handling and resizing while preserving successful lookups. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class HashTableExercise04 extends AbstractCollisionHashTableExercise {
 
   @Override

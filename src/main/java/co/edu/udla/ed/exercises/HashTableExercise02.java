@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.HashTable;
 
+/**
+ * Guided exercise 02 for the hash-table series.
+ *
+ * <p>This scenario overwrites an existing key and reports both the previous value and final state. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class HashTableExercise02 extends AbstractStringHashTableExercise {
 
   @Override

@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.HashTable;
 
+/**
+ * Guided exercise 05 for the hash-table series.
+ *
+ * <p>This scenario uses domain keys and values so updates and removals can be studied with custom equality and hash codes. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class HashTableExercise05 extends AbstractDomainHashTableExercise {
 
   @Override

@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsStack;
 import co.edu.udla.ed.impl.linear.LinearStack;
 import co.edu.udla.ed.impl.scratch.LinkedStack;
 
+/**
+ * Base wiring for the linked stack exercise series that uses scalar values.
+ */
 abstract class AbstractStackLinkedExercise extends AbstractStackExercise<String> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractStackLinkedExercise extends AbstractStackExercise<String>
 
 }
 
+/**
+ * Base wiring for the linked stack exercise series that uses learner domain objects.
+ */
 abstract class AbstractStackLinkedDomainExercise extends AbstractStackExercise<ExerciseSupport.Learner> {
 
   @Override

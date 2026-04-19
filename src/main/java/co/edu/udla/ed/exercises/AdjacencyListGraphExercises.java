@@ -5,6 +5,9 @@ import co.edu.udla.ed.impl.collections.CollectionsAdjacencyListGraph;
 import co.edu.udla.ed.impl.linear.LinearAdjacencyListGraph;
 import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
 
+/**
+ * Base wiring for the adjacency-list graph exercise series that uses string vertices.
+ */
 abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise<String> {
 
   @Override
@@ -33,6 +36,9 @@ abstract class AbstractAdjacencyListGraphExercise extends AbstractGraphExercise<
 
 }
 
+/**
+ * Base wiring for the adjacency-list graph exercise series that uses learner domain objects.
+ */
 abstract class AbstractAdjacencyListGraphDomainExercise extends AbstractGraphExercise<ExerciseSupport.Learner> {
 
   @Override

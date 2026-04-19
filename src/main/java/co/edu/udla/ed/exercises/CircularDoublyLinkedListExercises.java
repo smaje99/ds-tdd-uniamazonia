@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsCircularDoublyLinkedList;
 import co.edu.udla.ed.impl.linear.LinearCircularDoublyLinkedList;
 import co.edu.udla.ed.impl.scratch.CircularDoublyLinkedList;
 
+/**
+ * Base wiring for the circular doubly linked list exercise series that uses scalar values.
+ */
 abstract class AbstractCircularDoublyLinkedListExercise extends AbstractListExercise<String> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractCircularDoublyLinkedListExercise extends AbstractListExer
 
 }
 
+/**
+ * Base wiring for the circular doubly linked list exercise series that uses learner domain objects.
+ */
 abstract class AbstractCircularDoublyLinkedListDomainExercise extends AbstractListExercise<ExerciseSupport.Learner> {
 
   @Override

@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsAVLTree;
 import co.edu.udla.ed.impl.linear.LinearAVLTree;
 import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
 
+/**
+ * Base wiring for the AVL-tree exercise series that uses integer values.
+ */
 abstract class AbstractAVLTreeStructureExercise extends AbstractAVLTreeExercise<Integer> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractAVLTreeStructureExercise extends AbstractAVLTreeExercise<
 
 }
 
+/**
+ * Base wiring for the AVL-tree exercise series that uses comparable learner objects.
+ */
 abstract class AbstractAVLTreeDomainExercise extends AbstractAVLTreeExercise<ExerciseSupport.RankedLearner> {
 
   @Override

@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.AVLTree;
 
+/**
+ * Guided exercise 04 for the AVL-tree series.
+ *
+ * <p>This scenario combines several insertions and one removal to show a larger balanced result. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class AVLTreeExercise04 extends AbstractAVLTreeStructureExercise {
 
   @Override

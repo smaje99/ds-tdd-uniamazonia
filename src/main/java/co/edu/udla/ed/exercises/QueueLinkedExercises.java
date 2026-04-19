@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsQueue;
 import co.edu.udla.ed.impl.linear.LinearQueue;
 import co.edu.udla.ed.impl.scratch.LinkedQueue;
 
+/**
+ * Base wiring for the linked queue exercise series that uses scalar values.
+ */
 abstract class AbstractQueueLinkedExercise extends AbstractQueueExercise<String> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractQueueLinkedExercise extends AbstractQueueExercise<String>
 
 }
 
+/**
+ * Base wiring for the linked queue exercise series that uses learner domain objects.
+ */
 abstract class AbstractQueueLinkedDomainExercise extends AbstractQueueExercise<ExerciseSupport.Learner> {
 
   @Override

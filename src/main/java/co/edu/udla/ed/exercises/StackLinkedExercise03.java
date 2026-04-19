@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.Stack;
 
+/**
+ * Guided exercise 03 for the linked stack series.
+ *
+ * <p>This scenario interleaves pushes and pops so students can reason about the current size. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class StackLinkedExercise03 extends AbstractStackLinkedExercise {
 
   @Override

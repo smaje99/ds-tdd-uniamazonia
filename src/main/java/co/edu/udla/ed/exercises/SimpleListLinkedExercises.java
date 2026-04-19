@@ -5,6 +5,9 @@ import co.edu.udla.ed.impl.collections.CollectionsSimpleList;
 import co.edu.udla.ed.impl.linear.LinearSimpleList;
 import co.edu.udla.ed.impl.scratch.SinglyLinkedList;
 
+/**
+ * Base wiring for the singly linked simple-list exercise series that uses scalar values.
+ */
 abstract class AbstractSimpleListLinkedExercise extends AbstractListExercise<String> {
 
   @Override
@@ -24,6 +27,9 @@ abstract class AbstractSimpleListLinkedExercise extends AbstractListExercise<Str
 
 }
 
+/**
+ * Base wiring for the singly linked simple-list exercise series that uses learner domain objects.
+ */
 abstract class AbstractSimpleListLinkedDomainExercise extends AbstractListExercise<ExerciseSupport.Learner> {
 
   @Override

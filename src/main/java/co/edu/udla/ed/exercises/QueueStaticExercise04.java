@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.Queue;
 
+/**
+ * Guided exercise 04 for the array-backed queue series.
+ *
+ * <p>This scenario shows that logical reuse and growth preserve FIFO order in the circular buffer. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class QueueStaticExercise04 extends AbstractQueueStaticExercise {
 
   @Override

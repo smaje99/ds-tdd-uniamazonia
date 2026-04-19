@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsDoublyLinkedList;
 import co.edu.udla.ed.impl.linear.LinearDoublyLinkedList;
 import co.edu.udla.ed.impl.scratch.DoublyLinkedList;
 
+/**
+ * Base wiring for the doubly linked list exercise series that uses scalar values.
+ */
 abstract class AbstractDoublyLinkedListExercise extends AbstractListExercise<String> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractDoublyLinkedListExercise extends AbstractListExercise<Str
 
 }
 
+/**
+ * Base wiring for the doubly linked list exercise series that uses learner domain objects.
+ */
 abstract class AbstractDoublyLinkedListDomainExercise extends AbstractListExercise<ExerciseSupport.Learner> {
 
   @Override

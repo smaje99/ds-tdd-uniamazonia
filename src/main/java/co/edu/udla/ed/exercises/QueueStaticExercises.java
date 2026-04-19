@@ -5,6 +5,9 @@ import co.edu.udla.ed.impl.collections.CollectionsQueue;
 import co.edu.udla.ed.impl.linear.LinearQueue;
 import co.edu.udla.ed.impl.scratch.StaticQueue;
 
+/**
+ * Base wiring for the array-backed queue exercise series that uses scalar values.
+ */
 abstract class AbstractQueueStaticExercise extends AbstractQueueExercise<String> {
 
   @Override
@@ -24,6 +27,9 @@ abstract class AbstractQueueStaticExercise extends AbstractQueueExercise<String>
 
 }
 
+/**
+ * Base wiring for the array-backed queue exercise series that uses learner domain objects.
+ */
 abstract class AbstractQueueStaticDomainExercise extends AbstractQueueExercise<ExerciseSupport.Learner> {
 
   @Override

@@ -6,6 +6,9 @@ import co.edu.udla.ed.impl.collections.CollectionsCircularSinglyLinkedList;
 import co.edu.udla.ed.impl.linear.LinearCircularSinglyLinkedList;
 import co.edu.udla.ed.impl.scratch.CircularSinglyLinkedList;
 
+/**
+ * Base wiring for the circular singly linked list exercise series that uses scalar values.
+ */
 abstract class AbstractCircularSinglyLinkedListExercise extends AbstractListExercise<String> {
 
   @Override
@@ -25,6 +28,9 @@ abstract class AbstractCircularSinglyLinkedListExercise extends AbstractListExer
 
 }
 
+/**
+ * Base wiring for the circular singly linked list exercise series that uses learner domain objects.
+ */
 abstract class AbstractCircularSinglyLinkedListDomainExercise extends AbstractListExercise<ExerciseSupport.Learner> {
 
   @Override

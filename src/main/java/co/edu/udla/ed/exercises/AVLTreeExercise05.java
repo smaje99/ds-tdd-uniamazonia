@@ -2,6 +2,13 @@ package co.edu.udla.ed.exercises;
 
 import co.edu.udla.ed.api.AVLTree;
 
+/**
+ * Guided exercise 05 for the AVL-tree series.
+ *
+ * <p>This scenario uses comparable learner domain objects so balancing can be observed with custom ordered values. The solver runs the same scripted operations on the scratch, linear, and
+ * collections-based implementations and returns the feedback string that the exercise tests
+ * compare against.</p>
+ */
 public final class AVLTreeExercise05 extends AbstractAVLTreeDomainExercise {
 
   @Override
