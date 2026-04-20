@@ -1,6 +1,7 @@
 package co.edu.udla.ed.impl.scratch;
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 import co.edu.udla.ed.api.Queue;
 
@@ -133,6 +134,28 @@ public class LinkedQueue<T> implements Queue<T> {
     head = null;
     tail = null;
     size = 0;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private Node<T> current = head;
+
+      @Override
+      public boolean hasNext() {
+        return current != null;
+      }
+
+      @Override
+      public T next() {
+        if (!hasNext()) {
+          throw new NoSuchElementException("Queue iterator exhausted.");
+        }
+        T value = current.value;
+        current = current.next;
+        return value;
+      }
+    };
   }
 
 }

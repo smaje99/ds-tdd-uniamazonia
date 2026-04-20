@@ -1,6 +1,7 @@
 package co.edu.udla.ed.impl.scratch;
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 import co.edu.udla.ed.api.Queue;
 
@@ -151,6 +152,30 @@ public class StaticQueue<T> implements Queue<T> {
     data = newData;
     head = 0;
     tail = size;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private int offset = 0;
+
+      @Override
+      public boolean hasNext() {
+        return offset < size;
+      }
+
+      @Override
+      public T next() {
+        if (!hasNext()) {
+          throw new NoSuchElementException("Queue iterator exhausted.");
+        }
+        int index = (head + offset) % data.length;
+        offset++;
+        @SuppressWarnings("unchecked")
+        T value = (T) data[index];
+        return value;
+      }
+    };
   }
 
 }

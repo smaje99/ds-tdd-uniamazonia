@@ -1,6 +1,8 @@
 package co.edu.udla.ed.impl.scratch;
 
 import java.util.Objects;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import co.edu.udla.ed.api.HashTable;
 
@@ -37,7 +39,7 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V> {
    * the same bucket.
    * </p>
    */
-  private static final class Entry<K, V> {
+  private static final class Entry<K, V> implements HashTable.Entry<K, V> {
     private final K key;
     private V value;
     private Entry<K, V> next;
@@ -46,6 +48,16 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V> {
       this.key = key;
       this.value = value;
       this.next = next;
+    }
+
+    @Override
+    public K key() {
+      return key;
+    }
+
+    @Override
+    public V value() {
+      return value;
     }
   }
 
@@ -313,6 +325,39 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V> {
    */
   private int bucketIndex(K key, int capacity) {
     return (Objects.hashCode(key) & 0x7fffffff) % capacity;
+  }
+
+  @Override
+  public Iterator<HashTable.Entry<K, V>> iterator() {
+    return new Iterator<HashTable.Entry<K, V>>() {
+      private int bucketIndex = 0;
+      private Entry<K, V> current = advanceToNextEntry();
+
+      @Override
+      public boolean hasNext() {
+        return current != null;
+      }
+
+      @Override
+      public HashTable.Entry<K, V> next() {
+        if (!hasNext()) {
+          throw new NoSuchElementException("Hash table iterator exhausted.");
+        }
+        Entry<K, V> value = current;
+        current = current.next != null ? current.next : advanceToNextEntry();
+        return value;
+      }
+
+      private Entry<K, V> advanceToNextEntry() {
+        while (bucketIndex < buckets.length) {
+          Entry<K, V> bucket = buckets[bucketIndex++];
+          if (bucket != null) {
+            return bucket;
+          }
+        }
+        return null;
+      }
+    };
   }
 
 }

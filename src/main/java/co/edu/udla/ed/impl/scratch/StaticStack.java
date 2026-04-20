@@ -1,6 +1,7 @@
 package co.edu.udla.ed.impl.scratch;
 
 import java.util.NoSuchElementException;
+import java.util.Iterator;
 
 import co.edu.udla.ed.api.Stack;
 
@@ -130,6 +131,28 @@ public class StaticStack<T> implements Stack<T> {
     Object[] newData = new Object[newCap];
     System.arraycopy(data, 0, newData, 0, size);
     data = newData;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private int index = size - 1;
+
+      @Override
+      public boolean hasNext() {
+        return index >= 0;
+      }
+
+      @Override
+      public T next() {
+        if (!hasNext()) {
+          throw new NoSuchElementException("Stack iterator exhausted.");
+        }
+        @SuppressWarnings("unchecked")
+        T value = (T) data[index--];
+        return value;
+      }
+    };
   }
 
 }
