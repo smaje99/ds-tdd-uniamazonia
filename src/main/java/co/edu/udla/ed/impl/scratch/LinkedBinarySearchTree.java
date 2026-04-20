@@ -5,6 +5,24 @@ import java.util.List;
 
 import co.edu.udla.ed.api.BinarySearchTree;
 
+/**
+ * Linked-node implementation of the {@link BinarySearchTree} contract.
+ *
+ * <p>
+ * The tree stores comparable values in the usual BST shape: smaller values go
+ * to the left subtree and greater values go to the right subtree. Duplicate
+ * insertions are ignored, which keeps the in-order traversal strictly sorted
+ * and makes the structure consistent with the repository contract tests.
+ * </p>
+ *
+ * <p>
+ * This implementation does not self-balance, so search, insertion, and removal
+ * are {@code O(log n)} only on reasonably balanced shapes and can degrade to
+ * {@code O(n)} in the worst case.
+ * </p>
+ *
+ * @param <T> the comparable value type stored in the tree
+ */
 public class LinkedBinarySearchTree<T extends Comparable<T>> implements BinarySearchTree<T> {
 
   /**
