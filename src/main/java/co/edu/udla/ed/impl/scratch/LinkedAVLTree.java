@@ -53,10 +53,7 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
    */
   @Override
   public void insert(T value) {
-    int before = size;
     root = insert(root, value);
-    // size solo cambia si se insertó
-    // (insert incrementa size cuando crea un nodo)
   }
 
   /**
@@ -183,10 +180,6 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
       // por eso usamos removeMin que NO decrementa size (ya lo hicimos).
       node.right = removeMin(node.right);
     }
-
-    // si quedó null (p.ej. borramos hoja) terminar
-    if (node == null)
-      return null;
 
     updateHeight(node);
     return rebalance(node);
