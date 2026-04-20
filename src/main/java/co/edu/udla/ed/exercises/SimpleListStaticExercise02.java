@@ -1,30 +1,48 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.ArrayList;
 
-/**
- * Guided exercise 02 for the array-backed simple-list series.
- *
- * <p>This scenario removes both logical extremes and reports the removed values together with the remaining order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListStaticExercise02 extends AbstractSimpleListStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticSimpleList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class SimpleListStaticExercise02 {
+
+  public String solveWithCustomIterator(StaticSimpleList<String> list) {
     list.addLast("uno");
     list.addLast("dos");
     list.addLast("tres");
     list.addLast("cuatro");
-
     String removedFirst = list.removeFirst();
     String removedLast = list.removeLast();
-
     return ExerciseSupport.format(
         ExerciseSupport.named("removedFirst", removedFirst),
         ExerciseSupport.named("removedLast", removedLast),
-        ExerciseSupport.named("remaining", ExerciseSupport.snapshot(list)));
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithIterator(list)));
+  }
+
+  public String solveWithJavaLoops(ArrayList<String> list) {
+    list.add("uno");
+    list.add("dos");
+    list.add("tres");
+    list.add("cuatro");
+    String removedFirst = list.remove(0);
+    String removedLast = list.remove(list.size() - 1);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removedFirst", removedFirst),
+        ExerciseSupport.named("removedLast", removedLast),
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithLoop(list)));
+  }
+
+  public String solveWithStreams(ArrayList<String> list) {
+    list.add("uno");
+    list.add("dos");
+    list.add("tres");
+    list.add("cuatro");
+    String removedFirst = list.remove(0);
+    String removedLast = list.remove(list.size() - 1);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removedFirst", removedFirst),
+        ExerciseSupport.named("removedLast", removedLast),
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithStreams(list)));
   }
 
 }

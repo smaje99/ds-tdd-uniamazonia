@@ -1,20 +1,41 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Graph;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
-/**
- * Guided exercise 02 for the adjacency-list graph series.
- *
- * <p>This scenario reports the deterministic breadth-first traversal used by the repository. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class AdjacencyListGraphExercise02 extends AbstractAdjacencyListGraphExercise {
+import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
 
-  @Override
-  protected String solve(Graph<String> graph) {
+public final class AdjacencyListGraphExercise02 {
+
+  public String solveWithCustomIterator(AdjacencyListGraph<String> graph) {
     buildSampleGraph(graph);
-    return ExerciseSupport.named("bfs", ExerciseSupport.snapshot(graph.bfs("A")));
+    return ExerciseSupport.named("bfs", ExerciseSupport.snapshotWithIterator(graph.bfsIterable("A")));
+  }
+
+  public String solveWithJavaLoops(Map<String, LinkedHashSet<String>> graph) {
+    buildSampleGraph(graph);
+    return ExerciseSupport.named("bfs", ExerciseSupport.snapshotWithLoop(ExerciseSupport.graphBfs(graph, "A")));
+  }
+
+  public String solveWithStreams(Map<String, LinkedHashSet<String>> graph) {
+    buildSampleGraph(graph);
+    return ExerciseSupport.named("bfs", ExerciseSupport.snapshotWithStreams(ExerciseSupport.graphBfs(graph, "A")));
+  }
+
+  private void buildSampleGraph(AdjacencyListGraph<String> graph) {
+    graph.addEdge("A", "B");
+    graph.addEdge("A", "C");
+    graph.addEdge("B", "D");
+    graph.addEdge("C", "D");
+    graph.addEdge("D", "E");
+  }
+
+  private void buildSampleGraph(Map<String, LinkedHashSet<String>> graph) {
+    ExerciseSupport.graphAddEdge(graph, "A", "B");
+    ExerciseSupport.graphAddEdge(graph, "A", "C");
+    ExerciseSupport.graphAddEdge(graph, "B", "D");
+    ExerciseSupport.graphAddEdge(graph, "C", "D");
+    ExerciseSupport.graphAddEdge(graph, "D", "E");
   }
 
 }

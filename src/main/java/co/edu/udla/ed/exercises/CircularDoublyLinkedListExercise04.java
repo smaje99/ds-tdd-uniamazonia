@@ -1,25 +1,39 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 04 for the circular doubly linked list series.
- *
- * <p>This scenario rebuilds the list after a full reset and reports the final snapshot. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class CircularDoublyLinkedListExercise04 extends AbstractCircularDoublyLinkedListExercise {
+import co.edu.udla.ed.impl.scratch.CircularDoublyLinkedList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class CircularDoublyLinkedListExercise04 {
+
+  public String solveWithCustomIterator(CircularDoublyLinkedList<String> list) {
     list.addLast("base");
     list.addLast("temporal");
     list.clear();
     list.addFirst("nuevo-inicio");
     list.addLast("nuevo-final");
     list.addLast("cierre");
-    return ExerciseSupport.snapshot(list);
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
+
+  public String solveWithJavaLoops(LinkedList<String> list) {
+    list.addLast("base");
+    list.addLast("temporal");
+    list.clear();
+    list.addFirst("nuevo-inicio");
+    list.addLast("nuevo-final");
+    list.addLast("cierre");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(LinkedList<String> list) {
+    list.addLast("base");
+    list.addLast("temporal");
+    list.clear();
+    list.addFirst("nuevo-inicio");
+    list.addLast("nuevo-final");
+    list.addLast("cierre");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

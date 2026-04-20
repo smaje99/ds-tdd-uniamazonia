@@ -1,23 +1,33 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.ArrayList;
 
-/**
- * Guided exercise 01 for the array-backed simple-list series.
- *
- * <p>This scenario practices building the list by combining insertions at the front and back. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListStaticExercise01 extends AbstractSimpleListStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticSimpleList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class SimpleListStaticExercise01 {
+
+  public String solveWithCustomIterator(StaticSimpleList<String> list) {
     list.addLast("B");
     list.addFirst("A");
     list.addLast("C");
     list.addFirst("inicio");
-    return ExerciseSupport.snapshot(list);
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
+
+  public String solveWithJavaLoops(ArrayList<String> list) {
+    list.add("B");
+    list.add(0, "A");
+    list.add("C");
+    list.add(0, "inicio");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(ArrayList<String> list) {
+    list.add("B");
+    list.add(0, "A");
+    list.add("C");
+    list.add(0, "inicio");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

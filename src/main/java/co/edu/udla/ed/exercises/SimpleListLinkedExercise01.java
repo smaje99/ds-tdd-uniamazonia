@@ -1,23 +1,33 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 01 for the singly linked simple-list series.
- *
- * <p>This scenario builds the list from both the head and the tail so students can inspect the final order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListLinkedExercise01 extends AbstractSimpleListLinkedExercise {
+import co.edu.udla.ed.impl.scratch.SinglyLinkedList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class SimpleListLinkedExercise01 {
+
+  public String solveWithCustomIterator(SinglyLinkedList<String> list) {
     list.addFirst("B");
     list.addLast("C");
     list.addFirst("A");
     list.addLast("D");
-    return ExerciseSupport.snapshot(list);
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
+
+  public String solveWithJavaLoops(LinkedList<String> list) {
+    list.addFirst("B");
+    list.addLast("C");
+    list.addFirst("A");
+    list.addLast("D");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(LinkedList<String> list) {
+    list.addFirst("B");
+    list.addLast("C");
+    list.addFirst("A");
+    list.addLast("D");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 05 for the circular singly linked list series.
- *
- * <p>This scenario uses learner domain objects so students can inspect circular-list behavior with custom equality. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class CircularSinglyLinkedListExercise05 extends AbstractCircularSinglyLinkedListDomainExercise {
+import co.edu.udla.ed.impl.scratch.CircularSinglyLinkedList;
 
-  @Override
-  protected String solve(List<ExerciseSupport.Learner> list) {
+public final class CircularSinglyLinkedListExercise05 {
+
+  public String solveWithCustomIterator(CircularSinglyLinkedList<ExerciseSupport.Learner> list) {
     list.addLast(ExerciseSupport.learner("Ana", 101));
     list.addFirst(ExerciseSupport.learner("Luis", 203));
     list.addLast(ExerciseSupport.learner("Mia", 305));
@@ -20,7 +14,29 @@ public final class CircularSinglyLinkedListExercise05 extends AbstractCircularSi
     list.addFirst(ExerciseSupport.learner("Eva", 99));
     return ExerciseSupport.format(
         ExerciseSupport.named("removed", removed),
-        ExerciseSupport.named("snapshot", ExerciseSupport.snapshot(list)));
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithIterator(list)));
+  }
+
+  public String solveWithJavaLoops(LinkedList<ExerciseSupport.Learner> list) {
+    list.addLast(ExerciseSupport.learner("Ana", 101));
+    list.addFirst(ExerciseSupport.learner("Luis", 203));
+    list.addLast(ExerciseSupport.learner("Mia", 305));
+    ExerciseSupport.Learner removed = list.removeFirst();
+    list.addFirst(ExerciseSupport.learner("Eva", 99));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithLoop(list)));
+  }
+
+  public String solveWithStreams(LinkedList<ExerciseSupport.Learner> list) {
+    list.addLast(ExerciseSupport.learner("Ana", 101));
+    list.addFirst(ExerciseSupport.learner("Luis", 203));
+    list.addLast(ExerciseSupport.learner("Mia", 305));
+    ExerciseSupport.Learner removed = list.removeFirst();
+    list.addFirst(ExerciseSupport.learner("Eva", 99));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithStreams(list)));
   }
 
 }

@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 05 for the linked stack series.
- *
- * <p>This scenario uses learner domain objects so the pop order can be inspected with custom values. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackLinkedExercise05 extends AbstractStackLinkedDomainExercise {
+import co.edu.udla.ed.impl.scratch.LinkedStack;
 
-  @Override
-  protected String solve(Stack<ExerciseSupport.Learner> stack) {
+public final class StackLinkedExercise05 {
+
+  public String solveWithCustomIterator(LinkedStack<ExerciseSupport.Learner> stack) {
     stack.push(ExerciseSupport.learner("Eva", 99));
     stack.push(ExerciseSupport.learner("Ana", 101));
     stack.push(ExerciseSupport.learner("Luis", 203));
@@ -20,7 +14,29 @@ public final class StackLinkedExercise05 extends AbstractStackLinkedDomainExerci
     stack.push(ExerciseSupport.learner("Mia", 305));
     return ExerciseSupport.format(
         ExerciseSupport.named("peekIsMia", stack.peek().equals(ExerciseSupport.learner("Mia", 305))),
-        ExerciseSupport.named("drain", popAll(stack)));
+        ExerciseSupport.named("drain", ExerciseSupport.snapshotWithIterator(stack)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<ExerciseSupport.Learner> stack) {
+    stack.addLast(ExerciseSupport.learner("Eva", 99));
+    stack.addLast(ExerciseSupport.learner("Ana", 101));
+    stack.addLast(ExerciseSupport.learner("Luis", 203));
+    stack.removeLast();
+    stack.addLast(ExerciseSupport.learner("Mia", 305));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("peekIsMia", stack.peekLast().equals(ExerciseSupport.learner("Mia", 305))),
+        ExerciseSupport.named("drain", ExerciseSupport.stackDrainWithLoop(stack)));
+  }
+
+  public String solveWithStreams(ArrayDeque<ExerciseSupport.Learner> stack) {
+    stack.addLast(ExerciseSupport.learner("Eva", 99));
+    stack.addLast(ExerciseSupport.learner("Ana", 101));
+    stack.addLast(ExerciseSupport.learner("Luis", 203));
+    stack.removeLast();
+    stack.addLast(ExerciseSupport.learner("Mia", 305));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("peekIsMia", stack.peekLast().equals(ExerciseSupport.learner("Mia", 305))),
+        ExerciseSupport.named("drain", ExerciseSupport.stackDrainWithStreams(stack)));
   }
 
 }

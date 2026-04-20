@@ -1,32 +1,55 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 02 for the singly linked simple-list series.
- *
- * <p>This scenario removes elements from both ends to show how a linked list shrinks from its boundaries. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListLinkedExercise02 extends AbstractSimpleListLinkedExercise {
+import co.edu.udla.ed.impl.scratch.SinglyLinkedList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class SimpleListLinkedExercise02 {
+
+  public String solveWithCustomIterator(SinglyLinkedList<String> list) {
     list.addLast("A");
     list.addLast("B");
     list.addLast("C");
     list.addLast("D");
     list.addLast("E");
-
-    java.util.List<String> removed = new java.util.ArrayList<>();
+    java.util.List<String> removed = new ArrayList<>();
     removed.add(list.removeFirst());
     removed.add(list.removeLast());
     removed.add(list.removeFirst());
-
     return ExerciseSupport.format(
         ExerciseSupport.named("removed", removed),
-        ExerciseSupport.named("remaining", ExerciseSupport.snapshot(list)));
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithIterator(list)));
+  }
+
+  public String solveWithJavaLoops(LinkedList<String> list) {
+    list.addLast("A");
+    list.addLast("B");
+    list.addLast("C");
+    list.addLast("D");
+    list.addLast("E");
+    java.util.List<String> removed = new ArrayList<>();
+    removed.add(list.removeFirst());
+    removed.add(list.removeLast());
+    removed.add(list.removeFirst());
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithLoop(list)));
+  }
+
+  public String solveWithStreams(LinkedList<String> list) {
+    list.addLast("A");
+    list.addLast("B");
+    list.addLast("C");
+    list.addLast("D");
+    list.addLast("E");
+    java.util.List<String> removed = new ArrayList<>();
+    removed.add(list.removeFirst());
+    removed.add(list.removeLast());
+    removed.add(list.removeFirst());
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithStreams(list)));
   }
 
 }

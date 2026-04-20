@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.ArrayList;
 
-/**
- * Guided exercise 04 for the array-backed simple-list series.
- *
- * <p>This scenario stresses mixed insertions so students can observe preserved order after growth. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListStaticExercise04 extends AbstractSimpleListStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticSimpleList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class SimpleListStaticExercise04 {
+
+  public String solveWithCustomIterator(StaticSimpleList<String> list) {
     list.addLast("A");
     list.addLast("B");
     list.addLast("C");
@@ -26,8 +20,41 @@ public final class SimpleListStaticExercise04 extends AbstractSimpleListStaticEx
     list.addLast("K");
     list.addFirst("inicio-1");
     list.addFirst("inicio-2");
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
 
-    return ExerciseSupport.snapshot(list);
+  public String solveWithJavaLoops(ArrayList<String> list) {
+    list.add("A");
+    list.add("B");
+    list.add("C");
+    list.add("D");
+    list.add("E");
+    list.add("F");
+    list.add("G");
+    list.add("H");
+    list.add("I");
+    list.add("J");
+    list.add("K");
+    list.add(0, "inicio-1");
+    list.add(0, "inicio-2");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(ArrayList<String> list) {
+    list.add("A");
+    list.add("B");
+    list.add("C");
+    list.add("D");
+    list.add("E");
+    list.add("F");
+    list.add("G");
+    list.add("H");
+    list.add("I");
+    list.add("J");
+    list.add("K");
+    list.add(0, "inicio-1");
+    list.add(0, "inicio-2");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

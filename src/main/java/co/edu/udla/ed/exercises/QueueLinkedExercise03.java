@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 03 for the linked queue series.
- *
- * <p>This scenario interleaves enqueues and dequeues so students can reason about the current size. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueLinkedExercise03 extends AbstractQueueLinkedExercise {
+import co.edu.udla.ed.impl.scratch.LinkedQueue;
 
-  @Override
-  protected String solve(Queue<String> queue) {
+public final class QueueLinkedExercise03 {
+
+  public String solveWithCustomIterator(LinkedQueue<String> queue) {
     queue.enqueue("n1");
     queue.enqueue("n2");
     String firstOut = queue.dequeue();
@@ -20,7 +14,29 @@ public final class QueueLinkedExercise03 extends AbstractQueueLinkedExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("firstOut", firstOut),
         ExerciseSupport.named("peek", queue.peek()),
+        ExerciseSupport.named("size", ExerciseSupport.countWithIterator(queue)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> queue) {
+    queue.addLast("n1");
+    queue.addLast("n2");
+    String firstOut = queue.removeFirst();
+    queue.addLast("n3");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("firstOut", firstOut),
+        ExerciseSupport.named("peek", queue.peekFirst()),
         ExerciseSupport.named("size", queue.size()));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> queue) {
+    queue.addLast("n1");
+    queue.addLast("n2");
+    String firstOut = queue.removeFirst();
+    queue.addLast("n3");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("firstOut", firstOut),
+        ExerciseSupport.named("peek", queue.peekFirst()),
+        ExerciseSupport.named("size", queue.stream().count()));
   }
 
 }

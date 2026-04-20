@@ -1,24 +1,36 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 02 for the circular singly linked list series.
- *
- * <p>This scenario alternates front and back insertions while preserving the externally visible order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class CircularSinglyLinkedListExercise02 extends AbstractCircularSinglyLinkedListExercise {
+import co.edu.udla.ed.impl.scratch.CircularSinglyLinkedList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class CircularSinglyLinkedListExercise02 {
+
+  public String solveWithCustomIterator(CircularSinglyLinkedList<String> list) {
     list.addLast("B");
     list.addFirst("A");
     list.addLast("C");
     list.addFirst("inicio");
     list.addLast("D");
-    return ExerciseSupport.snapshot(list);
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
+
+  public String solveWithJavaLoops(LinkedList<String> list) {
+    list.addLast("B");
+    list.addFirst("A");
+    list.addLast("C");
+    list.addFirst("inicio");
+    list.addLast("D");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(LinkedList<String> list) {
+    list.addLast("B");
+    list.addFirst("A");
+    list.addLast("C");
+    list.addFirst("inicio");
+    list.addLast("D");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

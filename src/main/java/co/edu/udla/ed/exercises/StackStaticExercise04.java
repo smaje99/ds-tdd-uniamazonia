@@ -1,31 +1,30 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 04 for the array-backed stack series.
- *
- * <p>This scenario uses a longer sequence to show that dynamic growth does not break LIFO behavior. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackStaticExercise04 extends AbstractStackStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticStack;
 
-  @Override
-  protected String solve(Stack<String> stack) {
-    stack.push("0");
-    stack.push("1");
-    stack.push("2");
-    stack.push("3");
-    stack.push("4");
-    stack.push("5");
-    stack.push("6");
-    stack.push("7");
-    stack.push("8");
-    stack.push("9");
-    stack.push("10");
-    stack.push("11");
-    return ExerciseSupport.named("pops", popAll(stack));
+public final class StackStaticExercise04 {
+
+  public String solveWithCustomIterator(StaticStack<String> stack) {
+    for (int i = 0; i <= 11; i++) {
+      stack.push(String.valueOf(i));
+    }
+    return ExerciseSupport.named("pops", ExerciseSupport.snapshotWithIterator(stack));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> stack) {
+    for (int i = 0; i <= 11; i++) {
+      stack.addLast(String.valueOf(i));
+    }
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithLoop(stack));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> stack) {
+    for (int i = 0; i <= 11; i++) {
+      stack.addLast(String.valueOf(i));
+    }
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithStreams(stack));
   }
 
 }

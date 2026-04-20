@@ -1,19 +1,24 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Graph;
+import java.util.LinkedHashSet;
+import java.util.Map;
 
-/**
- * Guided exercise 04 for the adjacency-list graph series.
- *
- * <p>This scenario captures the error case where the traversal starts from a missing vertex. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class AdjacencyListGraphExercise04 extends AbstractAdjacencyListGraphExercise {
+import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
 
-  @Override
-  protected String solve(Graph<String> graph) {
+public final class AdjacencyListGraphExercise04 {
+
+  public String solveWithCustomIterator(AdjacencyListGraph<String> graph) {
     graph.bfs("X");
+    return "unreachable";
+  }
+
+  public String solveWithJavaLoops(Map<String, LinkedHashSet<String>> graph) {
+    ExerciseSupport.graphBfs(graph, "X");
+    return "unreachable";
+  }
+
+  public String solveWithStreams(Map<String, LinkedHashSet<String>> graph) {
+    ExerciseSupport.graphBfs(graph, "X");
     return "unreachable";
   }
 

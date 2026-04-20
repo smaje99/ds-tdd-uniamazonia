@@ -1,22 +1,30 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 01 for the circular doubly linked list series.
- *
- * <p>This scenario builds a basic circular doubly linked list and reports the observable order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class CircularDoublyLinkedListExercise01 extends AbstractCircularDoublyLinkedListExercise {
+import co.edu.udla.ed.impl.scratch.CircularDoublyLinkedList;
 
-  @Override
-  protected String solve(List<String> list) {
+public final class CircularDoublyLinkedListExercise01 {
+
+  public String solveWithCustomIterator(CircularDoublyLinkedList<String> list) {
     list.addLast("uno");
     list.addLast("dos");
     list.addLast("tres");
-    return ExerciseSupport.snapshot(list);
+    return ExerciseSupport.snapshotWithIterator(list);
+  }
+
+  public String solveWithJavaLoops(LinkedList<String> list) {
+    list.addLast("uno");
+    list.addLast("dos");
+    list.addLast("tres");
+    return ExerciseSupport.snapshotWithLoop(list);
+  }
+
+  public String solveWithStreams(LinkedList<String> list) {
+    list.addLast("uno");
+    list.addLast("dos");
+    list.addLast("tres");
+    return ExerciseSupport.snapshotWithStreams(list);
   }
 
 }

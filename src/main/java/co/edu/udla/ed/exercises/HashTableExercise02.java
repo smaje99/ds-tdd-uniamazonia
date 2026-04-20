@@ -1,23 +1,35 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.HashTable;
+import java.util.LinkedHashMap;
 
-/**
- * Guided exercise 02 for the hash-table series.
- *
- * <p>This scenario overwrites an existing key and reports both the previous value and final state. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class HashTableExercise02 extends AbstractStringHashTableExercise {
+import co.edu.udla.ed.impl.scratch.SeparateChainingHashTable;
 
-  @Override
-  protected String solve(HashTable<String, Integer> table) {
+public final class HashTableExercise02 {
+
+  public String solveWithCustomIterator(SeparateChainingHashTable<String, Integer> table) {
+    table.put("A", 10);
+    Integer previous = table.put("A", 99);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("previous", previous),
+        ExerciseSupport.named("size", ExerciseSupport.countWithIterator(table)),
+        ExerciseSupport.named("getA", table.get("A")));
+  }
+
+  public String solveWithJavaLoops(LinkedHashMap<String, Integer> table) {
     table.put("A", 10);
     Integer previous = table.put("A", 99);
     return ExerciseSupport.format(
         ExerciseSupport.named("previous", previous),
         ExerciseSupport.named("size", table.size()),
+        ExerciseSupport.named("getA", table.get("A")));
+  }
+
+  public String solveWithStreams(LinkedHashMap<String, Integer> table) {
+    table.put("A", 10);
+    Integer previous = table.put("A", 99);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("previous", previous),
+        ExerciseSupport.named("size", table.entrySet().stream().count()),
         ExerciseSupport.named("getA", table.get("A")));
   }
 

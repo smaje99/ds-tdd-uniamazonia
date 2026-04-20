@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 05 for the array-backed queue series.
- *
- * <p>This scenario uses learner domain objects to validate FIFO behavior through custom values. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueStaticExercise05 extends AbstractQueueStaticDomainExercise {
+import co.edu.udla.ed.impl.scratch.StaticQueue;
 
-  @Override
-  protected String solve(Queue<ExerciseSupport.Learner> queue) {
+public final class QueueStaticExercise05 {
+
+  public String solveWithCustomIterator(StaticQueue<ExerciseSupport.Learner> queue) {
     queue.enqueue(ExerciseSupport.learner("Ana", 101));
     queue.enqueue(ExerciseSupport.learner("Luis", 203));
     queue.enqueue(ExerciseSupport.learner("Mia", 305));
@@ -21,7 +15,31 @@ public final class QueueStaticExercise05 extends AbstractQueueStaticDomainExerci
     return ExerciseSupport.format(
         ExerciseSupport.named("frontMatches", frontMatches),
         ExerciseSupport.named("served", served),
-        ExerciseSupport.named("remaining", dequeueAll(queue)));
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithIterator(queue)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<ExerciseSupport.Learner> queue) {
+    queue.addLast(ExerciseSupport.learner("Ana", 101));
+    queue.addLast(ExerciseSupport.learner("Luis", 203));
+    queue.addLast(ExerciseSupport.learner("Mia", 305));
+    boolean frontMatches = queue.peekFirst().equals(ExerciseSupport.learner("Ana", 101));
+    ExerciseSupport.Learner served = queue.removeFirst();
+    return ExerciseSupport.format(
+        ExerciseSupport.named("frontMatches", frontMatches),
+        ExerciseSupport.named("served", served),
+        ExerciseSupport.named("remaining", ExerciseSupport.drainDequeWithLoop(queue)));
+  }
+
+  public String solveWithStreams(ArrayDeque<ExerciseSupport.Learner> queue) {
+    queue.addLast(ExerciseSupport.learner("Ana", 101));
+    queue.addLast(ExerciseSupport.learner("Luis", 203));
+    queue.addLast(ExerciseSupport.learner("Mia", 305));
+    boolean frontMatches = queue.peekFirst().equals(ExerciseSupport.learner("Ana", 101));
+    ExerciseSupport.Learner served = queue.removeFirst();
+    return ExerciseSupport.format(
+        ExerciseSupport.named("frontMatches", frontMatches),
+        ExerciseSupport.named("served", served),
+        ExerciseSupport.named("remaining", ExerciseSupport.snapshotWithStreams(queue)));
   }
 
 }

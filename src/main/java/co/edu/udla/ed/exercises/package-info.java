@@ -2,9 +2,9 @@
  * Guided exercises built on top of the data-structure implementations in this repository.
  *
  * <p>The classes in this package are intentionally small and scenario-driven. Each public
- * {@code ExerciseNN} class models one teaching activity, runs the same sequence on the scratch,
- * linear, and collections-based implementations, and returns a normalized feedback string that the
- * test suite can compare against a known expected result.</p>
+ * {@code ExerciseNN} class models one teaching activity and exposes it through three explicit
+ * methods: custom structure + iterator, Java collections + loops, and Java collections +
+ * streams.</p>
  *
  * <p>The package is designed for students who copy an exercise template and complete or inspect
  * the logic locally. Because the feedback is generated through the public APIs of the structures,

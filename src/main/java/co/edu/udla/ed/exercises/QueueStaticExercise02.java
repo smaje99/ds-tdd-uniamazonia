@@ -1,22 +1,30 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 02 for the array-backed queue series.
- *
- * <p>This scenario dequeues elements to expose FIFO service order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueStaticExercise02 extends AbstractQueueStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticQueue;
 
-  @Override
-  protected String solve(Queue<String> queue) {
+public final class QueueStaticExercise02 {
+
+  public String solveWithCustomIterator(StaticQueue<String> queue) {
     queue.enqueue("uno");
     queue.enqueue("dos");
     queue.enqueue("tres");
-    return ExerciseSupport.named("dequeues", dequeueAll(queue));
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithIterator(queue));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> queue) {
+    queue.addLast("uno");
+    queue.addLast("dos");
+    queue.addLast("tres");
+    return ExerciseSupport.named("dequeues", ExerciseSupport.drainDequeWithLoop(queue));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> queue) {
+    queue.addLast("uno");
+    queue.addLast("dos");
+    queue.addLast("tres");
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithStreams(queue));
   }
 
 }

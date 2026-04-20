@@ -1,18 +1,13 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.AVLTree;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
-/**
- * Guided exercise 04 for the AVL-tree series.
- *
- * <p>This scenario combines several insertions and one removal to show a larger balanced result. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class AVLTreeExercise04 extends AbstractAVLTreeStructureExercise {
+import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
 
-  @Override
-  protected String solve(AVLTree<Integer> tree) {
+public final class AVLTreeExercise04 {
+
+  public String solveWithCustomIterator(LinkedAVLTree<Integer> tree) {
     tree.insert(10);
     tree.insert(20);
     tree.insert(30);
@@ -23,7 +18,35 @@ public final class AVLTreeExercise04 extends AbstractAVLTreeStructureExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("contains25", tree.contains(25)),
         ExerciseSupport.named("height", tree.height()),
-        ExerciseSupport.named("inOrder", ExerciseSupport.snapshot(tree.inOrder())));
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithIterator(tree.inOrderIterable())));
+  }
+
+  public String solveWithJavaLoops(TreeSet<Integer> tree) {
+    tree.add(10);
+    tree.add(20);
+    tree.add(30);
+    tree.add(40);
+    tree.add(50);
+    tree.add(25);
+    tree.remove(50);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("contains25", tree.contains(25)),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithLoop(new ArrayList<>(tree))));
+  }
+
+  public String solveWithStreams(TreeSet<Integer> tree) {
+    tree.add(10);
+    tree.add(20);
+    tree.add(30);
+    tree.add(40);
+    tree.add(50);
+    tree.add(25);
+    tree.remove(50);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("contains25", tree.contains(25)),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithStreams(tree)));
   }
 
 }

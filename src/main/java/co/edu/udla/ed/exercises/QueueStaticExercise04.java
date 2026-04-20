@@ -1,38 +1,48 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 04 for the array-backed queue series.
- *
- * <p>This scenario shows that logical reuse and growth preserve FIFO order in the circular buffer. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueStaticExercise04 extends AbstractQueueStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticQueue;
 
-  @Override
-  protected String solve(Queue<String> queue) {
-    queue.enqueue("0");
-    queue.enqueue("1");
-    queue.enqueue("2");
-    queue.enqueue("3");
-    queue.enqueue("4");
-    queue.enqueue("5");
-    queue.enqueue("6");
-    queue.enqueue("7");
+public final class QueueStaticExercise04 {
 
+  public String solveWithCustomIterator(StaticQueue<String> queue) {
+    for (int i = 0; i <= 7; i++) {
+      queue.enqueue(String.valueOf(i));
+    }
     queue.dequeue();
     queue.dequeue();
     queue.dequeue();
+    for (int i = 8; i <= 12; i++) {
+      queue.enqueue(String.valueOf(i));
+    }
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithIterator(queue));
+  }
 
-    queue.enqueue("8");
-    queue.enqueue("9");
-    queue.enqueue("10");
-    queue.enqueue("11");
-    queue.enqueue("12");
+  public String solveWithJavaLoops(ArrayDeque<String> queue) {
+    for (int i = 0; i <= 7; i++) {
+      queue.addLast(String.valueOf(i));
+    }
+    queue.removeFirst();
+    queue.removeFirst();
+    queue.removeFirst();
+    for (int i = 8; i <= 12; i++) {
+      queue.addLast(String.valueOf(i));
+    }
+    return ExerciseSupport.named("dequeues", ExerciseSupport.drainDequeWithLoop(queue));
+  }
 
-    return ExerciseSupport.named("dequeues", dequeueAll(queue));
+  public String solveWithStreams(ArrayDeque<String> queue) {
+    for (int i = 0; i <= 7; i++) {
+      queue.addLast(String.valueOf(i));
+    }
+    queue.removeFirst();
+    queue.removeFirst();
+    queue.removeFirst();
+    for (int i = 8; i <= 12; i++) {
+      queue.addLast(String.valueOf(i));
+    }
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithStreams(queue));
   }
 
 }

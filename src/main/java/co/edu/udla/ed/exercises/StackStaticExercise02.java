@@ -1,22 +1,30 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 02 for the array-backed stack series.
- *
- * <p>This scenario pops elements to expose the LIFO removal order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackStaticExercise02 extends AbstractStackStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticStack;
 
-  @Override
-  protected String solve(Stack<String> stack) {
+public final class StackStaticExercise02 {
+
+  public String solveWithCustomIterator(StaticStack<String> stack) {
     stack.push("uno");
     stack.push("dos");
     stack.push("tres");
-    return ExerciseSupport.named("pops", popAll(stack));
+    return ExerciseSupport.named("pops", ExerciseSupport.snapshotWithIterator(stack));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> stack) {
+    stack.addLast("uno");
+    stack.addLast("dos");
+    stack.addLast("tres");
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithLoop(stack));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> stack) {
+    stack.addLast("uno");
+    stack.addLast("dos");
+    stack.addLast("tres");
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithStreams(stack));
   }
 
 }

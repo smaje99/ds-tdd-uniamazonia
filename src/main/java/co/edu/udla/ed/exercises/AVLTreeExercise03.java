@@ -1,18 +1,13 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.AVLTree;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
-/**
- * Guided exercise 03 for the AVL-tree series.
- *
- * <p>This scenario removes a value and reports the rebalanced AVL state. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class AVLTreeExercise03 extends AbstractAVLTreeStructureExercise {
+import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
 
-  @Override
-  protected String solve(AVLTree<Integer> tree) {
+public final class AVLTreeExercise03 {
+
+  public String solveWithCustomIterator(LinkedAVLTree<Integer> tree) {
     tree.insert(3);
     tree.insert(2);
     tree.insert(4);
@@ -21,7 +16,31 @@ public final class AVLTreeExercise03 extends AbstractAVLTreeStructureExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("removed", removed),
         ExerciseSupport.named("height", tree.height()),
-        ExerciseSupport.named("inOrder", ExerciseSupport.snapshot(tree.inOrder())));
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithIterator(tree.inOrderIterable())));
+  }
+
+  public String solveWithJavaLoops(TreeSet<Integer> tree) {
+    tree.add(3);
+    tree.add(2);
+    tree.add(4);
+    tree.add(1);
+    boolean removed = tree.remove(4);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithLoop(new ArrayList<>(tree))));
+  }
+
+  public String solveWithStreams(TreeSet<Integer> tree) {
+    tree.add(3);
+    tree.add(2);
+    tree.add(4);
+    tree.add(1);
+    boolean removed = tree.remove(4);
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithStreams(tree)));
   }
 
 }

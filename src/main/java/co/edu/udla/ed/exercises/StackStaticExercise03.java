@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 03 for the array-backed stack series.
- *
- * <p>This scenario interleaves pushes and pops so students can reason about the current size. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackStaticExercise03 extends AbstractStackStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticStack;
 
-  @Override
-  protected String solve(Stack<String> stack) {
+public final class StackStaticExercise03 {
+
+  public String solveWithCustomIterator(StaticStack<String> stack) {
     stack.push("A");
     stack.push("B");
     String popped = stack.pop();
@@ -20,7 +14,29 @@ public final class StackStaticExercise03 extends AbstractStackStaticExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("popped", popped),
         ExerciseSupport.named("peek", stack.peek()),
+        ExerciseSupport.named("size", ExerciseSupport.countWithIterator(stack)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> stack) {
+    stack.addLast("A");
+    stack.addLast("B");
+    String popped = stack.removeLast();
+    stack.addLast("C");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("popped", popped),
+        ExerciseSupport.named("peek", stack.peekLast()),
         ExerciseSupport.named("size", stack.size()));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> stack) {
+    stack.addLast("A");
+    stack.addLast("B");
+    String popped = stack.removeLast();
+    stack.addLast("C");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("popped", popped),
+        ExerciseSupport.named("peek", stack.peekLast()),
+        ExerciseSupport.named("size", stack.stream().count()));
   }
 
 }

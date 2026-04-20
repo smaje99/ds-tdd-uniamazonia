@@ -1,7 +1,20 @@
 package co.edu.udla.ed.exercises;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 final class ExerciseSupport {
 
@@ -28,6 +41,311 @@ final class ExerciseSupport {
 
   static <T> String snapshot(Iterable<T> values) {
     return toJavaList(values).toString();
+  }
+
+  static <T> String snapshotWithIterator(Iterable<T> values) {
+    return snapshot(values);
+  }
+
+  static <T> String snapshotWithLoop(java.util.List<T> values) {
+    java.util.List<T> copy = new ArrayList<>();
+    for (int i = 0; i < values.size(); i++) {
+      copy.add(values.get(i));
+    }
+    return copy.toString();
+  }
+
+  static <T> String snapshotCollectionWithLoop(Collection<T> values) {
+    java.util.List<T> copy = new ArrayList<>();
+    for (T value : values) {
+      copy.add(value);
+    }
+    return copy.toString();
+  }
+
+  static <T> String snapshotWithStreams(Collection<T> values) {
+    return values.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T> String snapshotIterableWithStreams(Iterable<T> values) {
+    return StreamSupport.stream(values.spliterator(), false)
+        .map(String::valueOf)
+        .collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T> int countWithIterator(Iterable<T> values) {
+    int count = 0;
+    for (var _ : values) {
+      count++;
+    }
+    return count;
+  }
+
+  static <T> String dequeSnapshotWithLoop(Deque<T> values) {
+    java.util.List<T> copy = new ArrayList<>();
+    for (T value : values) {
+      copy.add(value);
+    }
+    return copy.toString();
+  }
+
+  static <T> String dequeSnapshotWithStreams(Deque<T> values) {
+    return values.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T> String drainDequeWithLoop(ArrayDeque<T> deque) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!deque.isEmpty()) {
+      values.add(deque.removeFirst());
+    }
+    return values.toString();
+  }
+
+  static <T> String stackDrainWithLoop(ArrayDeque<T> deque) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!deque.isEmpty()) {
+      values.add(deque.removeLast());
+    }
+    return values.toString();
+  }
+
+  static <T> String stackDrainWithStreams(ArrayDeque<T> deque) {
+    LinkedList<T> values = new LinkedList<>(deque);
+    Collections.reverse(values);
+    return values.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T> void treeMakeRoot(ArrayList<T> values, T rootValue) {
+    values.clear();
+    values.add(rootValue);
+  }
+
+  static <T> int treeAttachLeft(ArrayList<T> values, int parentIndex, T value) {
+    return treeAttach(values, parentIndex * 2 + 1, value);
+  }
+
+  static <T> int treeAttachRight(ArrayList<T> values, int parentIndex, T value) {
+    return treeAttach(values, parentIndex * 2 + 2, value);
+  }
+
+  static <T> int treeHeight(ArrayList<T> values) {
+    return treeHeight(values, 0);
+  }
+
+  static <T> java.util.List<T> treePreOrder(ArrayList<T> values) {
+    java.util.List<T> out = new ArrayList<>();
+    treePreOrder(values, 0, out);
+    return out;
+  }
+
+  static <T> java.util.List<T> treeInOrder(ArrayList<T> values) {
+    java.util.List<T> out = new ArrayList<>();
+    treeInOrder(values, 0, out);
+    return out;
+  }
+
+  static <T> java.util.List<T> treePostOrder(ArrayList<T> values) {
+    java.util.List<T> out = new ArrayList<>();
+    treePostOrder(values, 0, out);
+    return out;
+  }
+
+  static <T> java.util.List<T> treeLevelOrder(ArrayList<T> values) {
+    java.util.List<T> out = new ArrayList<>();
+    for (T value : values) {
+      if (value != null) {
+        out.add(value);
+      }
+    }
+    return out;
+  }
+
+  static <T extends Comparable<T>> int avlHeightFromValues(TreeSet<T> values) {
+    int size = values.size();
+    if (size == 0) {
+      return 0;
+    }
+    int height = 0;
+    int capacity = 0;
+    while (capacity < size) {
+      height++;
+      capacity = (1 << height) - 1;
+    }
+    return height;
+  }
+
+  static <V> void graphAddEdge(Map<V, LinkedHashSet<V>> graph, V from, V to) {
+    graph.computeIfAbsent(from, ignored -> new LinkedHashSet<>());
+    graph.computeIfAbsent(to, ignored -> new LinkedHashSet<>());
+    graph.get(from).add(to);
+    graph.get(to).add(from);
+  }
+
+  static <V> int graphEdgeCount(Map<V, LinkedHashSet<V>> graph) {
+    int adjacencyCount = 0;
+    for (Set<V> neighbors : graph.values()) {
+      adjacencyCount += neighbors.size();
+    }
+    return adjacencyCount / 2;
+  }
+
+  static <V> java.util.List<V> graphBfs(Map<V, LinkedHashSet<V>> graph, V start) {
+    requireGraphVertex(graph, start);
+    java.util.List<V> order = new ArrayList<>();
+    Set<V> visited = new HashSet<>();
+    ArrayDeque<V> queue = new ArrayDeque<>();
+    visited.add(start);
+    queue.addLast(start);
+    while (!queue.isEmpty()) {
+      V vertex = queue.removeFirst();
+      order.add(vertex);
+      for (V neighbor : graph.get(vertex)) {
+        if (visited.add(neighbor)) {
+          queue.addLast(neighbor);
+        }
+      }
+    }
+    return order;
+  }
+
+  static <V> java.util.List<V> graphDfs(Map<V, LinkedHashSet<V>> graph, V start) {
+    requireGraphVertex(graph, start);
+    java.util.List<V> order = new ArrayList<>();
+    Set<V> visited = new HashSet<>();
+    ArrayDeque<V> stack = new ArrayDeque<>();
+    stack.push(start);
+    while (!stack.isEmpty()) {
+      V vertex = stack.pop();
+      if (!visited.add(vertex)) {
+        continue;
+      }
+      order.add(vertex);
+      java.util.List<V> neighbors = new ArrayList<>(graph.get(vertex));
+      for (int i = neighbors.size() - 1; i >= 0; i--) {
+        V neighbor = neighbors.get(i);
+        if (!visited.contains(neighbor)) {
+          stack.push(neighbor);
+        }
+      }
+    }
+    return order;
+  }
+
+  static <V> boolean graphHasPath(Map<V, LinkedHashSet<V>> graph, V from, V to) {
+    if (!graph.containsKey(from) || !graph.containsKey(to)) {
+      return false;
+    }
+    return !graphShortestPath(graph, from, to).isEmpty();
+  }
+
+  static <V> java.util.List<V> graphShortestPath(Map<V, LinkedHashSet<V>> graph, V from, V to) {
+    if (!graph.containsKey(from) || !graph.containsKey(to)) {
+      return java.util.List.of();
+    }
+    if (Objects.equals(from, to)) {
+      return java.util.List.of(from);
+    }
+
+    ArrayDeque<V> queue = new ArrayDeque<>();
+    Map<V, V> previous = new HashMap<>();
+    Set<V> visited = new HashSet<>();
+    queue.addLast(from);
+    visited.add(from);
+
+    while (!queue.isEmpty()) {
+      V vertex = queue.removeFirst();
+      for (V neighbor : graph.get(vertex)) {
+        if (!visited.add(neighbor)) {
+          continue;
+        }
+        previous.put(neighbor, vertex);
+        if (Objects.equals(neighbor, to)) {
+          return rebuildPath(previous, from, to);
+        }
+        queue.addLast(neighbor);
+      }
+    }
+    return java.util.List.of();
+  }
+
+  private static <T> int treeAttach(ArrayList<T> values, int index, T value) {
+    ensureTreeCapacity(values, index);
+    if (values.get(index) != null) {
+      throw new IllegalStateException("child already exists");
+    }
+    values.set(index, value);
+    return index;
+  }
+
+  private static <T> void ensureTreeCapacity(ArrayList<T> values, int index) {
+    while (values.size() <= index) {
+      values.add(null);
+    }
+  }
+
+  private static <T> int treeHeight(ArrayList<T> values, int index) {
+    if (index >= values.size() || values.get(index) == null) {
+      return 0;
+    }
+    return 1 + Math.max(treeHeight(values, index * 2 + 1), treeHeight(values, index * 2 + 2));
+  }
+
+  private static <T> void treePreOrder(ArrayList<T> values, int index, java.util.List<T> out) {
+    if (index >= values.size()) {
+      return;
+    }
+    T value = values.get(index);
+    if (value == null) {
+      return;
+    }
+    out.add(value);
+    treePreOrder(values, index * 2 + 1, out);
+    treePreOrder(values, index * 2 + 2, out);
+  }
+
+  private static <T> void treeInOrder(ArrayList<T> values, int index, java.util.List<T> out) {
+    if (index >= values.size()) {
+      return;
+    }
+    T value = values.get(index);
+    if (value == null) {
+      return;
+    }
+    treeInOrder(values, index * 2 + 1, out);
+    out.add(value);
+    treeInOrder(values, index * 2 + 2, out);
+  }
+
+  private static <T> void treePostOrder(ArrayList<T> values, int index, java.util.List<T> out) {
+    if (index >= values.size()) {
+      return;
+    }
+    T value = values.get(index);
+    if (value == null) {
+      return;
+    }
+    treePostOrder(values, index * 2 + 1, out);
+    treePostOrder(values, index * 2 + 2, out);
+    out.add(value);
+  }
+
+  private static <V> void requireGraphVertex(Map<V, LinkedHashSet<V>> graph, V start) {
+    if (!graph.containsKey(start)) {
+      throw new IllegalArgumentException("Vertex does not exist: " + start);
+    }
+  }
+
+  private static <V> java.util.List<V> rebuildPath(Map<V, V> previous, V from, V to) {
+    LinkedList<V> path = new LinkedList<>();
+    V current = to;
+    while (current != null) {
+      path.addFirst(current);
+      if (Objects.equals(current, from)) {
+        return path;
+      }
+      current = previous.get(current);
+    }
+    return java.util.List.of();
   }
 
   /**

@@ -1,24 +1,36 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 04 for the linked stack series.
- *
- * <p>This scenario drains the whole structure to make the final pop order explicit. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackLinkedExercise04 extends AbstractStackLinkedExercise {
+import co.edu.udla.ed.impl.scratch.LinkedStack;
 
-  @Override
-  protected String solve(Stack<String> stack) {
+public final class StackLinkedExercise04 {
+
+  public String solveWithCustomIterator(LinkedStack<String> stack) {
     stack.push("primero");
     stack.push("segundo");
     stack.push("tercero");
     stack.push("cuarto");
     stack.push("quinto");
-    return ExerciseSupport.named("pops", popAll(stack));
+    return ExerciseSupport.named("pops", ExerciseSupport.snapshotWithIterator(stack));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> stack) {
+    stack.addLast("primero");
+    stack.addLast("segundo");
+    stack.addLast("tercero");
+    stack.addLast("cuarto");
+    stack.addLast("quinto");
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithLoop(stack));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> stack) {
+    stack.addLast("primero");
+    stack.addLast("segundo");
+    stack.addLast("tercero");
+    stack.addLast("cuarto");
+    stack.addLast("quinto");
+    return ExerciseSupport.named("pops", ExerciseSupport.stackDrainWithStreams(stack));
   }
 
 }

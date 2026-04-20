@@ -1,18 +1,13 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.AVLTree;
+import java.util.ArrayList;
+import java.util.TreeSet;
 
-/**
- * Guided exercise 05 for the AVL-tree series.
- *
- * <p>This scenario uses comparable learner domain objects so balancing can be observed with custom ordered values. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class AVLTreeExercise05 extends AbstractAVLTreeDomainExercise {
+import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
 
-  @Override
-  protected String solve(AVLTree<ExerciseSupport.RankedLearner> tree) {
+public final class AVLTreeExercise05 {
+
+  public String solveWithCustomIterator(LinkedAVLTree<ExerciseSupport.RankedLearner> tree) {
     tree.insert(ExerciseSupport.rankedLearner("Luis", 40));
     tree.insert(ExerciseSupport.rankedLearner("Ana", 20));
     tree.insert(ExerciseSupport.rankedLearner("Zoe", 60));
@@ -21,7 +16,31 @@ public final class AVLTreeExercise05 extends AbstractAVLTreeDomainExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("containsEva", tree.contains(ExerciseSupport.rankedLearner("Eva", 30))),
         ExerciseSupport.named("height", tree.height()),
-        ExerciseSupport.named("inOrder", ExerciseSupport.snapshot(tree.inOrder())));
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithIterator(tree.inOrderIterable())));
+  }
+
+  public String solveWithJavaLoops(TreeSet<ExerciseSupport.RankedLearner> tree) {
+    tree.add(ExerciseSupport.rankedLearner("Luis", 40));
+    tree.add(ExerciseSupport.rankedLearner("Ana", 20));
+    tree.add(ExerciseSupport.rankedLearner("Zoe", 60));
+    tree.add(ExerciseSupport.rankedLearner("Eva", 30));
+    tree.add(ExerciseSupport.rankedLearner("Ian", 10));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("containsEva", tree.contains(ExerciseSupport.rankedLearner("Eva", 30))),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithLoop(new ArrayList<>(tree))));
+  }
+
+  public String solveWithStreams(TreeSet<ExerciseSupport.RankedLearner> tree) {
+    tree.add(ExerciseSupport.rankedLearner("Luis", 40));
+    tree.add(ExerciseSupport.rankedLearner("Ana", 20));
+    tree.add(ExerciseSupport.rankedLearner("Zoe", 60));
+    tree.add(ExerciseSupport.rankedLearner("Eva", 30));
+    tree.add(ExerciseSupport.rankedLearner("Ian", 10));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("containsEva", tree.contains(ExerciseSupport.rankedLearner("Eva", 30))),
+        ExerciseSupport.named("height", ExerciseSupport.avlHeightFromValues(tree)),
+        ExerciseSupport.named("inOrder", ExerciseSupport.snapshotWithStreams(tree)));
   }
 
 }

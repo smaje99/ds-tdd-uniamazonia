@@ -1,24 +1,36 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Stack;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 01 for the array-backed stack series.
- *
- * <p>This scenario introduces push and peek on the array-backed stack. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class StackStaticExercise01 extends AbstractStackStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticStack;
 
-  @Override
-  protected String solve(Stack<String> stack) {
+public final class StackStaticExercise01 {
+
+  public String solveWithCustomIterator(StaticStack<String> stack) {
     stack.push("A");
     stack.push("B");
     stack.push("C");
     return ExerciseSupport.format(
         ExerciseSupport.named("peek", stack.peek()),
+        ExerciseSupport.named("size", ExerciseSupport.countWithIterator(stack)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> stack) {
+    stack.addLast("A");
+    stack.addLast("B");
+    stack.addLast("C");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("peek", stack.peekLast()),
         ExerciseSupport.named("size", stack.size()));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> stack) {
+    stack.addLast("A");
+    stack.addLast("B");
+    stack.addLast("C");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("peek", stack.peekLast()),
+        ExerciseSupport.named("size", stack.stream().count()));
   }
 
 }

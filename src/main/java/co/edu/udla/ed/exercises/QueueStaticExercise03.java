@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 03 for the array-backed queue series.
- *
- * <p>This scenario interleaves enqueues and dequeues so students can reason about the current size. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueStaticExercise03 extends AbstractQueueStaticExercise {
+import co.edu.udla.ed.impl.scratch.StaticQueue;
 
-  @Override
-  protected String solve(Queue<String> queue) {
+public final class QueueStaticExercise03 {
+
+  public String solveWithCustomIterator(StaticQueue<String> queue) {
     queue.enqueue("A");
     queue.enqueue("B");
     String firstOut = queue.dequeue();
@@ -21,7 +15,31 @@ public final class QueueStaticExercise03 extends AbstractQueueStaticExercise {
     return ExerciseSupport.format(
         ExerciseSupport.named("firstOut", firstOut),
         ExerciseSupport.named("peek", queue.peek()),
+        ExerciseSupport.named("size", ExerciseSupport.countWithIterator(queue)));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> queue) {
+    queue.addLast("A");
+    queue.addLast("B");
+    String firstOut = queue.removeFirst();
+    queue.addLast("C");
+    queue.addLast("D");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("firstOut", firstOut),
+        ExerciseSupport.named("peek", queue.peekFirst()),
         ExerciseSupport.named("size", queue.size()));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> queue) {
+    queue.addLast("A");
+    queue.addLast("B");
+    String firstOut = queue.removeFirst();
+    queue.addLast("C");
+    queue.addLast("D");
+    return ExerciseSupport.format(
+        ExerciseSupport.named("firstOut", firstOut),
+        ExerciseSupport.named("peek", queue.peekFirst()),
+        ExerciseSupport.named("size", queue.stream().count()));
   }
 
 }

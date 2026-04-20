@@ -1,22 +1,30 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.Queue;
+import java.util.ArrayDeque;
 
-/**
- * Guided exercise 02 for the linked queue series.
- *
- * <p>This scenario dequeues elements to expose FIFO service order. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class QueueLinkedExercise02 extends AbstractQueueLinkedExercise {
+import co.edu.udla.ed.impl.scratch.LinkedQueue;
 
-  @Override
-  protected String solve(Queue<String> queue) {
+public final class QueueLinkedExercise02 {
+
+  public String solveWithCustomIterator(LinkedQueue<String> queue) {
     queue.enqueue("A");
     queue.enqueue("B");
     queue.enqueue("C");
-    return ExerciseSupport.named("dequeues", dequeueAll(queue));
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithIterator(queue));
+  }
+
+  public String solveWithJavaLoops(ArrayDeque<String> queue) {
+    queue.addLast("A");
+    queue.addLast("B");
+    queue.addLast("C");
+    return ExerciseSupport.named("dequeues", ExerciseSupport.drainDequeWithLoop(queue));
+  }
+
+  public String solveWithStreams(ArrayDeque<String> queue) {
+    queue.addLast("A");
+    queue.addLast("B");
+    queue.addLast("C");
+    return ExerciseSupport.named("dequeues", ExerciseSupport.snapshotWithStreams(queue));
   }
 
 }

@@ -1,18 +1,12 @@
 package co.edu.udla.ed.exercises;
 
-import co.edu.udla.ed.api.List;
+import java.util.LinkedList;
 
-/**
- * Guided exercise 05 for the singly linked simple-list series.
- *
- * <p>This scenario uses learner domain objects to reinforce that membership depends on logical equality, not object identity. The solver runs the same scripted operations on the scratch, linear, and
- * collections-based implementations and returns the feedback string that the exercise tests
- * compare against.</p>
- */
-public final class SimpleListLinkedExercise05 extends AbstractSimpleListLinkedDomainExercise {
+import co.edu.udla.ed.impl.scratch.SinglyLinkedList;
 
-  @Override
-  protected String solve(List<ExerciseSupport.Learner> list) {
+public final class SimpleListLinkedExercise05 {
+
+  public String solveWithCustomIterator(SinglyLinkedList<ExerciseSupport.Learner> list) {
     list.addFirst(ExerciseSupport.learner("Luis", 203));
     list.addLast(ExerciseSupport.learner("Mia", 305));
     list.addFirst(ExerciseSupport.learner("Ana", 101));
@@ -21,7 +15,39 @@ public final class SimpleListLinkedExercise05 extends AbstractSimpleListLinkedDo
     return ExerciseSupport.format(
         ExerciseSupport.named("removed", removed),
         ExerciseSupport.named("containsAna", list.contains(ExerciseSupport.learner("Ana", 101))),
-        ExerciseSupport.named("snapshot", ExerciseSupport.snapshot(list)));
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithIterator(list)));
+  }
+
+  public String solveWithJavaLoops(LinkedList<ExerciseSupport.Learner> list) {
+    list.addFirst(ExerciseSupport.learner("Luis", 203));
+    list.addLast(ExerciseSupport.learner("Mia", 305));
+    list.addFirst(ExerciseSupport.learner("Ana", 101));
+    ExerciseSupport.Learner removed = list.removeLast();
+    list.addLast(ExerciseSupport.learner("Leo", 404));
+    boolean containsAna = false;
+    for (ExerciseSupport.Learner learner : list) {
+      if (learner.equals(ExerciseSupport.learner("Ana", 101))) {
+        containsAna = true;
+        break;
+      }
+    }
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("containsAna", containsAna),
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithLoop(list)));
+  }
+
+  public String solveWithStreams(LinkedList<ExerciseSupport.Learner> list) {
+    list.addFirst(ExerciseSupport.learner("Luis", 203));
+    list.addLast(ExerciseSupport.learner("Mia", 305));
+    list.addFirst(ExerciseSupport.learner("Ana", 101));
+    ExerciseSupport.Learner removed = list.removeLast();
+    list.addLast(ExerciseSupport.learner("Leo", 404));
+    return ExerciseSupport.format(
+        ExerciseSupport.named("removed", removed),
+        ExerciseSupport.named("containsAna", list.stream()
+            .anyMatch(ExerciseSupport.learner("Ana", 101)::equals)),
+        ExerciseSupport.named("snapshot", ExerciseSupport.snapshotWithStreams(list)));
   }
 
 }
