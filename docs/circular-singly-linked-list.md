@@ -34,13 +34,8 @@ With only a tail reference:
 
 - `scratch`
   - `CircularSinglyLinkedList`
-- `collections`
-  - `CollectionsCircularSinglyLinkedList`
-- `linear`
-  - `LinearCircularSinglyLinkedList`
-
-The `collections` and `linear` wrappers preserve the contract even if the JDK
-backing structure is not literally circular.
+- guided exercises compare the circular scratch structure with JDK-backed
+  resolutions written once with loops and once with streams
 
 ## Guided Exercises
 

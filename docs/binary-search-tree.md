@@ -43,13 +43,8 @@ For a degenerate BST shaped like a chain:
 
 - `scratch`
   - `LinkedBinarySearchTree`
-- `collections`
-  - `CollectionsBinarySearchTree`
-- `linear`
-  - `LinearBinarySearchTree`
-
-The `linear` version keeps sorted order but does not store a real tree, so it
-is useful as a contrast between API semantics and internal representation.
+- guided exercises compare the scratch BST with JDK ordered sets using loops
+  and streams
 
 ## Guided Exercises
 

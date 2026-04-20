@@ -39,10 +39,8 @@ from head or tail.
 
 - `scratch`
   - `DoublyLinkedList`
-- `collections`
-  - `CollectionsDoublyLinkedList`
-- `linear`
-  - `LinearDoublyLinkedList`
+- guided exercises compare `custom + iterator`, `Java + loops`, and
+  `Java + streams`
 
 ## Guided Exercises
 

@@ -47,13 +47,8 @@ For a tree with `n` nodes:
 
 - `scratch`
   - `LinkedBinaryTree`
-- `collections`
-  - `CollectionsBinaryTree`
-- `linear`
-  - `LinearBinaryTree`
-
-The `collections` and `linear` implementations still use real nodes because the
-API exposes nodes directly.
+- guided exercises compare the scratch tree with JDK-backed tree modeling
+  expressed through loops and through streams
 
 ## Guided Exercises
 

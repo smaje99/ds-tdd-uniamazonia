@@ -7,8 +7,8 @@ Each document is written for students who need to:
 
 - understand the invariant of the structure before coding
 - predict the expected complexity of each operation
-- identify the difference between the `scratch`, `collections`, and `linear`
-  approaches
+- connect the scratch implementation with the three guided exercise approaches:
+  `custom + iterator`, `Java + loops`, and `Java + streams`
 - avoid the most common mistakes that make contract tests fail
 - connect the theory of a structure with the guided exercises under
   `src/main/java/co/edu/udla/ed/exercises`

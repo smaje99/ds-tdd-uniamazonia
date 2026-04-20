@@ -59,10 +59,10 @@ Operations:
 - `scratch`
   - `StaticStack`, `LinkedStack`
   - `StaticQueue`, `LinkedQueue`
-- `collections`
-  - `CollectionsStack`, `CollectionsQueue`
-- `linear`
-  - `LinearStack`, `LinearQueue`
+- guided exercises
+  - keep the scratch structures as the reference implementation
+  - mirror the same problems with `ArrayDeque` and loops
+  - mirror them again with `ArrayDeque` and streams
 
 ## Guided Exercises
 

@@ -22,8 +22,8 @@ The repository now includes a full guided exercise layer under
 `src/main/java/co/edu/udla/ed/exercises`.
 
 - each public `ExerciseNN` class models one classroom activity
-- every exercise runs the same scenario on `scratch`, `linear`, and
-  `collections`
+- every exercise exposes the same problem through `custom + iterator`,
+  `Java + loops`, and `Java + streams`
 - tests under `src/test/java/co/edu/udla/ed/exercises` provide the feedback a
   student receives after copying or completing an exercise template
 - `Exercise05` in every series uses custom domain objects instead of only
@@ -70,14 +70,10 @@ ds-tdd-uniamazonia/
     common/
     impl/
       scratch/
-      collections/
-      linear/
     exercises/
   src/test/java/co/edu/udla/ed/
     contract/
     scratch/
-    collections/
-    linear/
     exercises/
 ```
 
@@ -101,12 +97,14 @@ To run one guided exercise test class:
 mvn -Dtest=SimpleListStaticExercise01Test test
 ```
 
-## Implementation Approaches
+## Exercise Approaches
 
-- `scratch`: custom nodes, arrays, and explicit algorithmic logic
-- `collections`: adapters built directly on top of Java collections
-- `linear`: Java-collection-based implementations that emphasize iterative,
-  linear reasoning and minimal extra machinery
+- `custom + iterator`: students traverse their own structure with the iterator
+  pattern
+- `Java + loops`: the same problem is solved with JDK collections and
+  traditional control flow
+- `Java + streams`: the JDK-based solution is observed or reduced with
+  `Collections` and `Stream` pipelines
 
 ## Study Notes
 
@@ -120,34 +118,32 @@ the invariant to running the targeted practice sequence.
 
 ## Progress Table
 
-| Topic | Scratch | Collections | Linear |
-| --- | --- | --- | --- |
-| Simple List (static + dynamic) | done | example done | example done |
-| Doubly Linked List | done | done | done |
-| Circular Singly Linked List | done | done | done |
-| Circular Doubly Linked List | done | done | done |
-| Stacks and Queues (static + dynamic) | done | example done | example done |
-| Binary Tree (general) | done | done | done |
-| Binary Search Tree (BST) | done | done | done |
-| AVL Tree | done | done | done |
-| Graphs | done | done | done |
-| Hash Tables | done | done | done |
+| Topic | Scratch | Guided 3-Approach Exercises |
+| --- | --- | --- |
+| Simple List (static + dynamic) | done | done |
+| Doubly Linked List | done | done |
+| Circular Singly Linked List | done | done |
+| Circular Doubly Linked List | done | done |
+| Stacks and Queues (static + dynamic) | done | done |
+| Binary Tree (general) | done | done |
+| Binary Search Tree (BST) | done | done |
+| AVL Tree | done | done |
+| Graphs | done | done |
+| Hash Tables | done | done |
 
 ## Current Focus
 
 - preserve the existing contract tests for the scratch implementations
 - expand missing topics without redesigning working public APIs
-- keep extending the `collections` and `linear` approaches to the remaining
-  list variants already available in `scratch`
+- keep the exercise templates explicit and classroom-friendly
 - keep the project friendly for classroom use and grading
 
 ## Notes For Instructors
 
 - Contract tests are the reusable specification layer.
-- Concrete tests under `scratch`, `collections`, and `linear` bind an
-  implementation to the shared contract.
+- Concrete tests under `scratch` bind each maintained implementation to the
+  shared contract.
 - Guided exercise tests under `src/test/java/co/edu/udla/ed/exercises`
-  validate the normalized feedback strings returned by the student-facing
-  exercise layer.
+  validate the three explicit student-facing approaches.
 - `HashTable` now includes a separate-chaining scratch implementation with
   collision and resizing coverage.

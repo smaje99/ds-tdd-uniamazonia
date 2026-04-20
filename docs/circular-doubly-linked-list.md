@@ -34,10 +34,8 @@ With head and tail:
 
 - `scratch`
   - `CircularDoublyLinkedList`
-- `collections`
-  - `CollectionsCircularDoublyLinkedList`
-- `linear`
-  - `LinearCircularDoublyLinkedList`
+- guided exercises compare `custom + iterator`, `Java + loops`, and
+  `Java + streams`
 
 ## Guided Exercises
 

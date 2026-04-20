@@ -24,8 +24,8 @@ internally, but it still counts as one logical edge.
 ## Deterministic Traversal
 
 Graph tests are sensitive to visitation order. This repository therefore uses
-deterministic neighbor order, especially in the `scratch` and `collections`
-adjacency-list implementations.
+deterministic neighbor order, especially in the `scratch` adjacency-list
+implementation and in the JDK-based exercise variants.
 
 That is why `LinkedHashSet` is important: it preserves insertion order.
 
@@ -47,17 +47,12 @@ For adjacency-list graphs:
 - DFS: `O(V + E)` in the explored region
 - shortest path with BFS: `O(V + E)`
 
-In the `linear` graph wrapper, visited checks are done with lists, so traversal
-cost is intentionally worse than the usual hash-based complexity.
-
 ## How It Appears In This Repo
 
 - `scratch`
   - `AdjacencyListGraph`
-- `collections`
-  - `CollectionsAdjacencyListGraph`
-- `linear`
-  - `LinearAdjacencyListGraph`
+- guided exercises compare the scratch graph with `Map + LinkedHashSet`
+  solutions written once with loops and once with streams
 
 ## Guided Exercises
 

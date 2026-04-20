@@ -55,11 +55,10 @@ Typical costs by representation:
 - `scratch`
   - `StaticSimpleList`: dynamic array
   - `SinglyLinkedList`: linked nodes
-- `collections`
-  - `CollectionsSimpleList`: wrapper over `ArrayList`
-- `linear`
-  - `LinearSimpleList`: wrapper over `LinkedList` with explicit iterative
-    access logic
+- guided exercises
+  - solve the same problem with the scratch structure and an iterator
+  - solve it again with JDK lists and loops
+  - solve it again with JDK lists and streams
 
 ## Guided Exercises
 

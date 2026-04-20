@@ -55,13 +55,8 @@ Resizing is usually `O(n)` because every entry must be rehashed.
   - `HashTable<K, V>`
 - `scratch`
   - `SeparateChainingHashTable`
-- `collections`
-  - `CollectionsHashTable`
-- `linear`
-  - `LinearHashTable`
-
-The `linear` version is intentionally not a true hashed implementation. It is a
-contrast case for studying API compatibility versus algorithmic efficiency.
+- guided exercises compare the scratch table with JDK `Map`-based resolutions
+  written with loops and with streams
 
 ## Guided Exercises
 

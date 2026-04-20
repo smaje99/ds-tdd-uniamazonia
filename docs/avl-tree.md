@@ -42,13 +42,8 @@ Because the tree stays balanced:
 
 - `scratch`
   - `LinkedAVLTree`
-- `collections`
-  - `CollectionsAVLTree`
-- `linear`
-  - `LinearAVLTree`
-
-The wrapper implementations preserve the contract, but only the scratch version
-shows the real rebalancing mechanics students should learn first.
+- guided exercises keep the scratch AVL as the structural reference and compare
+  it with balanced JDK-set based observations using loops and streams
 
 ## Guided Exercises
 
