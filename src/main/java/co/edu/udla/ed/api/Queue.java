@@ -7,7 +7,7 @@ package co.edu.udla.ed.api;
  *
  * @param <T> the type of elements held in this queue
  */
-public interface Queue<T> {
+public interface Queue<T> extends Iterable<T> {
 
   void enqueue(T value);
 

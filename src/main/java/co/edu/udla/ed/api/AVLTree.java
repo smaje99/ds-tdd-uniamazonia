@@ -30,6 +30,10 @@ public interface AVLTree<T extends Comparable<T>> {
 
   List<T> inOrder(); // debe salir ordenado
 
+  default Iterable<T> inOrderIterable() {
+    return inOrder();
+  }
+
   void clear();
 
   /**

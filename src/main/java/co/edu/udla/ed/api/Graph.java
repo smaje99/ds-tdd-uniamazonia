@@ -92,6 +92,10 @@ public interface Graph<V> {
    */
   Set<V> vertices();
 
+  default Iterable<V> verticesIterable() {
+    return vertices();
+  }
+
   /**
    * Returns the vertices adjacent to {@code v}.
    *
@@ -105,6 +109,10 @@ public interface Graph<V> {
    * @return the set of vertices adjacent to {@code v}
    */
   Set<V> neighbors(V v);
+
+  default Iterable<V> neighborsIterable(V v) {
+    return neighbors(v);
+  }
 
   /**
    * Returns the number of vertices currently stored in the graph.
@@ -140,6 +148,10 @@ public interface Graph<V> {
    */
   List<V> bfs(V start);
 
+  default Iterable<V> bfsIterable(V start) {
+    return bfs(start);
+  }
+
   /**
    * Performs a depth-first search starting at {@code start}.
    *
@@ -153,6 +165,10 @@ public interface Graph<V> {
    * @return a list with the DFS visitation order starting at {@code start}
    */
   List<V> dfs(V start);
+
+  default Iterable<V> dfsIterable(V start) {
+    return dfs(start);
+  }
 
   /**
    * Determines whether there is at least one path from {@code from} to

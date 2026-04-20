@@ -6,7 +6,7 @@ package co.edu.udla.ed.api;
  *
  * @param <T> the type of elements in the stack
  */
-public interface Stack<T> {
+public interface Stack<T> extends Iterable<T> {
 
   void push(T value);
 

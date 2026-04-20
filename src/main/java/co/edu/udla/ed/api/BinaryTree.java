@@ -35,11 +35,27 @@ public interface BinaryTree<T> {
 
   List<T> preOrder();
 
+  default Iterable<T> preOrderIterable() {
+    return preOrder();
+  }
+
   List<T> inOrder();
+
+  default Iterable<T> inOrderIterable() {
+    return inOrder();
+  }
 
   List<T> postOrder();
 
+  default Iterable<T> postOrderIterable() {
+    return postOrder();
+  }
+
   List<T> levelOrder();
+
+  default Iterable<T> levelOrderIterable() {
+    return levelOrder();
+  }
 
   void clear();
 

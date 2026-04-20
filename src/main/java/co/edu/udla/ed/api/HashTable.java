@@ -11,7 +11,13 @@ package co.edu.udla.ed.api;
  * @param <K> the key type
  * @param <V> the value type
  */
-public interface HashTable<K, V> {
+public interface HashTable<K, V> extends Iterable<HashTable.Entry<K, V>> {
+
+  interface Entry<K, V> {
+    K key();
+
+    V value();
+  }
 
   /**
    * Associates {@code value} with {@code key}.
