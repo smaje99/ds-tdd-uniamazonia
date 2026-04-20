@@ -88,4 +88,16 @@ public abstract class AbstractBSTContractTest {
     assertThat(bst.inOrder()).isEmpty();
   }
 
+  @Test
+  void in_order_iterable_should_match_sorted_order() {
+    var bst = create();
+    bst.insert(5);
+    bst.insert(2);
+    bst.insert(8);
+    bst.insert(1);
+    bst.insert(3);
+
+    assertThat(bst.inOrderIterable()).containsExactly(1, 2, 3, 5, 8);
+  }
+
 }

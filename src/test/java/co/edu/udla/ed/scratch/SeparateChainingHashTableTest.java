@@ -1,6 +1,7 @@
 package co.edu.udla.ed.scratch;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import co.edu.udla.ed.api.HashTable;
@@ -70,6 +71,26 @@ class SeparateChainingHashTableTest extends AbstractHashTableContractTest {
     for (int i = 0; i < 100; i++) {
       assertThat(table.get(i)).isEqualTo("V" + i);
     }
+  }
+
+  @Test
+  void iterator_should_follow_bucket_order_deterministically() {
+    SeparateChainingHashTable<BadHashKey, Integer> table = new SeparateChainingHashTable<>(8);
+
+    BadHashKey a = new BadHashKey("A");
+    BadHashKey b = new BadHashKey("B");
+    BadHashKey c = new BadHashKey("C");
+
+    table.put(a, 10);
+    table.put(b, 20);
+    table.put(c, 30);
+
+    ArrayList<String> visitedIds = new ArrayList<>();
+    for (HashTable.Entry<BadHashKey, Integer> entry : table) {
+      visitedIds.add(entry.key().id);
+    }
+
+    assertThat(visitedIds).containsExactly("C", "B", "A");
   }
 
 }

@@ -1,6 +1,8 @@
 package co.edu.udla.ed.contract;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import co.edu.udla.ed.api.HashTable;
@@ -71,6 +73,21 @@ public abstract class AbstractHashTableContractTest {
     assertThat(table.size()).isZero();
     assertThat(table.get("A")).isNull();
     assertThat(table.containsKey("B")).isFalse();
+  }
+
+  @Test
+  void iterator_should_expose_all_entries() {
+    var table = create();
+    table.put("A", 10);
+    table.put("B", 20);
+    table.put("C", 30);
+
+    Map<String, Integer> snapshot = new HashMap<>();
+    for (HashTable.Entry<String, Integer> entry : table) {
+      snapshot.put(entry.key(), entry.value());
+    }
+
+    assertThat(snapshot).containsExactlyInAnyOrderEntriesOf(Map.of("A", 10, "B", 20, "C", 30));
   }
 
 }

@@ -61,4 +61,21 @@ public abstract class AbstractBinaryTreeContractTest {
     assertThat(t.height()).isZero();
   }
 
+  @Test
+  void iterable_traversals_should_match_list_traversals() {
+    var t = create();
+
+    var a = t.makeRoot("A");
+    var b = t.attachLeft(a, "B");
+    var c = t.attachRight(a, "C");
+    t.attachLeft(b, "D");
+    t.attachRight(b, "E");
+    t.attachRight(c, "F");
+
+    assertThat(t.preOrderIterable()).containsExactly("A", "B", "D", "E", "C", "F");
+    assertThat(t.inOrderIterable()).containsExactly("D", "B", "E", "A", "C", "F");
+    assertThat(t.postOrderIterable()).containsExactly("D", "E", "B", "F", "C", "A");
+    assertThat(t.levelOrderIterable()).containsExactly("A", "B", "C", "D", "E", "F");
+  }
+
 }

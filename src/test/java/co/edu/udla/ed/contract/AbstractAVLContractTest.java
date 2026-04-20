@@ -114,4 +114,16 @@ public abstract class AbstractAVLContractTest {
     assertThat(avl.inOrder()).isEmpty();
   }
 
+  @Test
+  void in_order_iterable_should_match_sorted_order() {
+    var avl = create();
+    avl.insert(5);
+    avl.insert(2);
+    avl.insert(8);
+    avl.insert(1);
+    avl.insert(3);
+
+    assertThat(avl.inOrderIterable()).containsExactly(1, 2, 3, 5, 8);
+  }
+
 }

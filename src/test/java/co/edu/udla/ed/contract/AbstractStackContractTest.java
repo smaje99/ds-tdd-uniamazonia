@@ -68,4 +68,14 @@ public abstract class AbstractStackContractTest {
     assertThatThrownBy(s::pop).isInstanceOf(NoSuchElementException.class);
   }
 
+  @Test
+  void iterator_should_traverse_from_top_to_bottom() {
+    var s = create();
+    s.push(1);
+    s.push(2);
+    s.push(3);
+
+    assertThat(s).containsExactly(3, 2, 1);
+  }
+
 }

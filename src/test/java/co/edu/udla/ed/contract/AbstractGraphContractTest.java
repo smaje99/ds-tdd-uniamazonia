@@ -87,4 +87,14 @@ public abstract class AbstractGraphContractTest {
     assertThat(g.vertices()).isEmpty();
   }
 
+  @Test
+  void iterable_views_should_preserve_deterministic_order() {
+    var g = sampleUndirected();
+
+    assertThat(g.verticesIterable()).containsExactly("A", "B", "C", "D", "E");
+    assertThat(g.neighborsIterable("A")).containsExactly("B", "C");
+    assertThat(g.bfsIterable("A")).containsExactly("A", "B", "C", "D", "E");
+    assertThat(g.dfsIterable("A")).containsExactly("A", "B", "D", "C", "E");
+  }
+
 }

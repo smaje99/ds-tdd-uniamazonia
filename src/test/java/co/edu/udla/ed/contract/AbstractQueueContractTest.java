@@ -82,4 +82,14 @@ public abstract class AbstractQueueContractTest {
     assertThat(q.isEmpty()).isTrue();
   }
 
+  @Test
+  void iterator_should_traverse_from_front_to_back() {
+    var q = create();
+    q.enqueue(1);
+    q.enqueue(2);
+    q.enqueue(3);
+
+    assertThat(q).containsExactly(1, 2, 3);
+  }
+
 }
