@@ -206,6 +206,23 @@ public interface Graph<V> {
   List<V> shortestPathUnweighted(V from, V to);
 
   /**
+   * Returns a topological ordering for the vertices of a directed acyclic graph.
+   *
+   * <p>
+   * The method is only meaningful for directed acyclic graphs. If the graph is
+   * undirected, or if the directed graph contains a cycle, the implementation
+   * must reject the request with an {@link IllegalStateException}.
+   * </p>
+   *
+   * @return a topological ordering of all vertices in the graph
+   */
+  List<V> topologicalSort();
+
+  default Iterable<V> topologicalSortIterable() {
+    return topologicalSort();
+  }
+
+  /**
    * Removes all vertices and edges from the graph, returning it to the empty
    * state.
    */

@@ -439,6 +439,48 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     return List.of();
   }
 
+  @Override
+  public List<V> topologicalSort() {
+    if (!directed) {
+      throw new IllegalStateException("Topological sort requires a directed graph.");
+    }
+
+    Map<V, Integer> inDegree = new HashMap<>();
+    for (V vertex : adj.keySet()) {
+      inDegree.put(vertex, 0);
+    }
+    for (Map.Entry<V, Set<V>> entry : adj.entrySet()) {
+      for (V neighbor : entry.getValue()) {
+        inDegree.put(neighbor, inDegree.get(neighbor) + 1);
+      }
+    }
+
+    Deque<V> queue = new ArrayDeque<>();
+    for (Map.Entry<V, Integer> entry : inDegree.entrySet()) {
+      if (entry.getValue() == 0) {
+        queue.addLast(entry.getKey());
+      }
+    }
+
+    List<V> order = new ArrayList<>();
+    while (!queue.isEmpty()) {
+      V vertex = queue.removeFirst();
+      order.add(vertex);
+      for (V neighbor : adj.get(vertex)) {
+        int nextInDegree = inDegree.get(neighbor) - 1;
+        inDegree.put(neighbor, nextInDegree);
+        if (nextInDegree == 0) {
+          queue.addLast(neighbor);
+        }
+      }
+    }
+
+    if (order.size() != adj.size()) {
+      throw new IllegalStateException("Topological sort requires an acyclic directed graph.");
+    }
+    return order;
+  }
+
   /**
    * Reconstructs a path from {@code from} to {@code to} using the parent map
    * produced by breadth-first search.
