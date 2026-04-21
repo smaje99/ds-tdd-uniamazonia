@@ -7,25 +7,32 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.TreeSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import co.edu.udla.ed.impl.scratch.AdjacencyListGraph;
+import co.edu.udla.ed.impl.scratch.AdjacencyListWeightedGraph;
+import co.edu.udla.ed.impl.scratch.BinaryHeapPriorityQueue;
 import co.edu.udla.ed.impl.scratch.CircularDoublyLinkedList;
 import co.edu.udla.ed.impl.scratch.CircularSinglyLinkedList;
 import co.edu.udla.ed.impl.scratch.DoublyLinkedList;
 import co.edu.udla.ed.impl.scratch.LinkedAVLTree;
+import co.edu.udla.ed.impl.scratch.LinkedBTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinarySearchTree;
 import co.edu.udla.ed.impl.scratch.LinkedBinaryTree;
 import co.edu.udla.ed.impl.scratch.LinkedQueue;
+import co.edu.udla.ed.impl.scratch.LinkedRedBlackTree;
 import co.edu.udla.ed.impl.scratch.LinkedStack;
+import co.edu.udla.ed.impl.scratch.OpenAddressingHashTable;
 import co.edu.udla.ed.impl.scratch.SeparateChainingHashTable;
 import co.edu.udla.ed.impl.scratch.SinglyLinkedList;
 import co.edu.udla.ed.impl.scratch.StaticQueue;
 import co.edu.udla.ed.impl.scratch.StaticSimpleList;
 import co.edu.udla.ed.impl.scratch.StaticStack;
+import co.edu.udla.ed.impl.scratch.UnionFindDisjointSet;
 
 final class ExerciseAssertions {
 
@@ -127,6 +134,27 @@ final class ExerciseAssertions {
     if (name.startsWith("HashTable")) {
       return new SeparateChainingHashTable<>();
     }
+    if (name.startsWith("PriorityQueue")) {
+      return new BinaryHeapPriorityQueue<>();
+    }
+    if (name.startsWith("DisjointSet")) {
+      return new UnionFindDisjointSet<>();
+    }
+    if (name.startsWith("OpenAddressingHashTable")) {
+      return new OpenAddressingHashTable<>();
+    }
+    if (name.startsWith("RedBlackTree")) {
+      return new LinkedRedBlackTree<>();
+    }
+    if (name.startsWith("BTree")) {
+      return new LinkedBTree<>();
+    }
+    if (name.startsWith("DirectedAdjacencyListGraph")) {
+      return new AdjacencyListGraph<>(true);
+    }
+    if (name.startsWith("WeightedGraph")) {
+      return new AdjacencyListWeightedGraph<>(false);
+    }
     throw new IllegalArgumentException("Serie de ejercicio no soportada: " + name);
   }
 
@@ -155,6 +183,24 @@ final class ExerciseAssertions {
     }
     if (name.startsWith("HashTable")) {
       return new LinkedHashMap<>();
+    }
+    if (name.startsWith("PriorityQueue")) {
+      return new PriorityQueue<>();
+    }
+    if (name.startsWith("DisjointSet")) {
+      return new LinkedHashMap<>();
+    }
+    if (name.startsWith("OpenAddressingHashTable")) {
+      return new LinkedHashMap<>();
+    }
+    if (name.startsWith("RedBlackTree") || name.startsWith("BTree")) {
+      return new TreeSet<>();
+    }
+    if (name.startsWith("DirectedAdjacencyListGraph")) {
+      return new LinkedHashMap<Object, LinkedHashSet<Object>>();
+    }
+    if (name.startsWith("WeightedGraph")) {
+      return new LinkedHashMap<Object, LinkedHashMap<Object, Double>>();
     }
     throw new IllegalArgumentException("Serie de ejercicio no soportada: " + name);
   }
