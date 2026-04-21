@@ -29,7 +29,7 @@ The repository now includes a full guided exercise layer under
 - `Exercise05` in every series uses custom domain objects instead of only
   `String` or `Integer` values
 
-The exercise package is organized into 22 series:
+The exercise package is organized into 23 series:
 
 - `SimpleListStatic`
 - `SimpleListLinked`
@@ -53,6 +53,7 @@ The exercise package is organized into 22 series:
 - `DirectedAdjacencyListGraph`
 - `WeightedGraph`
 - `Sorting`
+- `Search`
 
 ## Student Rules
 
@@ -146,6 +147,7 @@ the invariant to running the targeted practice sequence.
 | Directed Graph Topological Workflows | done | done |
 | Weighted Graphs | done | done |
 | Sorting Algorithms For Linear Structures | done | done |
+| Search Algorithms Across DS Families | done | done |
 
 ## Current Focus
 
@@ -168,3 +170,6 @@ the invariant to running the targeted practice sequence.
 - The sorting unit adds hand-written algorithms, non-mutating `sorted(...)`
   support for linear scratch structures, and JDK adapter utilities for
   `ArrayList` and `LinkedList`.
+- The search unit adds rich search-result objects and family-specific
+  algorithms for linear structures, trees, hash tables, disjoint sets, and
+  graphs.

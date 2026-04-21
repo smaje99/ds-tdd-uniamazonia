@@ -32,6 +32,7 @@ Each document is written for students who need to:
 - [Weighted Graphs](weighted-graphs.md)
 - [Open Addressing Hash Table](open-addressing-hash-table.md)
 - [Sorting](sorting.md)
+- [Search](search.md)
 
 ## How To Use These Notes
 
@@ -63,3 +64,4 @@ Each topic guide now has a matching guided exercise series:
 - `weighted-graphs.md` -> `WeightedGraphExercise01-05`
 - `open-addressing-hash-table.md` -> `OpenAddressingHashTableExercise01-05`
 - `sorting.md` -> `SortingExercise01-05`
+- `search.md` -> `SearchExercise01-05`
