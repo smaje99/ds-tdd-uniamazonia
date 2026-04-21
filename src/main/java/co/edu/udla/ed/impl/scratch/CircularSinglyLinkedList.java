@@ -2,8 +2,11 @@ package co.edu.udla.ed.impl.scratch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import co.edu.udla.ed.api.CircularList;
+import co.edu.udla.ed.api.SortingAlgorithm;
+import co.edu.udla.ed.impl.scratch.sorting.ScratchListSequenceAdapter;
 
 /**
  * A circular singly linked list implementation of the CircularList interface.
@@ -27,7 +30,7 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
    * @param <T> the type of the value stored in the node
    */
   private static class Node<T> {
-    final T value;
+    T value;
     Node<T> next;
 
     Node(T value) {
@@ -176,6 +179,16 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
     return currentNode.value;
   }
 
+  @Override
+  public void set(int index, T element) {
+    checkIndex(index);
+    Node<T> currentNode = tail.next;
+    for (int i = 0; i < index; i++) {
+      currentNode = currentNode.next;
+    }
+    currentNode.value = element;
+  }
+
   /**
    * Checks if the circular singly linked list contains a specific value. The
    * method starts from the head of the list (which is tail.next) and traverses
@@ -229,6 +242,21 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
   public void clear() {
     tail = null;
     size = 0;
+  }
+
+  @Override
+  public CircularList<T> sorted(SortingAlgorithm<T> algorithm) {
+    return sorted(algorithm, null);
+  }
+
+  @Override
+  public CircularList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
+    CircularSinglyLinkedList<T> copy = new CircularSinglyLinkedList<>();
+    for (T value : this) {
+      copy.addLast(value);
+    }
+    algorithm.sort(new ScratchListSequenceAdapter<>(copy), comparator);
+    return copy;
   }
 
   /**

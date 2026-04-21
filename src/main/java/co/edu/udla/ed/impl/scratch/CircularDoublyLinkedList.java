@@ -2,8 +2,11 @@ package co.edu.udla.ed.impl.scratch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import co.edu.udla.ed.api.CircularList;
+import co.edu.udla.ed.api.SortingAlgorithm;
+import co.edu.udla.ed.impl.scratch.sorting.ScratchListSequenceAdapter;
 
 /**
  * CircularDoublyLinkedList is a concrete implementation of the CircularList
@@ -30,7 +33,7 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
    * @param <T> the type of elements stored in the circular doubly linked list
    */
   private static class Node<T> {
-    final T value;
+    T value;
     Node<T> prev;
     Node<T> next;
 
@@ -199,6 +202,12 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
     return nodeAt(index).value;
   }
 
+  @Override
+  public void set(int index, T element) {
+    checkIndex(index);
+    nodeAt(index).value = element;
+  }
+
   /**
    * Checks if the circular doubly linked list contains a specific element. This
    * method iterates through the list starting from the head and compares each
@@ -249,6 +258,21 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
   public void clear() {
     head = tail = null;
     size = 0;
+  }
+
+  @Override
+  public CircularList<T> sorted(SortingAlgorithm<T> algorithm) {
+    return sorted(algorithm, null);
+  }
+
+  @Override
+  public CircularList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
+    CircularDoublyLinkedList<T> copy = new CircularDoublyLinkedList<>();
+    for (T value : this) {
+      copy.addLast(value);
+    }
+    algorithm.sort(new ScratchListSequenceAdapter<>(copy), comparator);
+    return copy;
   }
 
   /**

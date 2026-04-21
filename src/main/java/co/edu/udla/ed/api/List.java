@@ -1,5 +1,7 @@
 package co.edu.udla.ed.api;
 
+import java.util.Comparator;
+
 /**
  * A list interface that defines basic operations for a list data structure.
  *
@@ -17,6 +19,8 @@ public interface List<T> extends Iterable<T> {
 
   T get(int index);
 
+  void set(int index, T element);
+
   boolean contains(T element);
 
   int size();
@@ -26,5 +30,9 @@ public interface List<T> extends Iterable<T> {
   }
 
   void clear();
+
+  List<T> sorted(SortingAlgorithm<T> algorithm);
+
+  List<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator);
 
 }

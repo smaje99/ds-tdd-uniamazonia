@@ -2,8 +2,11 @@ package co.edu.udla.ed.impl.scratch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import co.edu.udla.ed.api.DoublyList;
+import co.edu.udla.ed.api.SortingAlgorithm;
+import co.edu.udla.ed.impl.scratch.sorting.ScratchListSequenceAdapter;
 
 /**
  * An implementation of a doubly linked list that provides basic operations for
@@ -34,7 +37,7 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
    * @param <T> the type of elements stored in the node
    */
   private static class Node<T> {
-    final T value;
+    T value;
     Node<T> next;
     Node<T> prev;
 
@@ -188,6 +191,12 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
     return nodeAt(index).value;
   }
 
+  @Override
+  public void set(int index, T element) {
+    checkIndex(index);
+    nodeAt(index).value = element;
+  }
+
   /**
    * Checks if the specified value is present in the doubly linked list. This
    * method iterates through the list starting from the head node and compares
@@ -249,6 +258,21 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
     head = null;
     tail = null;
     size = 0;
+  }
+
+  @Override
+  public DoublyList<T> sorted(SortingAlgorithm<T> algorithm) {
+    return sorted(algorithm, null);
+  }
+
+  @Override
+  public DoublyList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
+    DoublyLinkedList<T> copy = new DoublyLinkedList<>();
+    for (T value : this) {
+      copy.addLast(value);
+    }
+    algorithm.sort(new ScratchListSequenceAdapter<>(copy), comparator);
+    return copy;
   }
 
   /**

@@ -2,8 +2,11 @@ package co.edu.udla.ed.impl.scratch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import co.edu.udla.ed.api.SimpleList;
+import co.edu.udla.ed.api.SortingAlgorithm;
+import co.edu.udla.ed.impl.scratch.sorting.ScratchListSequenceAdapter;
 
 /**
  * A simple implementation of a list using a static array as the underlying
@@ -110,6 +113,12 @@ public class StaticSimpleList<T> implements SimpleList<T> {
     return element;
   }
 
+  @Override
+  public void set(int index, T element) {
+    checkIndex(index);
+    data[index] = element;
+  }
+
   /**
    * Checks if the list contains the specified element.
    *
@@ -145,6 +154,21 @@ public class StaticSimpleList<T> implements SimpleList<T> {
       data[i] = null; // Help GC
     }
     size = 0;
+  }
+
+  @Override
+  public SimpleList<T> sorted(SortingAlgorithm<T> algorithm) {
+    return sorted(algorithm, null);
+  }
+
+  @Override
+  public SimpleList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
+    StaticSimpleList<T> copy = new StaticSimpleList<>(Math.max(10, size));
+    for (T value : this) {
+      copy.addLast(value);
+    }
+    algorithm.sort(new ScratchListSequenceAdapter<>(copy), comparator);
+    return copy;
   }
 
   /**

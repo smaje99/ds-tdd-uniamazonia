@@ -2,8 +2,11 @@ package co.edu.udla.ed.impl.scratch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import co.edu.udla.ed.api.SimpleList;
+import co.edu.udla.ed.api.SortingAlgorithm;
+import co.edu.udla.ed.impl.scratch.sorting.ScratchListSequenceAdapter;
 
 /**
  * A singly linked list implementation of the SimpleList interface. This class
@@ -26,7 +29,7 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
    * to manage the elements of the list.
    */
   private static class Node<T> {
-    final T value;
+    T value;
     Node<T> next;
 
     Node(T value) {
@@ -161,6 +164,16 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
     return current.value;
   }
 
+  @Override
+  public void set(int index, T element) {
+    checkIndex(index);
+    Node<T> current = head;
+    for (int i = 0; i < index; i++) {
+      current = current.next;
+    }
+    current.value = element;
+  }
+
   /**
    * Checks if the list contains the specified element. This method traverses the
    * list from the head node to the end, comparing each node's value with the
@@ -213,6 +226,21 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
   public void clear() {
     head = tail = null;
     size = 0;
+  }
+
+  @Override
+  public SimpleList<T> sorted(SortingAlgorithm<T> algorithm) {
+    return sorted(algorithm, null);
+  }
+
+  @Override
+  public SimpleList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
+    SinglyLinkedList<T> copy = new SinglyLinkedList<>();
+    for (T value : this) {
+      copy.addLast(value);
+    }
+    algorithm.sort(new ScratchListSequenceAdapter<>(copy), comparator);
+    return copy;
   }
 
   @Override
