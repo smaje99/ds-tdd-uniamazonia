@@ -1,12 +1,14 @@
 package co.edu.udla.ed.contract;
 
 import java.util.NoSuchElementException;
+import java.util.Comparator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.Test;
 
 import co.edu.udla.ed.api.CircularList;
+import co.edu.udla.ed.impl.scratch.sorting.BubbleSort;
 
 public abstract class AbstractCircularListContractTest {
 
@@ -104,6 +106,42 @@ public abstract class AbstractCircularListContractTest {
 
     assertThat(list.isEmpty()).isTrue();
     assertThat(list.size()).isZero();
+  }
+
+  @Test
+  void set_should_replace_existing_value() {
+    var list = create();
+    list.addLast(10);
+    list.addLast(20);
+    list.set(1, 99);
+    assertThat(list).containsExactly(10, 99);
+  }
+
+  @Test
+  void sorted_should_return_sorted_copy_without_mutating_original() {
+    var list = create();
+    list.addLast(4);
+    list.addLast(1);
+    list.addLast(3);
+    list.addLast(2);
+
+    CircularList<Integer> sorted = list.sorted(new BubbleSort<>());
+
+    assertThat(sorted).containsExactly(1, 2, 3, 4);
+    assertThat(list).containsExactly(4, 1, 3, 2);
+  }
+
+  @Test
+  void sorted_should_support_custom_comparator() {
+    var list = create();
+    list.addLast(4);
+    list.addLast(1);
+    list.addLast(3);
+    list.addLast(2);
+
+    CircularList<Integer> sorted = list.sorted(new BubbleSort<>(), Comparator.reverseOrder());
+
+    assertThat(sorted).containsExactly(4, 3, 2, 1);
   }
 
 }
