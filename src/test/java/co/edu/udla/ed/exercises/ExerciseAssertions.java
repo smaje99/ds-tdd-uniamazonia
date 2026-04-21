@@ -92,6 +92,18 @@ final class ExerciseAssertions {
 
   private static Object customArgumentFor(Object exercise) {
     String name = exercise.getClass().getSimpleName();
+    if (name.equals("SearchExercise01") || name.equals("SearchExercise02")) {
+      return new StaticSimpleList<>();
+    }
+    if (name.equals("SearchExercise03")) {
+      return new SeparateChainingHashTable<>();
+    }
+    if (name.equals("SearchExercise04")) {
+      return new LinkedBinarySearchTree<>();
+    }
+    if (name.equals("SearchExercise05")) {
+      return new AdjacencyListGraph<>(false);
+    }
     if (name.startsWith("Sorting")) {
       return new StaticSimpleList<>();
     }
@@ -163,6 +175,18 @@ final class ExerciseAssertions {
 
   private static Object javaArgumentFor(Object exercise) {
     String name = exercise.getClass().getSimpleName();
+    if (name.equals("SearchExercise01") || name.equals("SearchExercise02")) {
+      return new ArrayList<>();
+    }
+    if (name.equals("SearchExercise03")) {
+      return new LinkedHashMap<>();
+    }
+    if (name.equals("SearchExercise04")) {
+      return new TreeSet<>();
+    }
+    if (name.equals("SearchExercise05")) {
+      return new LinkedHashMap<Object, LinkedHashSet<Object>>();
+    }
     if (name.startsWith("Sorting")) {
       return new ArrayList<>();
     }
