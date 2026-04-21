@@ -25,6 +25,12 @@ Each document is written for students who need to:
 - [AVL Tree](avl-tree.md)
 - [Graphs](graphs.md)
 - [Hash Tables](hash-tables.md)
+- [Priority Queue](priority-queue.md)
+- [Disjoint Set](disjoint-set.md)
+- [Red-Black Tree](red-black-tree.md)
+- [B-Tree](b-tree.md)
+- [Weighted Graphs](weighted-graphs.md)
+- [Open Addressing Hash Table](open-addressing-hash-table.md)
 
 ## How To Use These Notes
 
@@ -49,3 +55,9 @@ Each topic guide now has a matching guided exercise series:
 - `avl-tree.md` -> `AVLTreeExercise01-05`
 - `graphs.md` -> `AdjacencyListGraphExercise01-05`
 - `hash-tables.md` -> `HashTableExercise01-05`
+- `priority-queue.md` -> `PriorityQueueExercise01-05`
+- `disjoint-set.md` -> `DisjointSetExercise01-05`
+- `red-black-tree.md` -> `RedBlackTreeExercise01-05`
+- `b-tree.md` -> `BTreeExercise01-05`
+- `weighted-graphs.md` -> `WeightedGraphExercise01-05`
+- `open-addressing-hash-table.md` -> `OpenAddressingHashTableExercise01-05`

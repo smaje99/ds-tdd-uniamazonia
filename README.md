@@ -29,7 +29,7 @@ The repository now includes a full guided exercise layer under
 - `Exercise05` in every series uses custom domain objects instead of only
   `String` or `Integer` values
 
-The exercise package is organized into 14 series:
+The exercise package is organized into 21 series:
 
 - `SimpleListStatic`
 - `SimpleListLinked`
@@ -45,6 +45,13 @@ The exercise package is organized into 14 series:
 - `AVLTree`
 - `AdjacencyListGraph`
 - `HashTable`
+- `PriorityQueue`
+- `DisjointSet`
+- `OpenAddressingHashTable`
+- `RedBlackTree`
+- `BTree`
+- `DirectedAdjacencyListGraph`
+- `WeightedGraph`
 
 ## Student Rules
 
@@ -130,6 +137,13 @@ the invariant to running the targeted practice sequence.
 | AVL Tree | done | done |
 | Graphs | done | done |
 | Hash Tables | done | done |
+| Priority Queue / Heap | done | done |
+| Disjoint Set / Union-Find | done | done |
+| Open Addressing Hash Table | done | done |
+| Red-Black Tree | done | done |
+| B-Tree | done | done |
+| Directed Graph Topological Workflows | done | done |
+| Weighted Graphs | done | done |
 
 ## Current Focus
 
@@ -147,3 +161,5 @@ the invariant to running the targeted practice sequence.
   validate the three explicit student-facing approaches.
 - `HashTable` now includes a separate-chaining scratch implementation with
   collision and resizing coverage.
+- The expanded graph unit now includes directed topological workflows and
+  weighted shortest-path / MST coverage.
