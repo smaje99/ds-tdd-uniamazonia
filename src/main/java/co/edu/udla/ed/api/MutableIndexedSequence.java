@@ -5,11 +5,7 @@ package co.edu.udla.ed.api;
  *
  * @param <T> the element type
  */
-public interface MutableIndexedSequence<T> {
-
-  int size();
-
-  T get(int index);
+public interface MutableIndexedSequence<T> extends IndexedSequence<T> {
 
   void set(int index, T element);
 
