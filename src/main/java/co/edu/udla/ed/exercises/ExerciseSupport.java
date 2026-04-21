@@ -3,13 +3,16 @@ package co.edu.udla.ed.exercises;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Objects;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -76,7 +79,7 @@ final class ExerciseSupport {
 
   static <T> int countWithIterator(Iterable<T> values) {
     int count = 0;
-    for (var _ : values) {
+    for (T ignored : values) {
       count++;
     }
     return count;
@@ -111,8 +114,42 @@ final class ExerciseSupport {
   }
 
   static <T> String stackDrainWithStreams(ArrayDeque<T> deque) {
-    LinkedList<T> values = new LinkedList<>(deque);
-    return values.reversed().stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+    java.util.List<T> values = new ArrayList<>(deque);
+    Collections.reverse(values);
+    return values.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T extends Comparable<T>> String priorityQueueDrainWithLoop(PriorityQueue<T> queue) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!queue.isEmpty()) {
+      values.add(queue.remove());
+    }
+    return values.toString();
+  }
+
+  static <T extends Comparable<T>> String priorityQueueDrainWithStreams(PriorityQueue<T> queue) {
+    java.util.List<T> values = new ArrayList<>();
+    while (!queue.isEmpty()) {
+      values.add(queue.remove());
+    }
+    return values.stream().map(String::valueOf).collect(Collectors.joining(", ", "[", "]"));
+  }
+
+  static <T extends Comparable<T>> int redBlackHeightFromValues(TreeSet<T> values) {
+    return avlHeightFromValues(values);
+  }
+
+  static <T extends Comparable<T>> int bTreeHeightFromValues(TreeSet<T> values) {
+    if (values.isEmpty()) {
+      return 0;
+    }
+    int height = 1;
+    int capacity = 3;
+    while (capacity < values.size()) {
+      height++;
+      capacity = capacity * 4 + 3;
+    }
+    return height;
   }
 
   static <T> void treeMakeRoot(ArrayList<T> values, T rootValue) {
@@ -181,12 +218,26 @@ final class ExerciseSupport {
     graph.get(to).add(from);
   }
 
+  static <V> void directedGraphAddEdge(Map<V, LinkedHashSet<V>> graph, V from, V to) {
+    graph.computeIfAbsent(from, ignored -> new LinkedHashSet<>());
+    graph.computeIfAbsent(to, ignored -> new LinkedHashSet<>());
+    graph.get(from).add(to);
+  }
+
   static <V> int graphEdgeCount(Map<V, LinkedHashSet<V>> graph) {
     int adjacencyCount = 0;
     for (Set<V> neighbors : graph.values()) {
       adjacencyCount += neighbors.size();
     }
     return adjacencyCount / 2;
+  }
+
+  static <V> int directedGraphEdgeCount(Map<V, LinkedHashSet<V>> graph) {
+    int adjacencyCount = 0;
+    for (Set<V> neighbors : graph.values()) {
+      adjacencyCount += neighbors.size();
+    }
+    return adjacencyCount;
   }
 
   static <V> java.util.List<V> graphBfs(Map<V, LinkedHashSet<V>> graph, V start) {
@@ -268,6 +319,226 @@ final class ExerciseSupport {
     return java.util.List.of();
   }
 
+  static <V> java.util.List<V> graphTopologicalSort(Map<V, LinkedHashSet<V>> graph) {
+    LinkedHashMap<V, Integer> inDegree = new LinkedHashMap<>();
+    for (V vertex : graph.keySet()) {
+      inDegree.put(vertex, 0);
+    }
+    for (Map.Entry<V, LinkedHashSet<V>> entry : graph.entrySet()) {
+      for (V neighbor : entry.getValue()) {
+        inDegree.put(neighbor, inDegree.getOrDefault(neighbor, 0) + 1);
+      }
+    }
+
+    ArrayDeque<V> queue = new ArrayDeque<>();
+    for (Map.Entry<V, Integer> entry : inDegree.entrySet()) {
+      if (entry.getValue() == 0) {
+        queue.addLast(entry.getKey());
+      }
+    }
+
+    java.util.List<V> order = new ArrayList<>();
+    while (!queue.isEmpty()) {
+      V vertex = queue.removeFirst();
+      order.add(vertex);
+      for (V neighbor : graph.getOrDefault(vertex, new LinkedHashSet<>())) {
+        int updated = inDegree.get(neighbor) - 1;
+        inDegree.put(neighbor, updated);
+        if (updated == 0) {
+          queue.addLast(neighbor);
+        }
+      }
+    }
+
+    if (order.size() != graph.size()) {
+      throw new IllegalStateException("Topological sort requires an acyclic directed graph.");
+    }
+    return order;
+  }
+
+  static <V> void weightedGraphAddEdge(Map<V, LinkedHashMap<V, Double>> graph, boolean directed, V from, V to,
+      double weight) {
+    if (Double.isNaN(weight) || weight < 0.0) {
+      throw new IllegalArgumentException("Weight must be a non-negative real number.");
+    }
+    graph.computeIfAbsent(from, ignored -> new LinkedHashMap<>());
+    graph.computeIfAbsent(to, ignored -> new LinkedHashMap<>());
+    graph.get(from).put(to, weight);
+    if (!directed) {
+      graph.get(to).put(from, weight);
+    }
+  }
+
+  static <V> int weightedGraphEdgeCount(Map<V, LinkedHashMap<V, Double>> graph, boolean directed) {
+    int adjacencyCount = 0;
+    for (Map<V, Double> neighbors : graph.values()) {
+      adjacencyCount += neighbors.size();
+    }
+    return directed ? adjacencyCount : adjacencyCount / 2;
+  }
+
+  static <V> double weightedGraphEdgeWeight(Map<V, LinkedHashMap<V, Double>> graph, V from, V to) {
+    if (!graph.containsKey(from) || !graph.get(from).containsKey(to)) {
+      throw new IllegalArgumentException("Edge does not exist: " + from + " -> " + to);
+    }
+    return graph.get(from).get(to);
+  }
+
+  static <V> LinkedHashMap<V, Double> weightedGraphDijkstra(Map<V, LinkedHashMap<V, Double>> graph, V start) {
+    requireWeightedGraphVertex(graph, start);
+    LinkedHashMap<V, Double> distances = new LinkedHashMap<>();
+    for (V vertex : graph.keySet()) {
+      distances.put(vertex, Double.POSITIVE_INFINITY);
+    }
+    distances.put(start, 0.0);
+
+    PriorityQueue<WeightedStep<V>> queue = new PriorityQueue<>();
+    queue.add(new WeightedStep<>(start, 0.0));
+
+    while (!queue.isEmpty()) {
+      WeightedStep<V> current = queue.remove();
+      if (current.distance > distances.get(current.vertex)) {
+        continue;
+      }
+
+      for (Map.Entry<V, Double> edge : graph.get(current.vertex).entrySet()) {
+        double candidate = current.distance + edge.getValue();
+        if (candidate < distances.get(edge.getKey())) {
+          distances.put(edge.getKey(), candidate);
+          queue.add(new WeightedStep<>(edge.getKey(), candidate));
+        }
+      }
+    }
+
+    return distances;
+  }
+
+  static <V> java.util.List<V> weightedGraphShortestPath(Map<V, LinkedHashMap<V, Double>> graph, V from, V to) {
+    if (!graph.containsKey(from) || !graph.containsKey(to)) {
+      return java.util.List.of();
+    }
+    if (Objects.equals(from, to)) {
+      return java.util.List.of(from);
+    }
+
+    LinkedHashMap<V, Double> distances = new LinkedHashMap<>();
+    LinkedHashMap<V, V> previous = new LinkedHashMap<>();
+    for (V vertex : graph.keySet()) {
+      distances.put(vertex, Double.POSITIVE_INFINITY);
+    }
+    distances.put(from, 0.0);
+
+    PriorityQueue<WeightedStep<V>> queue = new PriorityQueue<>();
+    queue.add(new WeightedStep<>(from, 0.0));
+
+    while (!queue.isEmpty()) {
+      WeightedStep<V> current = queue.remove();
+      if (current.distance > distances.get(current.vertex)) {
+        continue;
+      }
+      if (Objects.equals(current.vertex, to)) {
+        break;
+      }
+
+      for (Map.Entry<V, Double> edge : graph.get(current.vertex).entrySet()) {
+        double candidate = current.distance + edge.getValue();
+        if (candidate < distances.get(edge.getKey())) {
+          distances.put(edge.getKey(), candidate);
+          previous.put(edge.getKey(), current.vertex);
+          queue.add(new WeightedStep<>(edge.getKey(), candidate));
+        }
+      }
+    }
+
+    if (Double.isInfinite(distances.get(to))) {
+      return java.util.List.of();
+    }
+    return rebuildPath(previous, from, to);
+  }
+
+  static <V> Map<V, LinkedHashMap<V, Double>> weightedGraphMinimumSpanningTree(Map<V, LinkedHashMap<V, Double>> graph) {
+    if (graph.isEmpty()) {
+      return new LinkedHashMap<>();
+    }
+
+    java.util.List<WeightedEdge<V>> edges = weightedGraphEdges(graph);
+    Collections.sort(edges);
+
+    LinkedHashMap<V, V> parents = new LinkedHashMap<>();
+    for (V vertex : graph.keySet()) {
+      parents.put(vertex, vertex);
+    }
+
+    LinkedHashMap<V, LinkedHashMap<V, Double>> mst = new LinkedHashMap<>();
+    for (V vertex : graph.keySet()) {
+      mst.put(vertex, new LinkedHashMap<>());
+    }
+
+    int accepted = 0;
+    for (WeightedEdge<V> edge : edges) {
+      V fromRoot = disjointSetFind(parents, edge.from);
+      V toRoot = disjointSetFind(parents, edge.to);
+      if (Objects.equals(fromRoot, toRoot)) {
+        continue;
+      }
+      parents.put(toRoot, fromRoot);
+      weightedGraphAddEdge(mst, false, edge.from, edge.to, edge.weight);
+      accepted++;
+    }
+
+    if (accepted != graph.size() - 1) {
+      throw new IllegalStateException("Minimum spanning tree requires a connected graph.");
+    }
+    return mst;
+  }
+
+  static <V> double weightedGraphTotalWeight(Map<V, LinkedHashMap<V, Double>> graph, boolean directed) {
+    double total = 0.0;
+    for (Map<V, Double> neighbors : graph.values()) {
+      for (double weight : neighbors.values()) {
+        total += weight;
+      }
+    }
+    return directed ? total : total / 2.0;
+  }
+
+  static <T> void disjointSetMakeSet(LinkedHashMap<T, T> parents, T value) {
+    parents.putIfAbsent(value, value);
+  }
+
+  static <T> T disjointSetFind(LinkedHashMap<T, T> parents, T value) {
+    if (!parents.containsKey(value)) {
+      throw new IllegalArgumentException("Element does not exist: " + value);
+    }
+    T parent = parents.get(value);
+    if (Objects.equals(parent, value)) {
+      return value;
+    }
+    T root = disjointSetFind(parents, parent);
+    parents.put(value, root);
+    return root;
+  }
+
+  static <T> void disjointSetUnion(LinkedHashMap<T, T> parents, T first, T second) {
+    T firstRoot = disjointSetFind(parents, first);
+    T secondRoot = disjointSetFind(parents, second);
+    if (!Objects.equals(firstRoot, secondRoot)) {
+      parents.put(secondRoot, firstRoot);
+    }
+  }
+
+  static <T> boolean disjointSetConnected(LinkedHashMap<T, T> parents, T first, T second) {
+    return Objects.equals(disjointSetFind(parents, first), disjointSetFind(parents, second));
+  }
+
+  static <T> int disjointSetCount(LinkedHashMap<T, T> parents) {
+    LinkedHashSet<T> roots = new LinkedHashSet<>();
+    for (T value : parents.keySet()) {
+      roots.add(disjointSetFind(parents, value));
+    }
+    return roots.size();
+  }
+
   private static <T> int treeAttach(ArrayList<T> values, int index, T value) {
     ensureTreeCapacity(values, index);
     if (values.get(index) != null) {
@@ -333,6 +604,26 @@ final class ExerciseSupport {
     if (!graph.containsKey(start)) {
       throw new IllegalArgumentException("Vertex does not exist: " + start);
     }
+  }
+
+  private static <V> void requireWeightedGraphVertex(Map<V, LinkedHashMap<V, Double>> graph, V start) {
+    if (!graph.containsKey(start)) {
+      throw new IllegalArgumentException("Vertex does not exist: " + start);
+    }
+  }
+
+  private static <V> java.util.List<WeightedEdge<V>> weightedGraphEdges(Map<V, LinkedHashMap<V, Double>> graph) {
+    java.util.List<WeightedEdge<V>> edges = new ArrayList<>();
+    LinkedHashSet<V> seenOrigins = new LinkedHashSet<>();
+    for (Map.Entry<V, LinkedHashMap<V, Double>> entry : graph.entrySet()) {
+      for (Map.Entry<V, Double> edge : entry.getValue().entrySet()) {
+        if (!seenOrigins.contains(edge.getKey())) {
+          edges.add(new WeightedEdge<>(entry.getKey(), edge.getKey(), edge.getValue()));
+        }
+      }
+      seenOrigins.add(entry.getKey());
+    }
+    return edges;
   }
 
   private static <V> java.util.List<V> rebuildPath(Map<V, V> previous, V from, V to) {
@@ -474,6 +765,50 @@ final class ExerciseSupport {
     @Override
     public String toString() {
       return name + "@" + level;
+    }
+  }
+
+  private static final class WeightedStep<V> implements Comparable<WeightedStep<V>> {
+    private final V vertex;
+    private final double distance;
+
+    private WeightedStep(V vertex, double distance) {
+      this.vertex = vertex;
+      this.distance = distance;
+    }
+
+    @Override
+    public int compareTo(WeightedStep<V> other) {
+      int byDistance = Double.compare(distance, other.distance);
+      if (byDistance != 0) {
+        return byDistance;
+      }
+      return String.valueOf(vertex).compareTo(String.valueOf(other.vertex));
+    }
+  }
+
+  private static final class WeightedEdge<V> implements Comparable<WeightedEdge<V>> {
+    private final V from;
+    private final V to;
+    private final double weight;
+
+    private WeightedEdge(V from, V to, double weight) {
+      this.from = from;
+      this.to = to;
+      this.weight = weight;
+    }
+
+    @Override
+    public int compareTo(WeightedEdge<V> other) {
+      int byWeight = Double.compare(weight, other.weight);
+      if (byWeight != 0) {
+        return byWeight;
+      }
+      int byFrom = String.valueOf(from).compareTo(String.valueOf(other.from));
+      if (byFrom != 0) {
+        return byFrom;
+      }
+      return String.valueOf(to).compareTo(String.valueOf(other.to));
     }
   }
 
