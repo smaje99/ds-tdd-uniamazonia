@@ -92,6 +92,9 @@ final class ExerciseAssertions {
 
   private static Object customArgumentFor(Object exercise) {
     String name = exercise.getClass().getSimpleName();
+    if (name.startsWith("Sorting")) {
+      return new StaticSimpleList<>();
+    }
     if (name.startsWith("SimpleListStatic")) {
       return new StaticSimpleList<>();
     }
@@ -160,6 +163,9 @@ final class ExerciseAssertions {
 
   private static Object javaArgumentFor(Object exercise) {
     String name = exercise.getClass().getSimpleName();
+    if (name.startsWith("Sorting")) {
+      return new ArrayList<>();
+    }
     if (name.startsWith("SimpleListStatic")) {
       return new ArrayList<>();
     }
