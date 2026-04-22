@@ -327,6 +327,11 @@ public class SeparateChainingHashTable<K, V> implements HashTable<K, V> {
     return (Objects.hashCode(key) & 0x7fffffff) % capacity;
   }
 
+  /**
+   * Iterates over live entries bucket by bucket.
+   *
+   * @return an iterator over key-value mappings
+   */
   @Override
   public Iterator<HashTable.Entry<K, V>> iterator() {
     return new Iterator<HashTable.Entry<K, V>>() {

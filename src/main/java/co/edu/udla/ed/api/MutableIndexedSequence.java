@@ -7,6 +7,14 @@ package co.edu.udla.ed.api;
  */
 public interface MutableIndexedSequence<T> extends IndexedSequence<T> {
 
+  /**
+   * Replaces the value at a zero-based index.
+   *
+   * @param index index to update
+   * @param element replacement value
+   * @throws IndexOutOfBoundsException if {@code index < 0} or
+   *         {@code index >= size()}
+   */
   void set(int index, T element);
 
 }

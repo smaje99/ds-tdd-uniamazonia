@@ -191,6 +191,7 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
     return nodeAt(index).value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(int index, T element) {
     checkIndex(index);
@@ -260,11 +261,13 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
     size = 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public DoublyList<T> sorted(SortingAlgorithm<T> algorithm) {
     return sorted(algorithm, null);
   }
 
+  /** {@inheritDoc} */
   @Override
   public DoublyList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
     DoublyLinkedList<T> copy = new DoublyLinkedList<>();
@@ -343,7 +346,7 @@ public class DoublyLinkedList<T> implements DoublyList<T> {
    * @return the node at the specified index in the list
    */
   private Node<T> nodeAt(int index) {
-    // optimización: desde head o tail
+    // Start from the closer end to reduce traversal work.
     if (index < (size / 2)) {
       Node<T> currentNode = head;
       for (int i = 0; i < index; i++)

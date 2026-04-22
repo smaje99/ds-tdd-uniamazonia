@@ -5,8 +5,26 @@ import java.util.Comparator;
 import co.edu.udla.ed.api.MutableIndexedSequence;
 import co.edu.udla.ed.api.SortingAlgorithm;
 
+/**
+ * Stable counting sort for non-negative integer sequences.
+ *
+ * <p>
+ * Counting sort does not compare elements. Instead, it counts how many times
+ * each integer value appears and writes the values back in ascending order. This
+ * makes it efficient when the maximum value {@code k} is reasonably close to
+ * the number of elements.
+ * </p>
+ *
+ * <p>
+ * Time complexity is {@code O(n + k)} and extra space is {@code O(k)}. The
+ * implementation rejects negative values with {@link IllegalArgumentException}
+ * and rejects custom comparators because the algorithm only supports natural
+ * ascending integer order.
+ * </p>
+ */
 public class CountingSort implements SortingAlgorithm<Integer> {
 
+  /** {@inheritDoc} */
   @Override
   public void sort(MutableIndexedSequence<Integer> sequence, Comparator<? super Integer> comparator) {
     if (comparator != null) {

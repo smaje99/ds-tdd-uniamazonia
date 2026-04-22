@@ -62,7 +62,7 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
     Node<T> newNode = new Node<>(element);
 
     if (head == null) {
-      // primer nodo apunta a sí mismo en ambos sentidos
+      // A singleton circular list points to itself in both directions.
       head = tail = newNode;
       newNode.next = newNode;
       newNode.prev = newNode;
@@ -202,6 +202,7 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
     return nodeAt(index).value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(int index, T element) {
     checkIndex(index);
@@ -260,11 +261,13 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
     size = 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CircularList<T> sorted(SortingAlgorithm<T> algorithm) {
     return sorted(algorithm, null);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CircularList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
     CircularDoublyLinkedList<T> copy = new CircularDoublyLinkedList<>();
@@ -327,7 +330,7 @@ public class CircularDoublyLinkedList<T> implements CircularList<T> {
    * @return the node at the specified index
    */
   private Node<T> nodeAt(int index) {
-    // pequeña optimización: desde head o tail
+    // Start from the closer end to reduce traversal work.
     if (index < size / 2) {
       Node<T> currentNode = head;
       for (int i = 0; i < index; i++)

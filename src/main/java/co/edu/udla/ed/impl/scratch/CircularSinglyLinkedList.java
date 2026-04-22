@@ -56,13 +56,13 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
     Node<T> newNode = new Node<>(value);
 
     if (tail == null) {
-      // primera inserción: se apunta a sí mismo
+      // A singleton circular list points back to itself.
       tail = newNode;
       tail.next = tail;
     } else {
-      // head actual es tail.next
+      // The logical head is always tail.next.
       newNode.next = tail.next;
-      tail.next = newNode; // nuevo head
+      tail.next = newNode;
     }
 
     size++;
@@ -80,8 +80,8 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
    */
   @Override
   public void addLast(T value) {
-    addFirst(value); // lo inserta como head
-    tail = tail.next; // y lo mueve a tail, quedando al final
+    addFirst(value);
+    tail = tail.next;
   }
 
   /**
@@ -104,10 +104,9 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
     T value = head.value;
 
     if (head == tail) {
-      // solo 1 elemento
       tail = null;
     } else {
-      tail.next = head.next; // saltar el head
+      tail.next = head.next;
     }
 
     size--;
@@ -142,14 +141,13 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
       return value;
     }
 
-    // buscar el nodo anterior al tail
     Node<T> prev = head;
     while (prev.next != tail) {
       prev = prev.next;
     }
 
     T value = tail.value;
-    prev.next = tail.next; // apunta a head
+    prev.next = tail.next;
     tail = prev;
 
     size--;
@@ -179,6 +177,7 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
     return currentNode.value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(int index, T element) {
     checkIndex(index);
@@ -244,11 +243,13 @@ public class CircularSinglyLinkedList<T> implements CircularList<T> {
     size = 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CircularList<T> sorted(SortingAlgorithm<T> algorithm) {
     return sorted(algorithm, null);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CircularList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
     CircularSinglyLinkedList<T> copy = new CircularSinglyLinkedList<>();

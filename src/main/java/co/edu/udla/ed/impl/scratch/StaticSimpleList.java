@@ -21,10 +21,19 @@ public class StaticSimpleList<T> implements SimpleList<T> {
   private Object[] data;
   private int size;
 
+  /**
+   * Creates an empty array-backed list with default capacity.
+   */
   public StaticSimpleList() {
-    this(10); // Default initial capacity
+    this(10);
   }
 
+  /**
+   * Creates an empty array-backed list with the requested initial capacity.
+   *
+   * @param initialCapacity initial backing-array length
+   * @throws IllegalArgumentException if {@code initialCapacity <= 0}
+   */
   public StaticSimpleList(int initialCapacity) {
     if (initialCapacity <= 0) {
       throw new IllegalArgumentException("Initial capacity must be greater than zero.");
@@ -105,6 +114,7 @@ public class StaticSimpleList<T> implements SimpleList<T> {
     return removed;
   }
 
+  /** {@inheritDoc} */
   @Override
   public T get(int index) {
     checkIndex(index);
@@ -113,6 +123,7 @@ public class StaticSimpleList<T> implements SimpleList<T> {
     return element;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(int index, T element) {
     checkIndex(index);
@@ -156,11 +167,13 @@ public class StaticSimpleList<T> implements SimpleList<T> {
     size = 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SimpleList<T> sorted(SortingAlgorithm<T> algorithm) {
     return sorted(algorithm, null);
   }
 
+  /** {@inheritDoc} */
   @Override
   public SimpleList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
     StaticSimpleList<T> copy = new StaticSimpleList<>(Math.max(10, size));

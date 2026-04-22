@@ -2,6 +2,9 @@ package co.edu.udla.ed.impl.scratch.search;
 
 import java.util.Comparator;
 
+/**
+ * Shared helpers for search implementations.
+ */
 final class SearchSupport {
 
   private SearchSupport() {

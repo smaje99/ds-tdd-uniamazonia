@@ -121,6 +121,11 @@ public class LinkedStack<T> implements Stack<T> {
     size = 0;
   }
 
+  /**
+   * Iterates from top to bottom.
+   *
+   * @return an iterator over stacked values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

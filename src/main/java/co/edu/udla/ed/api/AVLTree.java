@@ -26,9 +26,20 @@ public interface AVLTree<T extends Comparable<T>> {
 
   int size();
 
-  int height(); // vacío=0, solo raíz=1
+  /**
+   * Returns the height of the AVL tree measured in levels.
+   *
+   * @return {@code 0} when the tree is empty, {@code 1} when it only contains
+   *         the root, or the maximum number of levels on any root-to-leaf path
+   */
+  int height();
 
-  List<T> inOrder(); // debe salir ordenado
+  /**
+   * Returns the values in ascending order according to the AVL ordering rule.
+   *
+   * @return an in-order traversal of the tree
+   */
+  List<T> inOrder();
 
   default Iterable<T> inOrderIterable() {
     return inOrder();

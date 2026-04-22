@@ -22,13 +22,31 @@ public interface BinarySearchTree<T extends Comparable<T>> {
 
   boolean contains(T value);
 
-  boolean remove(T value); // true si eliminó, false si no estaba
+  /**
+   * Removes {@code value} when it exists in the tree.
+   *
+   * @param value value to remove
+   * @return {@code true} if a node was removed; {@code false} if the value was
+   *         not present
+   */
+  boolean remove(T value);
 
   int size();
 
-  int height(); // vacío=0, solo raíz=1
+  /**
+   * Returns the height of the tree measured in levels.
+   *
+   * @return {@code 0} when the tree is empty, {@code 1} when it only contains
+   *         the root, or the maximum number of levels on any root-to-leaf path
+   */
+  int height();
 
-  List<T> inOrder(); // debe salir ordenado
+  /**
+   * Returns the values in ascending order according to the BST invariant.
+   *
+   * @return an in-order traversal of the tree
+   */
+  List<T> inOrder();
 
   default Iterable<T> inOrderIterable() {
     return inOrder();

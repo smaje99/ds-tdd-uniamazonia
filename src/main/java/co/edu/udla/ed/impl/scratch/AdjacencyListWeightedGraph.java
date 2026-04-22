@@ -12,7 +12,13 @@ import java.util.Set;
 import co.edu.udla.ed.api.WeightedGraph;
 
 /**
- * Weighted adjacency-list graph with deterministic iteration order.
+ * Weighted adjacency-list graph with deterministic vertex and neighbor order.
+ *
+ * <p>The graph stores each vertex in a {@link LinkedHashMap} and each adjacency
+ * list as a nested {@link LinkedHashMap}. Directed graphs store one edge per
+ * call to {@link #addEdge(Object, Object, double)}; undirected graphs store the
+ * reverse adjacency internally while counting the logical edge once. Edge
+ * weights must be non-negative so Dijkstra's algorithm remains valid.</p>
  *
  * @param <V> the vertex type
  */
@@ -66,24 +72,58 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
   private final LinkedHashMap<V, LinkedHashMap<V, Double>> adjacency = new LinkedHashMap<>();
   private int edges;
 
+  /**
+   * Creates an undirected weighted graph.
+   */
   public AdjacencyListWeightedGraph() {
     this(false);
   }
 
+  /**
+   * Creates a weighted graph with the requested edge direction semantics.
+   *
+   * @param directed {@code true} for directed edges, {@code false} for
+   *        undirected edges
+   */
   public AdjacencyListWeightedGraph(boolean directed) {
     this.directed = directed;
   }
 
+  /**
+   * Reports whether edges are directional.
+   *
+   * @return {@code true} for directed graphs; {@code false} for undirected
+   *         graphs
+   */
   @Override
   public boolean isDirected() {
     return directed;
   }
 
+  /**
+   * Adds a vertex if it is not already present.
+   *
+   * @param v vertex to add
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public void addVertex(V v) {
     adjacency.computeIfAbsent(v, ignored -> new LinkedHashMap<>());
   }
 
+  /**
+   * Adds or updates a weighted edge, creating missing endpoints first.
+   *
+   * <p>In undirected mode the reverse adjacency is written with the same weight.
+   * Replacing an existing edge changes its weight without increasing the logical
+   * edge count.</p>
+   *
+   * @param from source endpoint
+   * @param to destination endpoint
+   * @param weight non-negative edge weight
+   * @throws IllegalArgumentException if {@code weight} is negative or NaN
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public void addEdge(V from, V to, double weight) {
     validateWeight(weight);
@@ -99,16 +139,40 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
     }
   }
 
+  /**
+   * Checks whether a vertex exists.
+   *
+   * @param v vertex to test
+   * @return {@code true} when the vertex is present
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public boolean containsVertex(V v) {
     return adjacency.containsKey(v);
   }
 
+  /**
+   * Checks whether an edge exists.
+   *
+   * @param from source endpoint
+   * @param to destination endpoint
+   * @return {@code true} when the edge is present
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public boolean containsEdge(V from, V to) {
     return adjacency.containsKey(from) && adjacency.get(from).containsKey(to);
   }
 
+  /**
+   * Returns the weight of an existing edge.
+   *
+   * @param from source endpoint
+   * @param to destination endpoint
+   * @return the stored non-negative weight
+   * @throws IllegalArgumentException if the edge does not exist
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public double edgeWeight(V from, V to) {
     if (!containsEdge(from, to)) {
@@ -117,21 +181,46 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
     return adjacency.get(from).get(to);
   }
 
+  /**
+   * Returns the vertices in insertion order.
+   *
+   * @return an unmodifiable view of the vertex set
+   */
   @Override
   public Set<V> vertices() {
     return Collections.unmodifiableSet(adjacency.keySet());
   }
 
+  /**
+   * Returns the number of vertices.
+   *
+   * @return vertex count
+   */
   @Override
   public int vertexCount() {
     return adjacency.size();
   }
 
+  /**
+   * Returns the logical edge count.
+   *
+   * @return number of directed edges, or number of undirected edges counted once
+   */
   @Override
   public int edgeCount() {
     return edges;
   }
 
+  /**
+   * Computes shortest-path distances from one source with Dijkstra's algorithm.
+   *
+   * @param start source vertex
+   * @return a map from every vertex to its distance, using
+   *         {@link Double#POSITIVE_INFINITY} for unreachable vertices
+   * @throws IllegalArgumentException if {@code start} is not present
+   * @implNote Time complexity is {@code O((V + E) log V)} with the binary heap
+   *           priority queue used here.
+   */
   @Override
   public Map<V, Double> dijkstraDistances(V start) {
     requireVertex(start);
@@ -162,6 +251,16 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
     return distances;
   }
 
+  /**
+   * Returns one minimum-weight path between two vertices.
+   *
+   * @param from source vertex
+   * @param to destination vertex
+   * @return the path from {@code from} to {@code to}, or an empty list when an
+   *         endpoint is missing or no route exists
+   * @implNote Time complexity is {@code O((V + E) log V)} plus {@code O(k)} to
+   *           rebuild a path of length {@code k}.
+   */
   @Override
   public List<V> shortestPathWeighted(V from, V to) {
     if (!containsVertex(from) || !containsVertex(to)) {
@@ -217,6 +316,13 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
     return !path.isEmpty() && Objects.equals(path.get(0), from) ? path : List.of();
   }
 
+  /**
+   * Builds a minimum spanning tree using Kruskal's algorithm.
+   *
+   * @return a new undirected weighted graph containing the MST edges
+   * @throws IllegalStateException if this graph is directed or disconnected
+   * @implNote Time complexity is dominated by edge sorting: {@code O(E log E)}.
+   */
   @Override
   public WeightedGraph<V> minimumSpanningTree() {
     if (directed) {
@@ -260,6 +366,9 @@ public class AdjacencyListWeightedGraph<V> implements WeightedGraph<V> {
     return mst;
   }
 
+  /**
+   * Removes all vertices and edges.
+   */
   @Override
   public void clear() {
     adjacency.clear();

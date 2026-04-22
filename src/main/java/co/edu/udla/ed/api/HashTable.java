@@ -13,9 +13,29 @@ package co.edu.udla.ed.api;
  */
 public interface HashTable<K, V> extends Iterable<HashTable.Entry<K, V>> {
 
+  /**
+   * Read-only key-value pair yielded by hash-table iteration.
+   *
+   * <p>Entries expose the logical mapping stored in the table. Implementations
+   * may keep extra metadata for collision handling, but that metadata is not
+   * part of the public contract.</p>
+   *
+   * @param <K> the key type
+   * @param <V> the value type
+   */
   interface Entry<K, V> {
+    /**
+     * Returns the key stored in this mapping.
+     *
+     * @return the entry key
+     */
     K key();
 
+    /**
+     * Returns the value currently associated with the entry key.
+     *
+     * @return the entry value
+     */
     V value();
   }
 

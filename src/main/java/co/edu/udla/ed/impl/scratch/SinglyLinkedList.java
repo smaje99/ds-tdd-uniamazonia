@@ -164,6 +164,7 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
     return current.value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(int index, T element) {
     checkIndex(index);
@@ -228,11 +229,13 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
     size = 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public SimpleList<T> sorted(SortingAlgorithm<T> algorithm) {
     return sorted(algorithm, null);
   }
 
+  /** {@inheritDoc} */
   @Override
   public SimpleList<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator) {
     SinglyLinkedList<T> copy = new SinglyLinkedList<>();
@@ -243,6 +246,11 @@ public class SinglyLinkedList<T> implements SimpleList<T> {
     return copy;
   }
 
+  /**
+   * Iterates from head to tail in list order.
+   *
+   * @return an iterator over the current values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

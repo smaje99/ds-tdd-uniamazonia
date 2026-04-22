@@ -12,7 +12,11 @@ import java.util.List;
  */
 public interface BinaryTree<T> {
 
-  // Nested interface for a node in the binary tree
+  /**
+   * Read-only view of a binary-tree node.
+   *
+   * @param <T> value type stored in the node
+   */
   interface Node<T> {
     T value();
 
@@ -31,7 +35,13 @@ public interface BinaryTree<T> {
 
   int size();
 
-  int height(); // altura en número de niveles: vacío=0, solo raíz=1
+  /**
+   * Returns the height of the tree measured in levels.
+   *
+   * @return {@code 0} when the tree is empty, {@code 1} when it only contains
+   *         the root, or the maximum number of levels on any root-to-leaf path
+   */
+  int height();
 
   List<T> preOrder();
 

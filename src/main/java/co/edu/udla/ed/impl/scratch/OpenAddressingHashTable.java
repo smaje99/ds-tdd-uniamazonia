@@ -9,6 +9,11 @@ import co.edu.udla.ed.api.HashTable;
 /**
  * Hash table that resolves collisions with linear probing and tombstones.
  *
+ * <p>The table keeps two counts: {@code size} for live mappings and
+ * {@code usedSlots} for live mappings plus deleted slots. Deleted slots are
+ * reused by insertion but still affect probing, so the table grows before the
+ * occupied-slot load becomes too high.</p>
+ *
  * @param <K> the key type
  * @param <V> the value type
  */
@@ -43,10 +48,19 @@ public class OpenAddressingHashTable<K, V> implements HashTable<K, V> {
   private int size;
   private int usedSlots;
 
+  /**
+   * Creates an empty table with default capacity.
+   */
   public OpenAddressingHashTable() {
     this(DEFAULT_CAPACITY);
   }
 
+  /**
+   * Creates an empty table with the requested initial capacity.
+   *
+   * @param capacity backing array length
+   * @throws IllegalArgumentException if {@code capacity <= 0}
+   */
   @SuppressWarnings("unchecked")
   public OpenAddressingHashTable(int capacity) {
     if (capacity <= 0) {
@@ -55,18 +69,42 @@ public class OpenAddressingHashTable<K, V> implements HashTable<K, V> {
     this.table = new Entry[capacity];
   }
 
+  /**
+   * Inserts or updates a mapping.
+   *
+   * @param key key to insert or update
+   * @param value value to associate with {@code key}
+   * @return the previous value for {@code key}, or {@code null} when inserting a
+   *         new mapping
+   * @implNote Average time complexity is {@code O(1)}; resizing takes
+   *           {@code O(n)} but happens only when the load threshold is exceeded.
+   */
   @Override
   public V put(K key, V value) {
     ensureCapacity();
     return putInternal(key, value, table);
   }
 
+  /**
+   * Looks up a value by key.
+   *
+   * @param key key to locate
+   * @return the stored value, or {@code null} when absent
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public V get(K key) {
     int slot = locateSlot(key);
     return slot >= 0 ? table[slot].value : null;
   }
 
+  /**
+   * Removes a mapping by marking its slot as a tombstone.
+   *
+   * @param key key to remove
+   * @return the removed value, or {@code null} when absent
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public V remove(K key) {
     int slot = locateSlot(key);
@@ -81,16 +119,34 @@ public class OpenAddressingHashTable<K, V> implements HashTable<K, V> {
     return previous;
   }
 
+  /**
+   * Checks whether a live mapping exists for a key.
+   *
+   * @param key key to locate
+   * @return {@code true} when the key is present
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public boolean containsKey(K key) {
     return locateSlot(key) >= 0;
   }
 
+  /**
+   * Returns the number of live mappings.
+   *
+   * @return logical table size, excluding tombstones
+   */
   @Override
   public int size() {
     return size;
   }
 
+  /**
+   * Removes all mappings and tombstones while keeping the current capacity.
+   *
+   * @implNote Time complexity is {@code O(m)}, where {@code m} is the backing
+   *           array length.
+   */
   @Override
   public void clear() {
     for (int i = 0; i < table.length; i++) {
@@ -100,6 +156,11 @@ public class OpenAddressingHashTable<K, V> implements HashTable<K, V> {
     usedSlots = 0;
   }
 
+  /**
+   * Iterates over live entries in backing-array order.
+   *
+   * @return an iterator that skips empty slots and tombstones
+   */
   @Override
   public Iterator<HashTable.Entry<K, V>> iterator() {
     return new Iterator<HashTable.Entry<K, V>>() {

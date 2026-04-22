@@ -10,6 +10,13 @@ import co.edu.udla.ed.api.DisjointSetSearchResult;
  */
 public class RepresentativeSearch<T> {
 
+  /**
+   * Finds the representative for a value without throwing when absent.
+   *
+   * @param set disjoint-set structure
+   * @param value value to locate
+   * @return a found result with the representative, or an absent result
+   */
   public DisjointSetSearchResult<T> search(DisjointSet<T> set, T value) {
     try {
       return new DisjointSetSearchResult<>(true, value, set.find(value));

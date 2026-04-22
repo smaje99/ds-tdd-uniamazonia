@@ -85,7 +85,6 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> implements BinarySe
         }
         currentNode = currentNode.right;
       } else {
-        // duplicado: decisión didáctica -> ignorar (no incrementa size)
         return;
       }
     }
@@ -240,26 +239,23 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> implements BinarySe
       return subtreeRoot;
     }
 
-    // encontrado
     size--;
 
-    // caso 1: 0 hijos
     if (subtreeRoot.left == null && subtreeRoot.right == null)
       return null;
 
-    // caso 2: 1 hijo
     if (subtreeRoot.left == null)
       return subtreeRoot.right;
     if (subtreeRoot.right == null)
       return subtreeRoot.left;
 
-    // caso 3: 2 hijos -> reemplazar por sucesor (mínimo del subárbol derecho)
     Node<T> successorNode = min(subtreeRoot.right);
     subtreeRoot.value = successorNode.value;
 
-    // ojo: aquí estamos eliminando el sucesor real sin decrementar size otra vez
+    // removeMin decrements size for the physical successor; compensate because
+    // the logical removal was already counted above.
     subtreeRoot.right = removeMin(subtreeRoot.right);
-    size++; // compensación por el decremento extra dentro de removeMin
+    size++;
     return subtreeRoot;
   }
 
@@ -294,7 +290,6 @@ public class LinkedBinarySearchTree<T extends Comparable<T>> implements BinarySe
    */
   private Node<T> removeMin(Node<T> subtreeRoot) {
     if (subtreeRoot.left == null) {
-      // este es el mínimo
       size--;
       return subtreeRoot.right;
     }

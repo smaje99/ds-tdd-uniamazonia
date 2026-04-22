@@ -5,8 +5,28 @@ import java.util.Comparator;
 import co.edu.udla.ed.api.MutableIndexedSequence;
 import co.edu.udla.ed.api.SortingAlgorithm;
 
+/**
+ * In-place quicksort over a mutable indexed sequence.
+ *
+ * <p>
+ * This implementation uses the last element of each partition as a deterministic
+ * pivot. Values less than or equal to the pivot are moved to the left side and
+ * values greater than the pivot remain on the right side before the partitions
+ * are sorted recursively.
+ * </p>
+ *
+ * <p>
+ * Average time complexity is {@code O(n log n)}, worst-case time complexity is
+ * {@code O(n^2)}, and recursion uses {@code O(log n)} stack space on balanced
+ * partitions. Quicksort is not stable. When no comparator is provided, elements
+ * must implement {@link Comparable}.
+ * </p>
+ *
+ * @param <T> element type
+ */
 public class QuickSort<T> implements SortingAlgorithm<T> {
 
+  /** {@inheritDoc} */
   @Override
   public void sort(MutableIndexedSequence<T> sequence, Comparator<? super T> comparator) {
     Comparator<? super T> actual = SortingSupport.comparatorOrNatural(comparator);

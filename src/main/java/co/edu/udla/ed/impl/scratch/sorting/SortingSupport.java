@@ -4,6 +4,9 @@ import java.util.Comparator;
 
 import co.edu.udla.ed.api.MutableIndexedSequence;
 
+/**
+ * Shared helpers for in-place sorting implementations.
+ */
 final class SortingSupport {
 
   private SortingSupport() {

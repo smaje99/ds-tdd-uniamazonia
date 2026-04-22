@@ -439,6 +439,18 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     return List.of();
   }
 
+  /**
+   * Returns a topological ordering of a directed acyclic graph.
+   *
+   * <p>The implementation uses Kahn's algorithm: it starts with all vertices
+   * whose in-degree is zero, repeatedly removes them, and decreases the
+   * in-degree of their outgoing neighbors. If every vertex cannot be removed,
+   * the graph contains a directed cycle.</p>
+   *
+   * @return vertices in a valid topological order
+   * @throws IllegalStateException if the graph is undirected or contains a cycle
+   * @implNote Time complexity is {@code O(V + E)}.
+   */
   @Override
   public List<V> topologicalSort() {
     if (!directed) {

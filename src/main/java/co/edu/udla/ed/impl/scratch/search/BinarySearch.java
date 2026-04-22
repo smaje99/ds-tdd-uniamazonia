@@ -12,10 +12,28 @@ import co.edu.udla.ed.api.LinearSearchResult;
  */
 public class BinarySearch<T> {
 
+  /**
+   * Searches a naturally ordered sequence.
+   *
+   * @param sequence sorted indexed sequence
+   * @param target value to locate
+   * @return the matching index and value, or {@code notFound()}
+   * @implNote Time complexity is {@code O(log n)}.
+   */
   public LinearSearchResult<T> search(IndexedSequence<T> sequence, T target) {
     return search(sequence, target, null);
   }
 
+  /**
+   * Searches a sequence sorted according to the provided comparator.
+   *
+   * @param sequence sorted indexed sequence
+   * @param target value to locate
+   * @param comparator ordering used by the sequence, or {@code null} for
+   *        natural ordering
+   * @return the matching index and value, or {@code notFound()}
+   * @implNote Time complexity is {@code O(log n)}.
+   */
   public LinearSearchResult<T> search(IndexedSequence<T> sequence, T target, Comparator<? super T> comparator) {
     Comparator<? super T> actual = SearchSupport.comparatorOrNatural(comparator);
     int left = 0;

@@ -17,14 +17,23 @@ import co.edu.udla.ed.api.Queue;
 public class StaticQueue<T> implements Queue<T> {
 
   private Object[] data;
-  private int head; // índice del frente
-  private int tail; // índice donde entra el próximo
+  private int head;
+  private int tail;
   private int size;
 
+  /**
+   * Creates an empty circular-buffer queue with default capacity.
+   */
   public StaticQueue() {
-    this(10); // capacidad inicial por defecto
+    this(10);
   }
 
+  /**
+   * Creates an empty circular-buffer queue with the requested initial capacity.
+   *
+   * @param initialCapacity initial backing-array length
+   * @throws IllegalArgumentException if {@code initialCapacity < 0}
+   */
   public StaticQueue(int initialCapacity) {
     if (initialCapacity < 0) {
       throw new IllegalArgumentException("Initial capacity must be non-negative.");
@@ -118,7 +127,7 @@ public class StaticQueue<T> implements Queue<T> {
    */
   @Override
   public void clear() {
-    // limpiar referencias para GC
+    // Clear occupied slots so queued objects can be reclaimed.
     for (int i = 0; i < size; i++) {
       int idx = (head + i) % data.length;
       data[idx] = null;
@@ -144,7 +153,7 @@ public class StaticQueue<T> implements Queue<T> {
     int newCap = Math.max(needed, data.length * 2);
     Object[] newData = new Object[newCap];
 
-    // copiar en orden lógico (desde head)
+    // Copy values in logical queue order starting at the head.
     for (int i = 0; i < size; i++) {
       newData[i] = data[(head + i) % data.length];
     }
@@ -154,6 +163,11 @@ public class StaticQueue<T> implements Queue<T> {
     tail = size;
   }
 
+  /**
+   * Iterates from front to rear in logical queue order.
+   *
+   * @return an iterator over queued values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

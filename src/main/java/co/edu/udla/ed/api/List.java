@@ -19,6 +19,14 @@ public interface List<T> extends Iterable<T> {
 
   T get(int index);
 
+  /**
+   * Replaces the value at a zero-based index.
+   *
+   * @param index index to update
+   * @param element replacement value
+   * @throws IndexOutOfBoundsException if {@code index} is outside the current
+   *         list bounds
+   */
   void set(int index, T element);
 
   boolean contains(T element);
@@ -31,8 +39,21 @@ public interface List<T> extends Iterable<T> {
 
   void clear();
 
+  /**
+   * Returns a new list containing the same values sorted by natural ordering.
+   *
+   * @param algorithm sorting algorithm to apply to a copy of this list
+   * @return a sorted list, leaving this list unchanged
+   */
   List<T> sorted(SortingAlgorithm<T> algorithm);
 
+  /**
+   * Returns a new list containing the same values sorted by a comparator.
+   *
+   * @param algorithm sorting algorithm to apply to a copy of this list
+   * @param comparator ordering strategy, or {@code null} for natural ordering
+   * @return a sorted list, leaving this list unchanged
+   */
   List<T> sorted(SortingAlgorithm<T> algorithm, Comparator<? super T> comparator);
 
 }

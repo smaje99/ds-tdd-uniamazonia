@@ -21,10 +21,19 @@ public class StaticStack<T> implements Stack<T> {
   private Object[] data;
   private int size;
 
+  /**
+   * Creates an empty array-backed stack with default capacity.
+   */
   public StaticStack() {
-    this(10); // Default initial capacity
+    this(10);
   }
 
+  /**
+   * Creates an empty array-backed stack with the requested initial capacity.
+   *
+   * @param initialCapacity initial backing-array length
+   * @throws IllegalArgumentException if {@code initialCapacity <= 0}
+   */
   public StaticStack(int initialCapacity) {
     if (initialCapacity <= 0) {
       throw new IllegalArgumentException("Initial capacity must be greater than 0.");
@@ -133,6 +142,11 @@ public class StaticStack<T> implements Stack<T> {
     data = newData;
   }
 
+  /**
+   * Iterates from top to bottom.
+   *
+   * @return an iterator over stacked values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

@@ -17,22 +17,57 @@ import co.edu.udla.ed.api.TreeSearchResult;
  */
 public class OrderedTreeSearch<T extends Comparable<T>> {
 
+  /**
+   * Searches a binary search tree by scanning its ordered traversal.
+   *
+   * @param tree tree to search
+   * @param target value to locate
+   * @return found flag and sorted values visited until the search can stop
+   */
   public TreeSearchResult<T> search(BinarySearchTree<T> tree, T target) {
     return searchOrdered(tree.inOrder(), target);
   }
 
+  /**
+   * Searches an AVL tree by scanning its ordered traversal.
+   *
+   * @param tree tree to search
+   * @param target value to locate
+   * @return found flag and sorted values visited until the search can stop
+   */
   public TreeSearchResult<T> search(AVLTree<T> tree, T target) {
     return searchOrdered(tree.inOrder(), target);
   }
 
+  /**
+   * Searches a red-black tree by scanning its ordered traversal.
+   *
+   * @param tree tree to search
+   * @param target value to locate
+   * @return found flag and sorted values visited until the search can stop
+   */
   public TreeSearchResult<T> search(RedBlackTree<T> tree, T target) {
     return searchOrdered(tree.inOrder(), target);
   }
 
+  /**
+   * Searches a B-tree by scanning its ordered traversal.
+   *
+   * @param tree tree to search
+   * @param target value to locate
+   * @return found flag and sorted values visited until the search can stop
+   */
   public TreeSearchResult<T> search(BTree<T> tree, T target) {
     return searchOrdered(tree.inOrder(), target);
   }
 
+  /**
+   * Searches a JDK ordered set by scanning values in ascending order.
+   *
+   * @param tree set to search
+   * @param target value to locate
+   * @return found flag and sorted values visited until the search can stop
+   */
   public TreeSearchResult<T> search(TreeSet<T> tree, T target) {
     return searchOrdered(new ArrayList<>(tree), target);
   }

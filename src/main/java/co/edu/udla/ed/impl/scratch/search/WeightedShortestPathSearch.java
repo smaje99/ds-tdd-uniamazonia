@@ -13,6 +13,14 @@ import co.edu.udla.ed.api.WeightedGraph;
  */
 public class WeightedShortestPathSearch<V> {
 
+  /**
+   * Finds a minimum-weight path between two vertices.
+   *
+   * @param graph weighted graph to search
+   * @param from source vertex
+   * @param to destination vertex
+   * @return graph-search result with Dijkstra visit-distance order and path
+   */
   public GraphSearchResult<V> search(WeightedGraph<V> graph, V from, V to) {
     List<V> path = graph.shortestPathWeighted(from, to);
     List<V> visited = new ArrayList<>(graph.dijkstraDistances(from).keySet());

@@ -31,7 +31,7 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
     T value;
     Node<T> left;
     Node<T> right;
-    int height; // altura del nodo (leaf=1)
+    int height;
 
     Node(T value) {
       this.value = value;
@@ -82,7 +82,7 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
     else if (cmp > 0)
       node.right = insert(node.right, value);
     else
-      return node; // duplicado: ignorar
+      return node;
 
     updateHeight(node);
     return rebalance(node);
@@ -163,21 +163,18 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
     } else if (cmp > 0) {
       node.right = remove(node.right, value);
     } else {
-      // encontrado
       size--;
 
-      // 0 o 1 hijo
       if (node.left == null)
         return node.right;
       if (node.right == null)
         return node.left;
 
-      // 2 hijos: usar sucesor (mínimo del subárbol derecho)
       Node<T> successorNode = min(node.right);
       node.value = successorNode.value;
 
-      // eliminar el sucesor real: OJO, aquí size-- ocurriría de nuevo,
-      // por eso usamos removeMin que NO decrementa size (ya lo hicimos).
+      // The successor is removed without changing size because this node was
+      // already counted as the removed logical value.
       node.right = removeMin(node.right);
     }
 
@@ -217,7 +214,6 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
    * @return the root of the updated subtree after removing the minimum node
    */
   private Node<T> removeMin(Node<T> node) {
-    // Elimina el nodo mínimo de este subárbol SIN tocar size (ya se ajustó)
     if (node.left == null) {
       return node.right;
     }
@@ -256,6 +252,16 @@ public class LinkedAVLTree<T extends Comparable<T>> implements AVLTree<T> {
     return h(root);
   }
 
+  /**
+   * Returns the values in ascending order according to the AVL ordering rule.
+   *
+   * <p>The traversal visits the left subtree, the current node, and then the
+   * right subtree. Because duplicate insertions are ignored, each stored value
+   * appears at most once.</p>
+   *
+   * @return a sorted list of tree values
+   * @implNote Time complexity is {@code O(n)}.
+   */
   @Override
   public List<T> inOrder() {
     List<T> out = new ArrayList<>();

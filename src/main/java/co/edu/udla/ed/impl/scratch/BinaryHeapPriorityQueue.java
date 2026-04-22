@@ -6,7 +6,12 @@ import java.util.NoSuchElementException;
 import co.edu.udla.ed.api.PriorityQueue;
 
 /**
- * Minimum priority queue backed by a binary heap stored in an array.
+ * Minimum priority queue backed by a dynamically resized binary heap array.
+ *
+ * <p>The smallest value according to {@link Comparable} is always stored at
+ * index {@code 0}. Parent and child positions follow the usual heap formulas,
+ * so insertion restores the invariant by bubbling upward and removal restores
+ * it by bubbling downward.</p>
  *
  * @param <T> the comparable element type
  */
@@ -17,11 +22,21 @@ public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements Priorit
   private Object[] data;
   private int size;
 
+  /**
+   * Creates an empty priority queue with default backing capacity.
+   */
   public BinaryHeapPriorityQueue() {
     this.data = new Object[DEFAULT_CAPACITY];
     this.size = 0;
   }
 
+  /**
+   * Inserts a value and restores the min-heap invariant.
+   *
+   * @param value value to insert
+   * @implNote Time complexity is {@code O(log n)} after amortized
+   *           {@code O(1)} capacity growth.
+   */
   @Override
   public void insert(T value) {
     ensureCapacity(size + 1);
@@ -30,6 +45,13 @@ public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements Priorit
     size++;
   }
 
+  /**
+   * Removes and returns the smallest value.
+   *
+   * @return the minimum value
+   * @throws NoSuchElementException if the queue is empty
+   * @implNote Time complexity is {@code O(log n)}.
+   */
   @Override
   public T removeMin() {
     if (isEmpty()) {
@@ -45,6 +67,13 @@ public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements Priorit
     return min;
   }
 
+  /**
+   * Returns the smallest value without removing it.
+   *
+   * @return the minimum value
+   * @throws NoSuchElementException if the queue is empty
+   * @implNote Time complexity is {@code O(1)}.
+   */
   @Override
   public T peekMin() {
     if (isEmpty()) {
@@ -53,11 +82,21 @@ public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements Priorit
     return elementAt(0);
   }
 
+  /**
+   * Returns the number of queued values.
+   *
+   * @return logical heap size
+   */
   @Override
   public int size() {
     return size;
   }
 
+  /**
+   * Removes all values from the queue.
+   *
+   * @implNote Time complexity is {@code O(n)} to clear occupied references.
+   */
   @Override
   public void clear() {
     for (int i = 0; i < size; i++) {
@@ -66,6 +105,14 @@ public class BinaryHeapPriorityQueue<T extends Comparable<T>> implements Priorit
     size = 0;
   }
 
+  /**
+   * Iterates over the internal heap-array order.
+   *
+   * <p>This order is deterministic for a given sequence of heap operations but
+   * it is not sorted priority order.</p>
+   *
+   * @return an iterator over the occupied heap slots
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

@@ -5,8 +5,25 @@ import java.util.Comparator;
 import co.edu.udla.ed.api.MutableIndexedSequence;
 import co.edu.udla.ed.api.SortingAlgorithm;
 
+/**
+ * Stable least-significant-digit radix sort for non-negative integers.
+ *
+ * <p>
+ * The algorithm processes decimal digits from right to left and uses a stable
+ * counting pass for each digit. It is useful for teaching non-comparison-based
+ * sorting when the input domain is numeric and bounded by the number of digits.
+ * </p>
+ *
+ * <p>
+ * Time complexity is {@code O(d(n + k))}, where {@code d} is the number of
+ * digits and {@code k} is the radix size. This implementation uses base 10,
+ * rejects negative values, and rejects custom comparators because digit order is
+ * fixed to natural ascending integer order.
+ * </p>
+ */
 public class RadixSort implements SortingAlgorithm<Integer> {
 
+  /** {@inheritDoc} */
   @Override
   public void sort(MutableIndexedSequence<Integer> sequence, Comparator<? super Integer> comparator) {
     if (comparator != null) {

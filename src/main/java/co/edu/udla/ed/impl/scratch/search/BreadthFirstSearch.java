@@ -13,6 +13,15 @@ import co.edu.udla.ed.api.GraphSearchResult;
  */
 public class BreadthFirstSearch<V> {
 
+  /**
+   * Runs breadth-first search and reports whether the target was reached.
+   *
+   * @param graph graph to search
+   * @param start source vertex
+   * @param target target vertex
+   * @return visited BFS order and a shortest unweighted path when found
+   * @implNote Time complexity is {@code O(V + E)} over the reachable component.
+   */
   public GraphSearchResult<V> search(Graph<V> graph, V start, V target) {
     List<V> visited = graph.bfs(start);
     boolean found = visited.contains(target);

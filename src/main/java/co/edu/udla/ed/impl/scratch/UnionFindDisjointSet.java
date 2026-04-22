@@ -9,6 +9,10 @@ import co.edu.udla.ed.api.DisjointSet;
 /**
  * Disjoint-set implementation with path compression and union by rank.
  *
+ * <p>Each value maps to a node that stores its parent representative and rank.
+ * The structure partitions values into equivalence classes, making repeated
+ * connectivity queries very close to constant time in practice.</p>
+ *
  * @param <T> the element type
  */
 public class UnionFindDisjointSet<T> implements DisjointSet<T> {
@@ -26,6 +30,12 @@ public class UnionFindDisjointSet<T> implements DisjointSet<T> {
   private final LinkedHashMap<T, Node<T>> nodes = new LinkedHashMap<>();
   private int setCount = 0;
 
+  /**
+   * Creates a singleton set for a value that is not already present.
+   *
+   * @param value value to register
+   * @implNote Average time complexity is {@code O(1)}.
+   */
   @Override
   public void makeSet(T value) {
     if (nodes.containsKey(value)) {
@@ -35,6 +45,15 @@ public class UnionFindDisjointSet<T> implements DisjointSet<T> {
     setCount++;
   }
 
+  /**
+   * Finds the representative of the set containing {@code value}.
+   *
+   * @param value value to locate
+   * @return the current representative
+   * @throws IllegalArgumentException if {@code value} is not present
+   * @implNote Uses path compression; amortized time is effectively
+   *           {@code O(alpha(n))}.
+   */
   @Override
   public T find(T value) {
     requirePresent(value);
@@ -45,6 +64,14 @@ public class UnionFindDisjointSet<T> implements DisjointSet<T> {
     return node.parent;
   }
 
+  /**
+   * Merges the sets that contain {@code a} and {@code b}.
+   *
+   * @param a first value
+   * @param b second value
+   * @throws IllegalArgumentException if either value is absent
+   * @implNote Uses union by rank with amortized {@code O(alpha(n))} time.
+   */
   @Override
   public void union(T a, T b) {
     T rootA = find(a);
@@ -66,27 +93,52 @@ public class UnionFindDisjointSet<T> implements DisjointSet<T> {
     setCount--;
   }
 
+  /**
+   * Checks whether two values belong to the same set.
+   *
+   * @param a first value
+   * @param b second value
+   * @return {@code true} when both values have the same representative
+   */
   @Override
   public boolean connected(T a, T b) {
     return find(a).equals(find(b));
   }
 
+  /**
+   * Returns the number of disjoint sets currently represented.
+   *
+   * @return set count
+   */
   @Override
   public int setCount() {
     return setCount;
   }
 
+  /**
+   * Returns the number of registered values.
+   *
+   * @return element count
+   */
   @Override
   public int size() {
     return nodes.size();
   }
 
+  /**
+   * Removes all values and sets.
+   */
   @Override
   public void clear() {
     nodes.clear();
     setCount = 0;
   }
 
+  /**
+   * Iterates over values in insertion order.
+   *
+   * @return an iterator over registered values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

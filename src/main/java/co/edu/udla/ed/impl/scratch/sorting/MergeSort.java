@@ -5,8 +5,26 @@ import java.util.Comparator;
 import co.edu.udla.ed.api.MutableIndexedSequence;
 import co.edu.udla.ed.api.SortingAlgorithm;
 
+/**
+ * Stable merge sort over a mutable indexed sequence.
+ *
+ * <p>
+ * The algorithm recursively divides the sequence into halves, sorts each half,
+ * and merges the ordered halves into an auxiliary buffer. It preserves the
+ * relative order of equal elements by taking from the left half first when
+ * values compare as equal.
+ * </p>
+ *
+ * <p>
+ * Time complexity is {@code O(n log n)} and extra space is {@code O(n)}. When
+ * no comparator is provided, elements must implement {@link Comparable}.
+ * </p>
+ *
+ * @param <T> element type
+ */
 public class MergeSort<T> implements SortingAlgorithm<T> {
 
+  /** {@inheritDoc} */
   @Override
   public void sort(MutableIndexedSequence<T> sequence, Comparator<? super T> comparator) {
     if (sequence.size() < 2) {

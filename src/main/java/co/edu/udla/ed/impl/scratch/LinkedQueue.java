@@ -136,6 +136,11 @@ public class LinkedQueue<T> implements Queue<T> {
     size = 0;
   }
 
+  /**
+   * Iterates from front to rear in queue order.
+   *
+   * @return an iterator over queued values
+   */
   @Override
   public Iterator<T> iterator() {
     return new Iterator<T>() {

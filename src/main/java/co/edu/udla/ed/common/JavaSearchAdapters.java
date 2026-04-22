@@ -25,17 +25,39 @@ import co.edu.udla.ed.impl.scratch.search.OrderedTreeSearch;
 import co.edu.udla.ed.impl.scratch.sorting.JavaListSequenceAdapter;
 
 /**
- * Utility methods that reuse search algorithms with JDK collections.
+ * Utility methods that reuse repository search algorithms with JDK
+ * collections.
+ *
+ * <p>The adapters preserve the same result objects used by the scratch data
+ * structures while letting exercises compare custom implementations with JDK
+ * equivalents. Methods that search ordered inputs assume the caller already
+ * supplied data in the required order.</p>
  */
 public final class JavaSearchAdapters {
 
   private JavaSearchAdapters() {
   }
 
+  /**
+   * Performs a linear search over an {@link ArrayList}.
+   *
+   * @param values sequence to scan from index {@code 0} to {@code size - 1}
+   * @param target value to find using {@link java.util.Objects#equals(Object, Object)}
+   * @param <T> element type
+   * @return the first matching index and value, or {@code notFound()}
+   */
   public static <T> LinearSearchResult<T> linearSearch(ArrayList<T> values, T target) {
     return new LinearSearch<T>().search(new JavaListSequenceAdapter<>(values), target);
   }
 
+  /**
+   * Performs a linear search over a {@link LinkedList}.
+   *
+   * @param values sequence to scan from index {@code 0} to {@code size - 1}
+   * @param target value to find using {@link java.util.Objects#equals(Object, Object)}
+   * @param <T> element type
+   * @return the first matching index and value, or {@code notFound()}
+   */
   public static <T> LinearSearchResult<T> linearSearch(LinkedList<T> values, T target) {
     return new LinearSearch<T>().search(new JavaListSequenceAdapter<>(values), target);
   }
@@ -50,26 +72,71 @@ public final class JavaSearchAdapters {
     return new JumpSearch<T>().search(new JavaListSequenceAdapter<>(values), target, comparator);
   }
 
+  /**
+   * Searches for a key in a {@link LinkedHashMap}.
+   *
+   * @param map map to inspect
+   * @param key key to locate
+   * @param <K> key type
+   * @param <V> value type
+   * @return a key-value result whose {@code found} flag follows
+   *         {@link LinkedHashMap#containsKey(Object)}
+   */
   public static <K, V> KeyValueSearchResult<K, V> keyValueSearch(LinkedHashMap<K, V> map, K key) {
     return new KeyValueSearchResult<>(map.containsKey(key), key, map.get(key));
   }
 
+  /**
+   * Searches an ordered {@link TreeSet} and reports the visited sorted prefix.
+   *
+   * @param tree ordered values to scan in ascending order
+   * @param target value to locate
+   * @param <T> comparable element type
+   * @return a tree-search result with the target and the observed visit order
+   */
   public static <T extends Comparable<T>> TreeSearchResult<T> orderedTreeSearch(TreeSet<T> tree, T target) {
     return new OrderedTreeSearch<T>().search(tree, target);
   }
 
+  /**
+   * Performs breadth-first search over an adjacency-list map.
+   *
+   * @param graph map from each vertex to its neighbors in deterministic order
+   * @param start source vertex
+   * @param target target vertex
+   * @param <V> vertex type
+   * @return visited vertices and, when reachable, a shortest unweighted path
+   */
   public static <V> GraphSearchResult<V> breadthFirstSearch(Map<V, LinkedHashSet<V>> graph, V start, V target) {
     java.util.List<V> visited = bfs(graph, start);
     java.util.List<V> path = visited.contains(target) ? shortestPath(graph, start, target) : java.util.List.of();
     return new GraphSearchResult<>(visited.contains(target), visited, path);
   }
 
+  /**
+   * Performs depth-first search over an adjacency-list map.
+   *
+   * @param graph map from each vertex to its neighbors in deterministic order
+   * @param start source vertex
+   * @param target target vertex
+   * @param <V> vertex type
+   * @return visited vertices and, when reachable, a shortest unweighted path
+   */
   public static <V> GraphSearchResult<V> depthFirstSearch(Map<V, LinkedHashSet<V>> graph, V start, V target) {
     java.util.List<V> visited = dfs(graph, start);
     java.util.List<V> path = visited.contains(target) ? shortestPath(graph, start, target) : java.util.List.of();
     return new GraphSearchResult<>(visited.contains(target), visited, path);
   }
 
+  /**
+   * Finds a minimum-edge path in an unweighted adjacency-list map.
+   *
+   * @param graph map from each vertex to its neighbors in deterministic order
+   * @param start source vertex
+   * @param target target vertex
+   * @param <V> vertex type
+   * @return a graph-search result whose path is empty when no route exists
+   */
   public static <V> GraphSearchResult<V> shortestPathSearch(Map<V, LinkedHashSet<V>> graph, V start, V target) {
     java.util.List<V> path = shortestPath(graph, start, target);
     return new GraphSearchResult<>(!path.isEmpty(), bfs(graph, start), path);
